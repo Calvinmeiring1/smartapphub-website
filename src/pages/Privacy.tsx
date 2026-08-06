@@ -53,7 +53,7 @@ const sections = [
   },
   {
     heading: "13. Contact us",
-    body: "Questions about this policy, or requests relating to your personal information, can be sent to support@smartapphub.com.",
+    body: "Questions about this policy, or requests relating to your personal information, can be sent to smartapphubdev@gmail.com.",
   },
 ];
 

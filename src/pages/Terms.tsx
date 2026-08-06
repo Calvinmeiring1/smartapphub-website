@@ -65,7 +65,7 @@ const sections = [
   },
   {
     heading: "16. Contact us",
-    body: "Questions about these terms can be sent to support@smartapphub.com.",
+    body: "Questions about these terms can be sent to smartapphubdev@gmail.com.",
   },
 ];
 

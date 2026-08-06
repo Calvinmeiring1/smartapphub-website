@@ -11,17 +11,29 @@ const sittersLinks = [
   { label: "FAQ", href: "#faq" },
 ];
 
-const companyLinks = [{ label: "Sitters", href: "/sitters" }];
+const commissionLinks = [
+  { label: "Services", href: "#services" },
+  { label: "How it works", href: "#contact" },
+];
+
+const companyLinks = [
+  { label: "Sitters", href: "/sitters" },
+  { label: "Commission an App", href: "/commission" },
+];
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const location = useLocation();
   const isSitters = location.pathname === "/sitters";
-  const links = isSitters ? sittersLinks : companyLinks;
+  const isCommission = location.pathname === "/commission";
+  const links = isSitters ? sittersLinks : isCommission ? commissionLinks : companyLinks;
   const primaryCta = isSitters
     ? { label: "Download App", href: "#download" }
-    : { label: "Explore Sitters", href: "/sitters" };
+    : isCommission
+      ? { label: "Get in touch", href: "#contact" }
+      : { label: "Explore Sitters", href: "/sitters" };
+  const tag = isSitters ? "Sitters" : isCommission ? "Commission" : null;
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8);
@@ -42,9 +54,9 @@ export default function Navbar() {
         <Link to="/" className="flex items-center gap-2.5 font-display text-lg font-semibold tracking-tight">
           <img src="/logo-icon.png" alt="SmartAppHub" className="h-9 w-9" />
           SmartAppHub
-          {isSitters && (
+          {tag && (
             <span className="hidden rounded-full border border-[var(--color-border)] px-2.5 py-0.5 text-[11px] font-normal text-[var(--color-text-faint)] sm:inline">
-              Sitters
+              {tag}
             </span>
           )}
         </Link>

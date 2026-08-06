@@ -1,11 +1,12 @@
 import { motion } from "framer-motion";
+import { Mail } from "lucide-react";
 import Container from "./Container";
 import Section from "./Section";
 import Button from "./Button";
 
-export default function DownloadCTA() {
+export default function CommissionCTA() {
   return (
-    <Section id="download">
+    <Section id="contact">
       <Container>
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -17,17 +18,21 @@ export default function DownloadCTA() {
           <div className="pointer-events-none absolute left-1/2 top-0 -z-10 h-full w-[600px] -translate-x-1/2 bg-[var(--color-accent)]/10 blur-[100px]" />
 
           <h2 className="font-display text-3xl font-semibold text-white sm:text-4xl">
-            Your pet deserves a sitter you can trust.
+            Ready to build something?
           </h2>
           <p className="mx-auto mt-4 max-w-md text-[var(--color-text-muted)]">
-            Join 427+ owners and sitters already using Sitters across South Africa, the US, UK, Canada and Australia.
+            Send a quick note about your idea and we'll get back to you to
+            set up a discovery call.
           </p>
 
-          <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
-            <Button href="https://play.google.com/store/apps/details?id=com.smartapphub.thesitters&pcampaignid=web_share" variant="primary">
-              Download on Google Play
+          <div className="mt-8 flex justify-center">
+            <Button
+              href="mailto:smartapphubdev@gmail.com?subject=App%20project%20enquiry"
+              variant="primary"
+              icon={<Mail size={16} />}
+            >
+              smartapphubdev@gmail.com
             </Button>
-            <Button variant="secondary">Coming soon on App Store</Button>
           </div>
         </motion.div>
       </Container>

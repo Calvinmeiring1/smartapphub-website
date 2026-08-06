@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import MainLayout from "../layouts/MainLayout";
 import Home from "../pages/Home";
 import Sitters from "../pages/Sitters";
+import Commission from "../pages/Commission";
 import Privacy from "../pages/Privacy";
 import Terms from "../pages/Terms";
 
@@ -22,6 +23,7 @@ export default function Router() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/sitters" element={<Sitters />} />
+          <Route path="/commission" element={<Commission />} />
           <Route path="/privacy" element={<Privacy />} />
           <Route path="/terms" element={<Terms />} />
         </Routes>

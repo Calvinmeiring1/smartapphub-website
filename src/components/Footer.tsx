@@ -16,13 +16,21 @@ export default function Footer() {
           </p>
         </div>
 
-        <div className="grid grid-cols-2 gap-10 sm:grid-cols-3">
+        <div className="grid grid-cols-2 gap-10 sm:grid-cols-4">
           <div>
             <h4 className="font-display text-sm font-semibold text-white">Product</h4>
             <ul className="mt-3 space-y-2 text-sm text-[var(--color-text-muted)]">
               <li><Link to="/sitters" className="hover:text-white">Sitters app</Link></li>
               <li><Link to="/sitters#how-it-works" className="hover:text-white">How it works</Link></li>
               <li><Link to="/sitters#download" className="hover:text-white">Download</Link></li>
+            </ul>
+          </div>
+          <div>
+            <h4 className="font-display text-sm font-semibold text-white">Services</h4>
+            <ul className="mt-3 space-y-2 text-sm text-[var(--color-text-muted)]">
+              <li><Link to="/commission" className="hover:text-white">Commission an app</Link></li>
+              <li><Link to="/commission#services" className="hover:text-white">What we build</Link></li>
+              <li><Link to="/commission#contact" className="hover:text-white">Get in touch</Link></li>
             </ul>
           </div>
           <div>
@@ -36,8 +44,8 @@ export default function Footer() {
             <h4 className="font-display text-sm font-semibold text-white">Contact</h4>
             <ul className="mt-3 space-y-2 text-sm text-[var(--color-text-muted)]">
               <li>
-                <a href="mailto:support@smartapphub.com" className="flex items-center gap-1.5 hover:text-white">
-                  <Mail size={14} /> support@smartapphub.com
+                <a href="mailto:smartapphubdev@gmail.com" className="flex items-center gap-1.5 hover:text-white">
+                  <Mail size={14} /> smartapphubdev@gmail.com
                 </a>
               </li>
               <li>
