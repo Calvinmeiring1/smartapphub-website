@@ -49,7 +49,12 @@ export default function Footer() {
                 </a>
               </li>
               <li>
-                <a href="#" className="flex items-center gap-1.5 hover:text-white">
+                <a
+                  href="https://wa.me/27660554819"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-1.5 hover:text-white"
+                >
                   <MessageCircle size={14} /> WhatsApp
                 </a>
               </li>
@@ -59,7 +64,7 @@ export default function Footer() {
       </Container>
 
       <Container className="mt-12 flex flex-col gap-4 border-t border-[var(--color-border)] pt-6 text-xs text-[var(--color-text-faint)] sm:flex-row sm:items-center sm:justify-between">
-        <span>© {new Date().getFullYear()} SMARTAPPHUB (PTY) LTD. All rights reserved.</span>
+        <span>© 2025 SMARTAPPHUB (PTY) LTD. All rights reserved.</span>
         <span>Pretoria, South Africa</span>
       </Container>
     </footer>

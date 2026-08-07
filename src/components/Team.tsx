@@ -17,7 +17,7 @@ const team = [
     name: "Dominique Meiring",
     role: "Co-founder & Design",
     bio: "The newest addition to the studio, bringing a design eye to branding — including custom stationery, posters, and wedding stationery.",
-    badge: "New",
+    badge: null,
   },
 ];
 
