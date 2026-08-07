@@ -1,9 +1,9 @@
 import type { ReactNode } from "react";
-import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
 import Card from "./Card";
 import Badge from "./Badge";
+import Reveal from "./Reveal";
 
 type FeaturedAppCardProps = {
   eyebrow: string;
@@ -25,12 +25,7 @@ export default function FeaturedAppCard({
   reverse = false,
 }: FeaturedAppCardProps) {
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 24 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-80px" }}
-      transition={{ duration: 0.6 }}
-    >
+    <Reveal margin="-80px" y={24}>
       <Card className="overflow-hidden !p-0">
         <div
           className={`grid items-center gap-10 p-8 sm:p-12 md:grid-cols-2 md:gap-12 ${
@@ -62,6 +57,6 @@ export default function FeaturedAppCard({
           <div className="flex justify-center">{visual}</div>
         </div>
       </Card>
-    </motion.div>
+    </Reveal>
   );
 }

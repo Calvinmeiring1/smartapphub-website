@@ -1,5 +1,5 @@
-import { useEffect, useRef, useState } from "react";
-import { useInView } from "framer-motion";
+import { useEffect, useState } from "react";
+import { useInView } from "../hooks/useInView";
 import Container from "./Container";
 
 type Stat = {
@@ -15,8 +15,7 @@ const stats: Stat[] = [
 ];
 
 function Counter({ value, suffix }: { value: number; suffix: string }) {
-  const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: "-40px" });
+  const { ref, inView } = useInView<HTMLSpanElement>({ once: true, margin: "-40px" });
   const [display, setDisplay] = useState(0);
 
   useEffect(() => {

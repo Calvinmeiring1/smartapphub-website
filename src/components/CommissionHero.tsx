@@ -1,8 +1,8 @@
-import { motion } from "framer-motion";
 import { Mail } from "lucide-react";
 import Container from "./Container";
 import Button from "./Button";
 import Badge from "./Badge";
+import Reveal from "./Reveal";
 
 export default function CommissionHero() {
   return (
@@ -11,12 +11,7 @@ export default function CommissionHero() {
       <div className="pointer-events-none absolute left-1/2 top-[-10%] -z-10 h-[500px] w-[900px] -translate-x-1/2 rounded-full bg-[var(--color-accent)]/10 blur-[120px]" />
 
       <Container className="text-center">
-        <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, ease: "easeOut" }}
-          className="mx-auto max-w-2xl"
-        >
+        <Reveal trigger="mount" y={16} className="mx-auto max-w-2xl">
           <Badge>Now taking on new projects</Badge>
 
           <h1 className="mt-6 font-display text-4xl font-semibold leading-[1.1] tracking-tight text-white sm:text-5xl">
@@ -39,7 +34,7 @@ export default function CommissionHero() {
               Tell us about your project
             </Button>
           </div>
-        </motion.div>
+        </Reveal>
       </Container>
     </div>
   );

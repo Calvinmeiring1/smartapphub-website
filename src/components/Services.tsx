@@ -1,8 +1,8 @@
 import { Smartphone, Apple, Database, CreditCard, Sparkles, LifeBuoy } from "lucide-react";
-import { motion } from "framer-motion";
 import Container from "./Container";
 import Section from "./Section";
 import Card from "./Card";
+import Reveal from "./Reveal";
 
 const services = [
   {
@@ -50,13 +50,7 @@ export default function Services() {
 
         <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {services.map((service, i) => (
-            <motion.div
-              key={service.title}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-60px" }}
-              transition={{ duration: 0.5, delay: (i % 3) * 0.1 }}
-            >
+            <Reveal key={service.title} margin="-60px" delay={(i % 3) * 0.1}>
               <Card hover className="h-full">
                 <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-[var(--color-accent-soft)] text-[var(--color-accent)]">
                   <service.icon size={20} />
@@ -64,7 +58,7 @@ export default function Services() {
                 <h3 className="mt-5 font-display text-lg font-semibold text-white">{service.title}</h3>
                 <p className="mt-2 text-sm leading-relaxed text-[var(--color-text-muted)]">{service.description}</p>
               </Card>
-            </motion.div>
+            </Reveal>
           ))}
         </div>
       </Container>

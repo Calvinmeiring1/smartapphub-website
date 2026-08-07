@@ -1,8 +1,8 @@
-import { motion } from "framer-motion";
 import Container from "./Container";
 import Section from "./Section";
 import Card from "./Card";
 import Badge from "./Badge";
+import Reveal from "./Reveal";
 
 const team = [
   {
@@ -36,18 +36,16 @@ export default function Team() {
 
         <div className="mt-12 grid gap-6 sm:grid-cols-2 sm:max-w-2xl sm:mx-auto">
           {team.map((member, i) => (
-            <motion.div
-              key={member.role}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-60px" }}
-              transition={{ duration: 0.5, delay: i * 0.1 }}
-            >
+            <Reveal key={member.role} margin="-60px" delay={i * 0.1}>
               <Card hover className="h-full">
                 <div className="flex items-center justify-between">
                   <img
                     src={member.photo}
                     alt={member.name}
+                    width={64}
+                    height={64}
+                    loading="lazy"
+                    decoding="async"
                     className="h-16 w-16 rounded-2xl object-cover grayscale"
                   />
                   {member.badge && <Badge tone="verified">{member.badge}</Badge>}
@@ -56,7 +54,7 @@ export default function Team() {
                 <p className="text-sm font-medium text-[var(--color-accent)]">{member.role}</p>
                 <p className="mt-2 text-sm leading-relaxed text-[var(--color-text-muted)]">{member.bio}</p>
               </Card>
-            </motion.div>
+            </Reveal>
           ))}
         </div>
       </Container>

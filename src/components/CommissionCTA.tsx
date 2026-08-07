@@ -1,18 +1,15 @@
-import { motion } from "framer-motion";
 import { Mail } from "lucide-react";
 import Container from "./Container";
 import Section from "./Section";
 import Button from "./Button";
+import Reveal from "./Reveal";
 
 export default function CommissionCTA() {
   return (
     <Section id="contact">
       <Container>
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-80px" }}
-          transition={{ duration: 0.6 }}
+        <Reveal
+          margin="-80px"
           className="relative overflow-hidden rounded-[var(--radius-card)] border border-[var(--color-border)] bg-[var(--color-surface)]/60 px-8 py-16 text-center sm:px-16"
         >
           <div className="pointer-events-none absolute left-1/2 top-0 -z-10 h-full w-[600px] -translate-x-1/2 bg-[var(--color-accent)]/10 blur-[100px]" />
@@ -34,7 +31,7 @@ export default function CommissionCTA() {
               smartapphubdev@gmail.com
             </Button>
           </div>
-        </motion.div>
+        </Reveal>
       </Container>
     </Section>
   );

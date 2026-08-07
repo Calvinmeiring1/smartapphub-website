@@ -1,11 +1,12 @@
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
-import { useEffect } from "react";
+import { useEffect, lazy, Suspense } from "react";
 import MainLayout from "../layouts/MainLayout";
-import Home from "../pages/Home";
-import Sitters from "../pages/Sitters";
-import Commission from "../pages/Commission";
-import Privacy from "../pages/Privacy";
-import Terms from "../pages/Terms";
+
+const Home = lazy(() => import("../pages/Home"));
+const Sitters = lazy(() => import("../pages/Sitters"));
+const Commission = lazy(() => import("../pages/Commission"));
+const Privacy = lazy(() => import("../pages/Privacy"));
+const Terms = lazy(() => import("../pages/Terms"));
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -20,13 +21,15 @@ export default function Router() {
     <BrowserRouter>
       <ScrollToTop />
       <MainLayout>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/sitters" element={<Sitters />} />
-          <Route path="/commission" element={<Commission />} />
-          <Route path="/privacy" element={<Privacy />} />
-          <Route path="/terms" element={<Terms />} />
-        </Routes>
+        <Suspense fallback={<div className="min-h-screen" />}>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/sitters" element={<Sitters />} />
+            <Route path="/commission" element={<Commission />} />
+            <Route path="/privacy" element={<Privacy />} />
+            <Route path="/terms" element={<Terms />} />
+          </Routes>
+        </Suspense>
       </MainLayout>
     </BrowserRouter>
   );

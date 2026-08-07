@@ -1,9 +1,9 @@
-import { motion } from "framer-motion";
 import { Sparkles, ArrowRight } from "lucide-react";
 import Container from "./Container";
 import Button from "./Button";
 import Badge from "./Badge";
 import PhoneMockup from "./PhoneMockup";
+import Reveal from "./Reveal";
 
 export default function Hero() {
   return (
@@ -13,11 +13,7 @@ export default function Hero() {
       <div className="pointer-events-none absolute left-1/2 top-[-10%] -z-10 h-[500px] w-[900px] -translate-x-1/2 rounded-full bg-[var(--color-accent)]/10 blur-[120px]" />
 
       <Container className="grid items-center gap-16 md:grid-cols-2 md:gap-8">
-        <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, ease: "easeOut" }}
-        >
+        <Reveal trigger="mount" y={16}>
           <Badge icon={<Sparkles size={12} />}>Now live in 5 countries</Badge>
 
           <h1 className="mt-6 font-display text-4xl font-semibold leading-[1.08] tracking-tight text-white sm:text-5xl md:text-6xl">
@@ -43,7 +39,7 @@ export default function Hero() {
           <p className="mt-6 text-xs text-[var(--color-text-faint)]">
             Free for pet owners · No booking fees hidden
           </p>
-        </motion.div>
+        </Reveal>
 
         <PhoneMockup />
       </Container>

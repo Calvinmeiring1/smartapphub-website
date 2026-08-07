@@ -1,5 +1,5 @@
-import { motion } from "framer-motion";
 import { Search, Star, ShieldCheck, MapPin } from "lucide-react";
+import Reveal from "./Reveal";
 
 const sitters = [
   { name: "Naledi K.", rating: "4.9", distance: "1.2 km", initials: "NK" },
@@ -9,28 +9,19 @@ const sitters = [
 
 export default function PhoneMockup() {
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 24 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.7, ease: "easeOut" }}
-      className="relative mx-auto w-[280px] sm:w-[300px]"
-    >
+    <Reveal trigger="mount" y={24} className="relative mx-auto w-[280px] sm:w-[300px]">
       {/* Ambient glow */}
       <div className="absolute inset-0 -z-10 scale-90 rounded-full bg-[var(--color-accent)]/20 blur-[80px]" />
 
       {/* Floating verified badge, signature element */}
-      <motion.div
-        animate={{ y: [0, -8, 0] }}
-        transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute -left-10 top-16 z-20 hidden items-center gap-2 rounded-2xl border border-[var(--color-verified)]/25 bg-[var(--color-surface)]/95 px-3 py-2.5 shadow-xl backdrop-blur-md sm:flex"
-      >
+      <div className="animate-float absolute -left-10 top-16 z-20 hidden items-center gap-2 rounded-2xl border border-[var(--color-verified)]/25 bg-[var(--color-surface)]/95 px-3 py-2.5 shadow-xl backdrop-blur-md sm:flex">
         <span className="relative flex h-2 w-2">
           <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[var(--color-verified)] opacity-75" />
           <span className="relative inline-flex h-2 w-2 rounded-full bg-[var(--color-verified)]" />
         </span>
         <ShieldCheck size={16} className="text-[var(--color-verified)]" />
         <span className="text-xs font-medium text-white">ID verified</span>
-      </motion.div>
+      </div>
 
       {/* Phone frame */}
       <div className="relative rounded-[40px] border-4 border-[#2a2a2a] bg-black p-2 shadow-2xl">
@@ -52,11 +43,12 @@ export default function PhoneMockup() {
 
             <div className="mt-4 space-y-2.5 pb-5">
               {sitters.map((sitter, i) => (
-                <motion.div
+                <Reveal
                   key={sitter.name}
-                  initial={{ opacity: 0, x: 12 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 0.3 + i * 0.15, duration: 0.5 }}
+                  trigger="mount"
+                  x={12}
+                  y={0}
+                  delay={0.3 + i * 0.15}
                   className="flex items-center gap-3 rounded-2xl border border-white/10 bg-[var(--color-surface)] p-3"
                 >
                   <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[var(--color-accent)]/20 text-xs font-semibold text-[var(--color-accent)]">
@@ -78,12 +70,12 @@ export default function PhoneMockup() {
                       </span>
                     </div>
                   </div>
-                </motion.div>
+                </Reveal>
               ))}
             </div>
           </div>
         </div>
       </div>
-    </motion.div>
+    </Reveal>
   );
 }

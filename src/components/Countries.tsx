@@ -1,6 +1,6 @@
-import { motion } from "framer-motion";
 import Container from "./Container";
 import Section from "./Section";
+import Reveal from "./Reveal";
 
 const countries = [
   { flag: "🇿🇦", name: "South Africa" },
@@ -23,17 +23,17 @@ export default function Countries() {
 
         <div className="mt-12 flex flex-wrap justify-center gap-3">
           {countries.map((country, i) => (
-            <motion.div
+            <Reveal
               key={country.name}
-              initial={{ opacity: 0, scale: 0.95 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true, margin: "-40px" }}
-              transition={{ duration: 0.4, delay: i * 0.08 }}
+              margin="-40px"
+              scale={0.95}
+              y={0}
+              delay={i * 0.08}
               className="flex items-center gap-2.5 rounded-full border border-[var(--color-border)] bg-[var(--color-surface)]/70 px-5 py-3"
             >
               <span className="text-lg">{country.flag}</span>
               <span className="text-sm font-medium text-white">{country.name}</span>
-            </motion.div>
+            </Reveal>
           ))}
         </div>
       </Container>

@@ -1,7 +1,8 @@
 import { Search, ListChecks, CalendarCheck, Sofa } from "lucide-react";
-import { motion } from "framer-motion";
 import Container from "./Container";
 import Section from "./Section";
+import Reveal from "./Reveal";
+import ThreadLine from "./ThreadLine";
 
 const steps = [
   { icon: Search, title: "Search", description: "Tell us your dates and pet type." },
@@ -20,25 +21,15 @@ export default function HowItWorks() {
         </div>
 
         <div className="relative mt-16">
-          {/* Connecting thread — desktop only */}
-          <div className="absolute left-0 right-0 top-6 hidden h-px bg-[var(--color-border)] md:block">
-            <motion.div
-              initial={{ width: "0%" }}
-              whileInView={{ width: "100%" }}
-              viewport={{ once: true, margin: "-100px" }}
-              transition={{ duration: 1.4, ease: "easeInOut" }}
-              className="h-px bg-[var(--color-accent)]"
-            />
-          </div>
+          <ThreadLine />
 
           <div className="grid gap-10 md:grid-cols-4">
             {steps.map((step, i) => (
-              <motion.div
+              <Reveal
                 key={step.title}
-                initial={{ opacity: 0, y: 16 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-60px" }}
-                transition={{ duration: 0.5, delay: i * 0.25 }}
+                y={16}
+                margin="-60px"
+                delay={i * 0.25}
                 className="relative flex flex-col items-center text-center md:items-start md:text-left"
               >
                 <div className="relative z-10 flex h-12 w-12 items-center justify-center rounded-full border border-[var(--color-accent)]/30 bg-[var(--color-bg)] text-[var(--color-accent)]">
@@ -46,7 +37,7 @@ export default function HowItWorks() {
                 </div>
                 <h3 className="mt-4 font-display text-base font-semibold text-white">{step.title}</h3>
                 <p className="mt-1.5 text-sm text-[var(--color-text-muted)]">{step.description}</p>
-              </motion.div>
+              </Reveal>
             ))}
           </div>
         </div>
