@@ -1,8 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://smartapphub.com/</loc></url>
-  <url><loc>https://smartapphub.com/sitters</loc></url>
-  <url><loc>https://smartapphub.com/commission</loc></url>
-  <url><loc>https://smartapphub.com/privacy</loc></url>
-  <url><loc>https://smartapphub.com/terms</loc></url>
+
+  <url>
+    <loc>https://smartapphub.co.za/</loc>
+    <priority>1.0</priority>
+  </url>
+
+  <url>
+    <loc>https://smartapphub.co.za/sitters</loc>
+    <priority>0.9</priority>
+  </url>
+
+  <url>
+    <loc>https://smartapphub.co.za/commission</loc>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://smartapphub.co.za/privacy</loc>
+    <priority>0.5</priority>
+  </url>
+
+  <url>
+    <loc>https://smartapphub.co.za/terms</loc>
+    <priority>0.5</priority>
+  </url>
+
 </urlset>
