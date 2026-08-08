@@ -1,52 +1,55 @@
 import { useEffect, useState } from "react";
-import { useInView } from "../hooks/useInView";
+import { doc, onSnapshot } from "firebase/firestore";
+import { db } from "../firebase";
 import Container from "./Container";
+import AnimatedCounter from "./AnimatedCounter";
 
 type Stat = {
+  id: string;
   value: number;
   suffix: string;
   label: string;
 };
 
-const stats: Stat[] = [
-  { value: 427, suffix: "+", label: "Users" },
-  { value: 144, suffix: "+", label: "Verified sitters" },
-  { value: 5, suffix: "", label: "Countries" },
+const defaultStats: Stat[] = [
+  { id: "users", value: 15000, suffix: "+", label: "Users" },
+  { id: "sitters", value: 450, suffix: "+", label: "Verified sitters" },
+  { id: "countries", value: 25, suffix: "", label: "Countries" },
 ];
 
-function Counter({ value, suffix }: { value: number; suffix: string }) {
-  const { ref, inView } = useInView<HTMLSpanElement>({ once: true, margin: "-40px" });
-  const [display, setDisplay] = useState(0);
+export default function Stats() {
+  const [stats, setStats] = useState<Stat[]>(defaultStats);
 
   useEffect(() => {
-    if (!inView) return;
-    const duration = 1200;
-    const start = performance.now();
+    console.log("Stats: Connecting to Firestore...");
+    const unsub = onSnapshot(doc(db, "stats", "public"), (snap) => {
+      if (snap.exists()) {
+        const data = snap.data();
+        console.log("Stats: Received data:", data);
+        setStats([
+          { id: "users", value: data.users || defaultStats[0].value, suffix: "+", label: "Users" },
+          { id: "sitters", value: data.sitters || defaultStats[1].value, suffix: "+", label: "Verified sitters" },
+          { id: "countries", value: data.countries || defaultStats[2].value, suffix: "", label: "Countries" },
+        ]);
+      } else {
+        console.warn("Stats: stats/public document does not exist in Firestore.");
+      }
+    }, (error) => {
+      console.error("Stats: Firestore error:", error);
+    });
+    return unsub;
+  }, []);
 
-    const tick = (now: number) => {
-      const progress = Math.min((now - start) / duration, 1);
-      const eased = 1 - Math.pow(1 - progress, 3);
-      setDisplay(Math.round(eased * value));
-      if (progress < 1) requestAnimationFrame(tick);
-    };
-    requestAnimationFrame(tick);
-  }, [inView, value]);
-
-  return (
-    <span ref={ref} className="font-display text-4xl font-semibold text-white sm:text-5xl">
-      {display}
-      {suffix}
-    </span>
-  );
-}
-
-export default function Stats() {
   return (
     <Container>
       <div className="grid grid-cols-2 gap-px overflow-hidden rounded-[var(--radius-card)] border border-[var(--color-border)] bg-[var(--color-border)] sm:grid-cols-4">
         {stats.map((stat) => (
           <div key={stat.label} className="flex flex-col items-center gap-1 bg-[var(--color-bg)] py-8 text-center">
-            <Counter value={stat.value} suffix={stat.suffix} />
+            <AnimatedCounter
+              value={stat.value}
+              suffix={stat.suffix}
+              className="font-display text-4xl font-semibold text-white sm:text-5xl"
+            />
             <span className="text-sm text-[var(--color-text-muted)]">{stat.label}</span>
           </div>
         ))}
