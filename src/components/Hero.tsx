@@ -23,7 +23,7 @@ export default function Hero() {
 
           <p className="mt-6 max-w-lg text-lg leading-relaxed text-[var(--color-text-muted)]">
             Find verified sitters, book securely, and keep your pets comfortable
-            at home while you're away — across South Africa, the US, UK, Canada
+            at home while you're away, across South Africa, the US, UK, Canada
             and Australia.
           </p>
 

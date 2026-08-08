@@ -9,15 +9,17 @@ const team = [
     photo: "/team-calvin.jpg",
     name: "Calvin Meiring",
     role: "Founder & Developer",
-    bio: "Builds every SmartAppHub app end-to-end — Kotlin, Firebase, and a lot of attention to detail.",
+    bio: "Builds every SmartAppHub app end to end, Kotlin, Firebase, and a lot of attention to detail.",
     badge: null,
+    imageClassName: "object-cover object-center",
   },
   {
     photo: "/team-dominique.jpg",
     name: "Dominique Meiring",
-    role: "Co-founder & Design",
-    bio: "The newest addition to the studio, bringing a design eye to branding — including custom stationery, posters, and wedding stationery.",
+    role: "Co founder & Design",
+    bio: "The newest addition to the studio, bringing a design eye to branding, including custom stationery, posters, and wedding stationery.",
     badge: null,
+    imageClassName: "object-cover object-center",
   },
 ];
 
@@ -46,7 +48,7 @@ export default function Team() {
                     height={64}
                     loading="lazy"
                     decoding="async"
-                    className="h-16 w-16 rounded-2xl object-cover grayscale"
+                    className={`h-16 w-16 rounded-2xl grayscale ${member.imageClassName ?? "object-center"}`}
                   />
                   {member.badge && <Badge tone="verified">{member.badge}</Badge>}
                 </div>

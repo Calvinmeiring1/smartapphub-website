@@ -27,9 +27,12 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const location = useLocation();
+  const isHome = location.pathname === "/";
   const isSitters = location.pathname === "/sitters";
   const isCommission = location.pathname === "/commission";
-  const links = isSitters ? sittersLinks : isCommission ? commissionLinks : companyLinks;
+  const links = !isHome
+    ? [{ label: "Home", href: "/" }, ...(isSitters ? sittersLinks : isCommission ? commissionLinks : companyLinks)]
+    : companyLinks;
   const primaryCta = isSitters
     ? { label: "Download App", href: "#download" }
     : isCommission
@@ -61,9 +64,16 @@ export default function Navbar() {
         <Link
           to="/"
           onClick={() => setOpen(false)}
-          className="flex items-center gap-2.5 font-display text-lg font-semibold tracking-tight"
+          className="flex items-center gap-2.5 font-display text-lg font-semibold leading-none tracking-tight"
         >
-          <img src="/logo-icon.png" alt="SmartAppHub" className="h-9 w-9" />
+          <span className="flex h-11 w-11 items-center justify-center">
+            <img
+              src="/logo-icon.png"
+              alt="SmartAppHub"
+              className="h-10 w-10 object-contain object-center"
+              style={{ transform: "translateX(-1px)" }}
+            />
+          </span>
           SmartAppHub
           {tag && (
             <span className="hidden rounded-full border border-[var(--color-border)] px-2.5 py-0.5 text-[11px] font-normal text-[var(--color-text-faint)] sm:inline">

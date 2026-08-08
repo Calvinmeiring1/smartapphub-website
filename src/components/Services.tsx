@@ -13,7 +13,7 @@ const services = [
   {
     icon: Apple,
     title: "iOS apps",
-    description: "Swift & SwiftUI apps for iPhone — including porting an existing Android app to iOS, done for Sitters.",
+    description: "Swift & SwiftUI apps for iPhone, including porting an existing Android app to iOS, done for Sitters.",
   },
   {
     icon: Database,
@@ -33,7 +33,7 @@ const services = [
   {
     icon: LifeBuoy,
     title: "Ongoing support",
-    description: "Bug fixes, updates, and new features after launch — not just a one-time build and goodbye.",
+    description: "Bug fixes, updates, and new features after launch, not just a one-time build and goodbye.",
   },
 ];
 

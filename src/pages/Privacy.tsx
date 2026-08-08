@@ -5,11 +5,11 @@ import Section from "../components/Section";
 const sections = [
   {
     heading: "1. Who we are",
-    body: "SMARTAPPHUB (PTY) LTD ('SmartAppHub', 'we', 'us') is a company registered in Pretoria, Gauteng, South Africa. We operate Sitters, a marketplace app that connects pet and house sitters ('Sitters') with pet and homeowners ('Owners'). This policy explains what personal information we collect through the Sitters app and website, why we collect it, and the choices you have.",
+    body: "SMARTAPPHUB (PTY) LTD ('SmartAppHub', 'we', 'us') is a company registered in Gauteng, South Africa. We operate Sitters, a marketplace app that connects pet and house sitters ('Sitters') with pet and homeowners ('Owners'). This policy explains what personal information we collect through the Sitters app and website, why we collect it, and the choices you have.",
   },
   {
     heading: "2. Information we collect",
-    body: "Account details you provide when you sign up, such as your name, email address, phone number and profile photo. Location data, used to show nearby sitters or bookings and only while you're using the relevant part of the app. Verification information from Sitters, including a government-issued ID, used solely to confirm identity before a profile goes live. Booking and payment metadata (dates, amounts, booking status) — your card details are entered directly into PayFast and are never stored on our servers. Messages exchanged in-app between Owners and Sitters, and any photos shared during a booking. Device and usage information (app version, crash logs, general analytics) used to keep the app working reliably.",
+    body: "Account details you provide when you sign up, such as your name, email address, phone number and profile photo. Location data, used to show nearby sitters or bookings and only while you're using the relevant part of the app. Verification information from Sitters, including a government-issued ID, used solely to confirm identity before a profile goes live. Booking and payment metadata (dates, amounts, booking status), your card details are entered directly into PayFast and are never stored on our servers. Messages exchanged in-app between Owners and Sitters, and any photos shared during a booking. Device and usage information (app version, crash logs, general analytics) used to keep the app working reliably.",
   },
   {
     heading: "3. How we use your information",
@@ -33,7 +33,7 @@ const sections = [
   },
   {
     heading: "8. Your rights",
-    body: "You can access, correct, or request deletion of your personal information at any time from within the app, or by emailing us. South African users have the right to lodge a complaint with the Information Regulator. Depending on where you live, you may have similar rights under local law (for example, UK GDPR, Canada's PIPEDA, or Australia's Privacy Act) — we honour these regardless of which jurisdiction you're in.",
+    body: "You can access, correct, or request deletion of your personal information at any time from within the app, or by emailing us. South African users have the right to lodge a complaint with the Information Regulator. Depending on where you live, you may have similar rights under local law (for example, UK GDPR, Canada's PIPEDA, or Australia's Privacy Act), we honour these regardless of which jurisdiction you're in.",
   },
   {
     heading: "9. Children's privacy",
@@ -41,7 +41,7 @@ const sections = [
   },
   {
     heading: "10. Security",
-    body: "We use industry-standard safeguards — including encryption in transit, authenticated access, and Firebase's security infrastructure — to protect your information. No system is completely secure, and we encourage you to use a strong, unique password for your account.",
+    body: "We use industry-standard safeguards, including encryption in transit, authenticated access, and Firebase's security infrastructure, to protect your information. No system is completely secure, and we encourage you to use a strong, unique password for your account.",
   },
   {
     heading: "11. Cookies & analytics",

@@ -9,7 +9,7 @@ import DownloadCTA from "../components/DownloadCTA";
 
 export default function Sitters() {
   useEffect(() => {
-    document.title = "Sitters — Trusted pet & house sitting | SmartAppHub";
+    document.title = "Sitters Trusted pet & house sitting | SmartAppHub";
   }, []);
 
   return (

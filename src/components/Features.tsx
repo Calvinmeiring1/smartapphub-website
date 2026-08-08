@@ -14,7 +14,7 @@ const features = [
     icon: <Lock size={20} />,
     title: "Secure booking",
     description:
-      "Pay and book through the app with encrypted, secure payments — your card details are never shared with the sitter.",
+      "Pay and book through the app with encrypted, secure payments, your card details are never shared with the sitter.",
   },
   {
     icon: <MessageCircle size={20} />,

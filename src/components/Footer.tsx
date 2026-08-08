@@ -58,6 +58,34 @@ export default function Footer() {
                   <MessageCircle size={14} /> WhatsApp
                 </a>
               </li>
+              <li>
+                <a
+                  href="https://www.facebook.com/profile.php?id=61582954512463"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-1.5 hover:text-white"
+                >
+                  <svg viewBox="0 0 24 24" className="h-4 w-4" fill="currentColor" aria-hidden="true">
+                    <path d="M14.4 22v-9.2h3.1l.5-3.5h-3.6V4.7c0-1 .3-1.7 1.7-1.7h1.8V.8c-.3 0-1.3-.1-2.5-.1-2.5 0-4.2 1.5-4.2 4.3v2.4H7.7v3.5h3.1V22h3.6Z" />
+                  </svg>
+                  Facebook
+                </a>
+              </li>
+              <li>
+                <a
+                  href="https://www.instagram.com/sitters.smartapphub/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-1.5 hover:text-white"
+                >
+                  <svg viewBox="0 0 24 24" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden="true">
+                    <rect x="3.5" y="3.5" width="17" height="17" rx="4" />
+                    <circle cx="12" cy="12" r="4" />
+                    <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none" />
+                  </svg>
+                  Instagram
+                </a>
+              </li>
             </ul>
           </div>
         </div>
@@ -65,7 +93,7 @@ export default function Footer() {
 
       <Container className="mt-12 flex flex-col gap-4 border-t border-[var(--color-border)] pt-6 text-xs text-[var(--color-text-faint)] sm:flex-row sm:items-center sm:justify-between">
         <span>© 2025 SMARTAPPHUB (PTY) LTD. All rights reserved.</span>
-        <span>Pretoria, South Africa</span>
+        <span>South Africa</span>
       </Container>
     </footer>
   );

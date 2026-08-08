@@ -4,7 +4,7 @@ import Section from "./Section";
 
 const values = [
   { icon: Target, title: "One team, one focus", description: "A small studio, not spread thin across dozens of apps." },
-  { icon: ShieldCheck, title: "Built to last", description: "Production infrastructure — secure payments, real backend, not a weekend project." },
+  { icon: ShieldCheck, title: "Built to last", description: "Production infrastructure, secure payments, real backend, not a weekend project." },
   { icon: Rocket, title: "More apps on the way", description: "Pulse and PlateSmart are already in development." },
 ];
 

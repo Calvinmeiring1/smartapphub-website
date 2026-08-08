@@ -13,7 +13,7 @@ const sections = [
   },
   {
     heading: "3. What Sitters is (and isn't)",
-    body: "Sitters is a marketplace that connects independent pet and house sitters with owners who need one. SmartAppHub (PTY) LTD is not itself a pet-sitting service provider, does not employ Sitters, and is not a party to the arrangement made between an Owner and a Sitter — we provide the platform that makes finding, booking, and paying for that arrangement easier and safer.",
+    body: "Sitters is a marketplace that connects independent pet and house sitters with owners who need one. SmartAppHub (PTY) LTD is not itself a pet-sitting service provider, does not employ Sitters, and is not a party to the arrangement made between an Owner and a Sitter, we provide the platform that makes finding, booking, and paying for that arrangement easier and safer.",
   },
   {
     heading: "4. Accounts & verification",
@@ -21,7 +21,7 @@ const sections = [
   },
   {
     heading: "5. Bookings, cancellations & refunds",
-    body: "A booking is confirmed once payment is completed in-app. Our default cancellation policy is: a full refund if cancelled more than 48 hours before the booking start time, a 50% refund if cancelled between 24–48 hours before, and no refund inside 24 hours. [SmartAppHub note: confirm these thresholds match your intended policy before launch — they can be edited here at any time.]",
+    body: "A booking is confirmed once payment is completed in-app. Our default cancellation policy is: a full refund if cancelled more than 48 hours before the booking start time, a 50% refund if cancelled between 24 to 48 hours before, and no refund inside 24 hours. [SmartAppHub note: confirm these thresholds match your intended policy before launch, they can be edited here at any time.]",
   },
   {
     heading: "6. Payments & fees",

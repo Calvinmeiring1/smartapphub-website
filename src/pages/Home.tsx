@@ -54,7 +54,7 @@ function SittersFlagshipSection() {
 
 export default function Home() {
   useEffect(() => {
-    document.title = "SmartAppHub — Building apps that solve real-world problems";
+    document.title = "SmartAppHub Building apps that solve real world problems";
   }, []);
 
   return (

@@ -34,7 +34,7 @@ export default function PhoneMockup() {
 
           <div className="px-5 pt-3">
             <p className="text-xs text-[var(--color-text-faint)]">Find a sitter near</p>
-            <p className="font-display text-base font-semibold text-white">Pretoria, ZA</p>
+            <p className="font-display text-base font-semibold text-white">South Africa</p>
 
             <div className="mt-4 flex items-center gap-2 rounded-2xl border border-white/10 bg-white/5 px-3 py-2.5">
               <Search size={14} className="text-[var(--color-text-faint)]" />

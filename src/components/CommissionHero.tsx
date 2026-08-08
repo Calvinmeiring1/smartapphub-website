@@ -20,7 +20,7 @@ export default function CommissionHero() {
           </h1>
 
           <p className="mx-auto mt-6 max-w-lg text-lg leading-relaxed text-[var(--color-text-muted)]">
-            SmartAppHub builds native Android and iOS apps end-to-end —
+            SmartAppHub builds native Android and iOS apps end to end,
             from a first idea to a real product on the App Store and Google
             Play. Same team that builds Sitters, working on your project.
           </p>

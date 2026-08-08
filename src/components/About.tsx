@@ -12,9 +12,9 @@ export default function About() {
           </h2>
           <p className="mt-6 leading-relaxed text-[var(--color-text-muted)]">
             SmartAppHub started as one developer building apps he wanted to
-            exist — from the code up. It's still small by design, but no
-            longer solo: SmartAppHub is now run as a husband-and-wife studio
-            out of Pretoria, South Africa, pairing app development with a
+            exist from the code up. It's still small by design, but no
+            longer solo: SmartAppHub is now run as a husband and wife studio
+            from South Africa, pairing app development with a
             growing focus on design.
           </p>
           <p className="mt-4 leading-relaxed text-[var(--color-text-muted)]">

@@ -19,8 +19,8 @@ export default function CompanyHero() {
           </h1>
 
           <p className="mx-auto mt-6 max-w-lg text-lg leading-relaxed text-[var(--color-text-muted)]">
-            SmartAppHub is a small, independent studio based in Pretoria, South
-            Africa. We design and build focused apps end-to-end — starting
+            SmartAppHub is a small, independent studio based in South
+            Africa. We design and build focused apps end to end, starting
             with Sitters, our trusted pet & house sitting marketplace.
           </p>
 
