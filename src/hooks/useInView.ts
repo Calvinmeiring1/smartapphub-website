@@ -21,7 +21,7 @@ export function useInView<T extends HTMLElement = HTMLDivElement>(options?: {
           setInView(false);
         }
       },
-      { rootMargin: options?.margin ?? "-60px 0px", threshold: 0.01 },
+      { rootMargin: options?.margin ?? "-40px 0px", threshold: 0.01 },
     );
 
     observer.observe(el);

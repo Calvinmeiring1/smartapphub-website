@@ -4,12 +4,13 @@ import { Link } from "react-router-dom";
 import Card from "./Card";
 import Badge from "./Badge";
 import Reveal from "./Reveal";
+import AnimatedCounter from "./AnimatedCounter";
 
 type FeaturedAppCardProps = {
   eyebrow: string;
   name: string;
   description: string;
-  stats: { value: string; label: string }[];
+  stats: { value: number; suffix?: string; label: string }[];
   href: string;
   visual: ReactNode;
   reverse?: boolean;
@@ -40,7 +41,11 @@ export default function FeaturedAppCard({
             <div className="mt-6 flex gap-8">
               {stats.map((stat) => (
                 <div key={stat.label}>
-                  <p className="font-display text-xl font-semibold text-white">{stat.value}</p>
+                  <AnimatedCounter
+                    value={stat.value}
+                    suffix={stat.suffix}
+                    className="font-display text-xl font-semibold text-white"
+                  />
                   <p className="text-xs text-[var(--color-text-faint)]">{stat.label}</p>
                 </div>
               ))}

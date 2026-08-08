@@ -1,3 +1,6 @@
+import { useEffect, useState } from "react";
+import { doc, onSnapshot } from "firebase/firestore";
+import { db } from "../firebase";
 import Container from "./Container";
 import Section from "./Section";
 import Reveal from "./Reveal";
@@ -11,11 +14,23 @@ const countries = [
 ];
 
 export default function Countries() {
+  const [count, setCount] = useState(5);
+
+  useEffect(() => {
+    const unsub = onSnapshot(doc(db, "stats", "public"), (snap) => {
+      if (snap.exists()) {
+        const data = snap.data();
+        if (data.countries) setCount(data.countries);
+      }
+    });
+    return unsub;
+  }, []);
+
   return (
     <Section id="countries">
       <Container>
         <div className="mx-auto max-w-xl text-center">
-          <h2 className="font-display text-3xl font-semibold text-white sm:text-4xl">Available in 5 countries</h2>
+          <h2 className="font-display text-3xl font-semibold text-white sm:text-4xl">Available in {count} countries</h2>
           <p className="mt-4 text-[var(--color-text-muted)]">
             Sitters is live and growing across these regions, with more on the way.
           </p>

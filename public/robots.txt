@@ -1,4 +1,3 @@
 User-agent: *
 Allow: /
-
-Sitemap: https://smartapphub.co.za/sitemap.xml
+Sitemap: https://smartapphub.com/sitemap.xml

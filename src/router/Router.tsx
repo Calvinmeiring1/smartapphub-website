@@ -11,6 +11,7 @@ const BuyMiniApp = lazy(() => import("../pages/BuyMiniApp"));
 const Profile = lazy(() => import("../pages/Profile"));
 const Privacy = lazy(() => import("../pages/Privacy"));
 const Terms = lazy(() => import("../pages/Terms"));
+const NotFound = lazy(() => import("../pages/NotFound"));
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -37,6 +38,7 @@ export default function Router() {
             <Route path="/profile/:id" element={<Profile />} />
             <Route path="/privacy" element={<Privacy />} />
             <Route path="/terms" element={<Terms />} />
+            <Route path="*" element={<NotFound />} />
           </Routes>
         </Suspense>
       </MainLayout>

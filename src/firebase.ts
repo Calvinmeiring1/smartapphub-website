@@ -1,17 +1,20 @@
 import { initializeApp } from "firebase/app";
 import { getAnalytics, isSupported, logEvent } from "firebase/analytics";
+import { getFirestore } from "firebase/firestore";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyDWTLqJSeMJ-1X5fX_tBvrMwJjJMyQV4",
+  apiKey: "AIzaSyDTWFlqJSemJ-1X5fX_tBVrMWJljlMVQV4",
   authDomain: "the-sitters-de4cb.firebaseapp.com",
   projectId: "the-sitters-de4cb",
-  storageBucket: "the-sitters-de4cb.appspot.com",
+  storageBucket: "the-sitters-de4cb.firebasestorage.app",
   messagingSenderId: "852917602224",
   appId: "1:852917602224:web:b17e2976b82c2d0a9f3875",
   measurementId: "G-WJPQYWQSY0",
 };
 
 const app = initializeApp(firebaseConfig);
+export const db = getFirestore(app);
+
 let analyticsInstance: ReturnType<typeof getAnalytics> | null | undefined;
 
 async function getAnalyticsInstance() {

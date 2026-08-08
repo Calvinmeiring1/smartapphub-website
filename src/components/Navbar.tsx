@@ -44,6 +44,11 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  // Close menu on navigation
+  useEffect(() => {
+    setOpen(false);
+  }, [location.pathname]);
+
   return (
     <header
       className={`fixed top-0 z-50 w-full transition-all duration-300 ${
@@ -53,7 +58,11 @@ export default function Navbar() {
       }`}
     >
       <Container className="flex h-18 items-center justify-between py-4">
-        <Link to="/" className="flex items-center gap-2.5 font-display text-lg font-semibold tracking-tight">
+        <Link
+          to="/"
+          onClick={() => setOpen(false)}
+          className="flex items-center gap-2.5 font-display text-lg font-semibold tracking-tight"
+        >
           <img src="/logo-icon.png" alt="SmartAppHub" className="h-9 w-9" />
           SmartAppHub
           {tag && (
