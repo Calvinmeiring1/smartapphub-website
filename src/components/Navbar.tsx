@@ -18,6 +18,8 @@ const commissionLinks = [
 
 const companyLinks = [
   { label: "Sitters", href: "/sitters" },
+  { label: "Graphic Design", href: "/graphic-design" },
+  { label: "Buy a Mini App", href: "/buy-mini-app" },
   { label: "Commission an App", href: "/commission" },
 ];
 
