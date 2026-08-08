@@ -7,6 +7,7 @@ type ButtonProps = {
   variant?: "primary" | "secondary" | "ghost";
   icon?: ReactNode;
   className?: string;
+  download?: boolean | string;
 };
 
 const base =
@@ -27,12 +28,13 @@ export default function Button({
   variant = "primary",
   icon,
   className = "",
+  download,
 }: ButtonProps) {
   const classes = `${base} ${variants[variant]} ${className}`;
 
   if (href) {
     return (
-      <a href={href} onClick={onClick} className={classes}>
+      <a href={href} onClick={onClick} className={classes} download={download}>
         {children}
         {icon}
       </a>
