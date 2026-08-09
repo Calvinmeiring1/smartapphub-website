@@ -8,6 +8,8 @@ type ButtonProps = {
   icon?: ReactNode;
   className?: string;
   download?: boolean | string;
+  target?: string;
+  rel?: string;
 };
 
 const base =
@@ -34,7 +36,7 @@ export default function Button({
 
   if (href) {
     return (
-      <a href={href} onClick={onClick} className={classes} download={download}>
+      <a href={href} onClick={onClick} className={classes} download={download} target={target} rel={rel}>
         {children}
         {icon}
       </a>
