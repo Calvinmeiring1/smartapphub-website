@@ -43,7 +43,7 @@ export default function Reveal({
       style={{
         opacity: active ? 1 : 0,
         transform: active ? toTransform : fromTransform,
-        transition: `opacity 0.45s ease-out ${delay}s, transform 0.45s ease-out ${delay}s`,
+        transition: `opacity 0.75s ease-out ${delay}s, transform 0.75s ease-out ${delay}s`,
       }}
     >
       {children}

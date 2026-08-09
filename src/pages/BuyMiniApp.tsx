@@ -8,26 +8,26 @@ import { logEventToFirebase } from "../firebase";
 
 const apps = [
   {
-    name: "Wedding Mini App (VowVault)",
-    price: "R 199",
-    amount: 199,
+    name: "Wedding Gallery Mini App (VowVault)",
+    price: "R 399",
+    amount: 399,
     description: "Every photo. Every guest. One wedding album. Let your guests capture the moments you didn't see. Create your wedding QR code, display it at your reception, and let your guests instantly upload their photos and videos into one shared wedding gallery. No app required for guests.",
     highlight: "How it works:\n1. Create your wedding: Enter names and date.\n2. Print your QR code: Put it on your tables.\n3. Guests scan: They use their phone camera.\n4. Guests upload: Photos go to your gallery.\n5. Relive everything: Download all memories.",
     downloadUrl: "/vowvault.apk",
   },
   {
-    name: "Delivery Mini App",
-    price: "R 2,000",
-    amount: 2000,
-    description: "A simple app for local stores that want customers to order and track deliveries.",
-    highlight: "Supports product listings, checkout, and delivery updates",
+    name: "Weddara: Your All-in-One Wedding Planner",
+    price: "R 999",
+    amount: 999,
+    description: "Every detail. Every guest. One seamless celebration. Weddara takes the stress out of planning so you can focus on the \"I do.\" Manage your guest list, track your budget in real-time, and stay on top of your timeline all in one vibrant, intuitive experience.",
+    highlight: "How it works:\n1. Set the Stage: Enter your names, date, and venue in seconds.\n2. Build Your Dream: Choose your wedding style and set your target budget in your local currency.\n3. Personalize Your Toolset: Enable only the modules you need from guest RSVPs to vendor management.\n4. Stay on Track: Use the smart dashboard for priority alerts, task countdowns, and real-time budget tracking.\n5. Celebrate Stress-Free: Manage your timeline and vendors on the go, ensuring your big day runs perfectly.",
   },
   {
-    name: "Event Mini App",
-    price: "R 1,800",
-    amount: 1800,
-    description: "Great for community events, workshops, and private gatherings that need ticketing.",
-    highlight: "Includes RSVP, event info, and attendee notices",
+    name: "Coming Soon",
+    price: "R 0",
+    amount: 0,
+    description: "Watch this space for more mini apps coming soon! We are constantly developing new tools to make your wedding planning experience even more seamless and enjoyable.",
+    highlight: "",
   },
 ];
 
@@ -68,13 +68,34 @@ export default function BuyMiniApp() {
         <div className="max-w-3xl">
           <h1 className="font-display text-3xl font-semibold text-white sm:text-4xl">Buy a Mini App</h1>
           <p className="mt-4 text-lg leading-relaxed text-[var(--color-text-muted)]">
-            Browse ready-made mini apps below. Once you pay, the download link for that app will be unlocked for you.
+            Browse ready-made mini apps below. Each app is designed to launch fast, simplify operations, and help your customers or guests engage effortlessly. Once you pay, the download link for that app will be unlocked for you.
           </p>
+        </div>
+
+        <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="rounded-[var(--radius-card)] border border-[var(--color-border)] bg-[var(--color-bg)]/70 p-5">
+            <p className="text-sm font-semibold text-[var(--color-accent)]">Launch fast</p>
+            <p className="mt-2 text-sm leading-relaxed text-[var(--color-text-muted)]">
+              Pick a ready-made mini app and get a working solution live quickly without building from scratch.
+            </p>
+          </div>
+          <div className="rounded-[var(--radius-card)] border border-[var(--color-border)] bg-[var(--color-bg)]/70 p-5">
+            <p className="text-sm font-semibold text-[var(--color-accent)]">Built for many use cases</p>
+            <p className="mt-2 text-sm leading-relaxed text-[var(--color-text-muted)]">
+              Use mini apps for weddings, events, delivery, sitters, bookings, and more all from one marketplace.
+            </p>
+          </div>
+          <div className="rounded-[var(--radius-card)] border border-[var(--color-border)] bg-[var(--color-bg)]/70 p-5">
+            <p className="text-sm font-semibold text-[var(--color-accent)]">Secure checkout</p>
+            <p className="mt-2 text-sm leading-relaxed text-[var(--color-text-muted)]">
+              Payments, downloads, and customer support are handled securely so you can focus on growing your business.
+            </p>
+          </div>
         </div>
 
         <div className="mt-12 grid gap-6 lg:grid-cols-3">
           {apps.map((app) => (
-            <Card key={app.name} hover className="flex h-full flex-col">
+            <Card key={app.name} hover className="relative flex h-full flex-col">
               <div className="flex items-center justify-between gap-3">
                 <h2 className="font-display text-xl font-semibold text-white">{app.name}</h2>
                 <span className="shrink-0 rounded-full border border-[var(--color-border)] px-3 py-1 text-sm font-medium text-[var(--color-accent)]">
@@ -91,7 +112,7 @@ export default function BuyMiniApp() {
                 </p>
               </div>
 
-              <div className="mt-8">
+              <div className="mt-8 relative pb-16">
                 <div className="mb-6 rounded-[var(--radius-card)] border border-[var(--color-border)] bg-[var(--color-bg)]/60 p-4">
                   {successApp === app.name ? (
                     <>
@@ -108,40 +129,54 @@ export default function BuyMiniApp() {
                   )}
                 </div>
 
-                <div className="flex flex-wrap gap-3">
-                  {successApp === app.name && app.downloadUrl ? (
+                <div className="flex items-end justify-between gap-3">
+                  <div className="flex flex-col gap-3">
+                    {successApp === app.name && app.downloadUrl ? (
+                      <Button
+                        href={app.downloadUrl}
+                        variant="primary"
+                        download
+                        onClick={() =>
+                          logEventToFirebase("download_app_click", {
+                            app_name: app.name,
+                          })
+                        }
+                      >
+                        Download APK
+                      </Button>
+                    ) : (
+                      <Button
+                        onClick={() => {
+                          logEventToFirebase("pay_to_unlock_click", {
+                            app_name: app.name,
+                            price: app.price,
+                          });
+                          handlePayFast(app);
+                        }}
+                        variant="primary"
+                      >
+                        Pay to unlock
+                      </Button>
+                    )}
                     <Button
-                      href={app.downloadUrl}
-                      variant="primary"
-                      download
-                      onClick={() =>
-                        logEventToFirebase("download_app_click", {
-                          app_name: app.name,
-                        })
-                      }
+                      href="mailto:smartapphubdev@gmail.com?subject=Mini%20App%20Purchase%20Request"
+                      variant="secondary"
                     >
-                      Download APK
+                      Ask a question
                     </Button>
-                  ) : (
+                  </div>
+                  <div className="flex shrink-0">
                     <Button
-                      onClick={() => {
-                        logEventToFirebase("pay_to_unlock_click", {
-                          app_name: app.name,
-                          price: app.price,
-                        });
-                        handlePayFast(app);
-                      }}
-                      variant="primary"
+                      href="https://www.youtube.com/watch?v=VIDEO_ID"
+                      target="_blank"
+                      rel="noreferrer"
+                      variant="secondary"
+                      className="flex flex-col items-center rounded-full px-4 py-2 text-xs"
                     >
-                      Pay to unlock
+                      <span>Demo</span>
+                      <span className="block">Coming Soon</span>
                     </Button>
-                  )}
-                  <Button
-                    href="mailto:smartapphubdev@gmail.com?subject=Mini%20App%20Purchase%20Request"
-                    variant="secondary"
-                  >
-                    Ask a question
-                  </Button>
+                  </div>
                 </div>
               </div>
             </Card>
