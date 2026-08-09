@@ -31,6 +31,8 @@ export default function Button({
   icon,
   className = "",
   download,
+  target,
+  rel,
 }: ButtonProps) {
   const classes = `${base} ${variants[variant]} ${className}`;
 
