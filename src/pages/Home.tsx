@@ -9,6 +9,16 @@ import Team from "../components/Team";
 import WhyUs from "../components/WhyUs";
 import FeaturedAppCard from "../components/FeaturedAppCard";
 import PhoneMockup from "../components/PhoneMockup";
+import StructuredData from "../components/StructuredData";
+
+const homeSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  name: "SmartAppHub | Building apps that solve real world problems",
+  url: "https://smartapphub.co.za/",
+  description: "SmartAppHub builds apps and marketplaces like Sitters to help businesses and communities launch faster.",
+  inLanguage: "en-US"
+};
 
 function SittersFlagshipSection() {
   const [liveStats, setLiveStats] = useState({ users: 427, sitters: 144, countries: 5 });
@@ -59,6 +69,7 @@ export default function Home() {
 
   return (
     <>
+      <StructuredData data={homeSchema} />
       <CompanyHero />
       <About />
       <Team />

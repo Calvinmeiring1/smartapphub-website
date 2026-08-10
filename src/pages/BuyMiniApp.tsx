@@ -4,7 +4,17 @@ import Container from "../components/Container";
 import Section from "../components/Section";
 import Card from "../components/Card";
 import Button from "../components/Button";
+import StructuredData from "../components/StructuredData";
 import { logEventToFirebase } from "../firebase";
+
+const buyMiniAppSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  name: "Buy a Mini App | SmartAppHub",
+  url: "https://smartapphub.co.za/buy-mini-app",
+  description: "Purchase ready-made mini apps from SmartAppHub for fast deployment, secure checkout, and easy customization.",
+  inLanguage: "en-US"
+};
 
 const apps = [
   {
@@ -63,8 +73,10 @@ export default function BuyMiniApp() {
   };
 
   return (
-    <Section className="pt-36">
-      <Container className="max-w-6xl">
+    <>
+      <StructuredData data={buyMiniAppSchema} />
+      <Section className="pt-36">
+        <Container className="max-w-6xl">
         <div className="max-w-3xl">
           <h1 className="font-display text-3xl font-semibold text-white sm:text-4xl">Buy a Mini App</h1>
           <p className="mt-4 text-lg leading-relaxed text-[var(--color-text-muted)]">

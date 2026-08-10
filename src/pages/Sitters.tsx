@@ -6,6 +6,16 @@ import HowItWorks from "../components/HowItWorks";
 import Countries from "../components/Countries";
 import FAQ from "../components/FAQ";
 import DownloadCTA from "../components/DownloadCTA";
+import StructuredData from "../components/StructuredData";
+
+const sittersSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  name: "Sitters | SmartAppHub",
+  url: "https://smartapphub.co.za/sitters",
+  description: "Trusted pet & house sitting marketplace where verified sitters are matched with pet owners for secure, at-home care.",
+  inLanguage: "en-US"
+};
 
 export default function Sitters() {
   useEffect(() => {
@@ -14,6 +24,7 @@ export default function Sitters() {
 
   return (
     <>
+      <StructuredData data={sittersSchema} />
       <Hero />
       <Stats />
       <Features />

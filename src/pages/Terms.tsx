@@ -1,6 +1,16 @@
 import { useEffect } from "react";
 import Container from "../components/Container";
 import Section from "../components/Section";
+import StructuredData from "../components/StructuredData";
+
+const termsSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  name: "Terms of Service | SmartAppHub",
+  url: "https://smartapphub.co.za/terms",
+  description: "SmartAppHub Terms of Service for using the Sitters app and SmartAppHub marketplace.",
+  inLanguage: "en-US"
+};
 
 const sections = [
   {
@@ -75,8 +85,10 @@ export default function Terms() {
   }, []);
 
   return (
-    <Section className="pt-36">
-      <Container className="max-w-3xl">
+    <>
+      <StructuredData data={termsSchema} />
+      <Section className="pt-36">
+        <Container className="max-w-3xl">
         <h1 className="font-display text-3xl font-semibold text-white sm:text-4xl">Terms of Service</h1>
         <p className="mt-3 text-sm text-[var(--color-text-faint)]">Last updated: 6 August 2026</p>
 

@@ -1,6 +1,16 @@
 import { useEffect } from "react";
 import Container from "../components/Container";
 import Section from "../components/Section";
+import StructuredData from "../components/StructuredData";
+
+const privacySchema = {
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  name: "Privacy Policy | SmartAppHub",
+  url: "https://smartapphub.co.za/privacy",
+  description: "SmartAppHub Privacy Policy describing how Sitters collects, uses, and protects user information.",
+  inLanguage: "en-US"
+};
 
 const sections = [
   {
@@ -63,8 +73,10 @@ export default function Privacy() {
   }, []);
 
   return (
-    <Section className="pt-36">
-      <Container className="max-w-3xl">
+    <>
+      <StructuredData data={privacySchema} />
+      <Section className="pt-36">
+        <Container className="max-w-3xl">
         <h1 className="font-display text-3xl font-semibold text-white sm:text-4xl">Privacy Policy</h1>
         <p className="mt-3 text-sm text-[var(--color-text-faint)]">Last updated: 6 August 2026</p>
 

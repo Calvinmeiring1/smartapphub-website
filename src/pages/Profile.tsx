@@ -4,6 +4,7 @@ import { doc, getDoc } from "firebase/firestore";
 import { db } from "../firebase";
 import Container from "../components/Container";
 import Section from "../components/Section";
+import StructuredData from "../components/StructuredData";
 
 export default function Profile() {
   const { id } = useParams();
@@ -26,9 +27,29 @@ export default function Profile() {
     }
   }, [id]);
 
+  const profileSchema = user
+    ? {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        name: user.name || "Sitter",
+        url: window.location.href,
+        description: user.bio || "",
+        jobTitle: user.role === "sitter" ? "Verified sitter" : "Pet owner"
+      }
+    : {
+        "@context": "https://schema.org",
+        "@type": "WebPage",
+        name: "Profile | SmartAppHub",
+        url: window.location.href,
+        description: "Profile page for SmartAppHub sitters and users.",
+        inLanguage: "en-US"
+      };
+
   return (
-    <Section className="pt-36">
-      <Container className="max-w-3xl">
+    <>
+      <StructuredData data={profileSchema} />
+      <Section className="pt-36">
+        <Container className="max-w-3xl">
         {loading ? (
           <div className="animate-pulse">
             <div className="h-8 w-48 rounded bg-[var(--color-surface)]" />
