@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import SEO from "../components/SEO";
 import Hero from "../components/Hero";
 import Stats from "../components/Stats";
 import Features from "../components/Features";
@@ -10,20 +10,26 @@ import StructuredData from "../components/StructuredData";
 
 const sittersSchema = {
   "@context": "https://schema.org",
-  "@type": "WebPage",
-  name: "Sitters | SmartAppHub",
-  url: "https://smartapphub.co.za/sitters",
-  description: "Trusted pet & house sitting marketplace where verified sitters are matched with pet owners for secure, at-home care.",
-  inLanguage: "en-US"
+  "@type": "SoftwareApplication",
+  "name": "Sitters",
+  "operatingSystem": "Android, iOS",
+  "applicationCategory": "LifestyleApplication",
+  "description": "Trusted pet & house sitting marketplace. Find verified sitters, book securely, and keep your pets comfortable at home while you're away.",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+  }
 };
 
 export default function Sitters() {
-  useEffect(() => {
-    document.title = "Sitters Trusted pet & house sitting | SmartAppHub";
-  }, []);
-
   return (
     <>
+      <SEO
+        title="Sitters — Trusted pet & house sitting | SmartAppHub"
+        description="Find reliable pet sitters, book securely, and keep your pets comfortable at home while you're away. Now live in 5 countries."
+        canonical="https://smartapphub.co.za/sitters"
+      />
       <StructuredData data={sittersSchema} />
       <Hero />
       <Stats />

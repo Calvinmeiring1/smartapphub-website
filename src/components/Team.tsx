@@ -43,7 +43,7 @@ export default function Team() {
                 <div className="flex items-center justify-between">
                   <img
                     src={member.photo}
-                    alt={member.name}
+                    alt={`${member.name} - ${member.role} at SmartAppHub`}
                     width={64}
                     height={64}
                     loading="lazy"

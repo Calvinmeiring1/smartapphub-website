@@ -1,6 +1,4 @@
-import { useEffect, useState } from "react";
-import { doc, onSnapshot } from "firebase/firestore";
-import { db } from "../firebase";
+import { useLiveStats } from "../hooks/useLiveStats";
 import Container from "../components/Container";
 import Section from "../components/Section";
 import CompanyHero from "../components/CompanyHero";
@@ -10,32 +8,26 @@ import WhyUs from "../components/WhyUs";
 import FeaturedAppCard from "../components/FeaturedAppCard";
 import PhoneMockup from "../components/PhoneMockup";
 import StructuredData from "../components/StructuredData";
+import SEO from "../components/SEO";
 
 const homeSchema = {
   "@context": "https://schema.org",
-  "@type": "WebPage",
-  name: "SmartAppHub | Building apps that solve real world problems",
-  url: "https://smartapphub.co.za/",
-  description: "SmartAppHub builds apps and marketplaces like Sitters to help businesses and communities launch faster.",
-  inLanguage: "en-US"
+  "@type": "Organization",
+  "name": "SmartAppHub",
+  "url": "https://smartapphub.co.za/",
+  "logo": "https://smartapphub.co.za/logo-icon.png",
+  "description": "SmartAppHub builds apps and marketplaces like Sitters to help businesses and communities launch faster.",
+  "address": {
+    "@type": "PostalAddress",
+    "addressCountry": "South Africa"
+  },
+  "sameAs": [
+    "https://smartapphub.co.za/sitters"
+  ]
 };
 
 function SittersFlagshipSection() {
-  const [liveStats, setLiveStats] = useState({ users: 427, sitters: 144, countries: 5 });
-
-  useEffect(() => {
-    const unsub = onSnapshot(doc(db, "stats", "public"), (snap) => {
-      if (snap.exists()) {
-        const data = snap.data();
-        setLiveStats({
-          users: data.users || 427,
-          sitters: data.sitters || 144,
-          countries: data.countries || 5
-        });
-      }
-    });
-    return unsub;
-  }, []);
+  const { liveStats } = useLiveStats();
 
   return (
     <Section>
@@ -63,12 +55,12 @@ function SittersFlagshipSection() {
 }
 
 export default function Home() {
-  useEffect(() => {
-    document.title = "SmartAppHub Building apps that solve real world problems";
-  }, []);
-
   return (
     <>
+      <SEO
+        title="SmartAppHub | Building apps that solve real world problems"
+        description="SmartAppHub builds focused apps and marketplaces like Sitters to help businesses and communities launch faster. Based in South Africa."
+      />
       <StructuredData data={homeSchema} />
       <CompanyHero />
       <About />

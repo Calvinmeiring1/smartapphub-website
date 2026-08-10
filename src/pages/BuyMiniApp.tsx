@@ -1,5 +1,5 @@
-import { useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
+import SEO from "../components/SEO";
 import Container from "../components/Container";
 import Section from "../components/Section";
 import Card from "../components/Card";
@@ -9,11 +9,23 @@ import { logEventToFirebase } from "../firebase";
 
 const buyMiniAppSchema = {
   "@context": "https://schema.org",
-  "@type": "WebPage",
-  name: "Buy a Mini App | SmartAppHub",
-  url: "https://smartapphub.co.za/buy-mini-app",
-  description: "Purchase ready-made mini apps from SmartAppHub for fast deployment, secure checkout, and easy customization.",
-  inLanguage: "en-US"
+  "@type": "ItemList",
+  "name": "SmartAppHub Mini Apps Marketplace",
+  "description": "Purchase ready-made mini apps from SmartAppHub for fast deployment, secure checkout, and easy customization.",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Wedding Gallery Mini App (VowVault)",
+      "url": "https://smartapphub.co.za/buy-mini-app"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Weddara: Your All-in-One Wedding Planner",
+      "url": "https://smartapphub.co.za/buy-mini-app"
+    }
+  ]
 };
 
 const apps = [
@@ -45,10 +57,6 @@ export default function BuyMiniApp() {
   const [searchParams] = useSearchParams();
   const successApp = searchParams.get("success");
 
-  useEffect(() => {
-    document.title = "Buy a Mini App | SmartAppHub";
-  }, []);
-
   const handlePayFast = (app: (typeof apps)[0]) => {
     const merchantId = "32256199";
     const merchantKey = "czjmwioff4vuw";
@@ -74,6 +82,11 @@ export default function BuyMiniApp() {
 
   return (
     <>
+      <SEO
+        title="Buy a Mini App | Ready-Made Wedding & Event Apps | SmartAppHub"
+        description="Browse ready-made mini apps by SmartAppHub. Fast deployment, secure checkout with PayFast, and professional tools for weddings and businesses."
+        canonical="https://smartapphub.co.za/buy-mini-app"
+      />
       <StructuredData data={buyMiniAppSchema} />
       <Section className="pt-36">
         <Container className="max-w-6xl">
