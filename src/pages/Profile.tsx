@@ -113,5 +113,6 @@ export default function Profile() {
         )}
       </Container>
     </Section>
+    </>
   );
 }
