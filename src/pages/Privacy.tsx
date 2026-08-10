@@ -77,18 +77,19 @@ export default function Privacy() {
       <StructuredData data={privacySchema} />
       <Section className="pt-36">
         <Container className="max-w-3xl">
-        <h1 className="font-display text-3xl font-semibold text-white sm:text-4xl">Privacy Policy</h1>
-        <p className="mt-3 text-sm text-[var(--color-text-faint)]">Last updated: 6 August 2026</p>
+          <h1 className="font-display text-3xl font-semibold text-white sm:text-4xl">Privacy Policy</h1>
+          <p className="mt-3 text-sm text-[var(--color-text-faint)]">Last updated: 6 August 2026</p>
 
-        <div className="mt-10 space-y-8 text-[var(--color-text-muted)]">
-          {sections.map((s) => (
-            <div key={s.heading}>
-              <h2 className="font-display text-lg font-semibold text-white">{s.heading}</h2>
-              <p className="mt-2 leading-relaxed">{s.body}</p>
-            </div>
-          ))}
-        </div>
-      </Container>
-    </Section>
+          <div className="mt-10 space-y-8 text-[var(--color-text-muted)]">
+            {sections.map((s) => (
+              <div key={s.heading}>
+                <h2 className="font-display text-lg font-semibold text-white">{s.heading}</h2>
+                <p className="mt-2 leading-relaxed">{s.body}</p>
+              </div>
+            ))}
+          </div>
+        </Container>
+      </Section>
+    </>
   );
 }

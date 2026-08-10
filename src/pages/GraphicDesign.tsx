@@ -22,9 +22,10 @@ export default function GraphicDesign() {
       <StructuredData data={graphicDesignSchema} />
       <Section className="pt-36">
         <Container className="max-w-3xl">
-        <h1 className="font-display text-3xl font-semibold text-white sm:text-4xl">Graphic Design</h1>
-        <p className="mt-6 text-lg text-[var(--color-text-muted)]">Coming soon</p>
-      </Container>
-    </Section>
+          <h1 className="font-display text-3xl font-semibold text-white sm:text-4xl">Graphic Design</h1>
+          <p className="mt-6 text-lg text-[var(--color-text-muted)]">Coming soon</p>
+        </Container>
+      </Section>
+    </>
   );
 }
