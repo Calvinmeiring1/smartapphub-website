@@ -1,12 +1,10 @@
-import { useLiveStats } from "../hooks/useLiveStats";
 import Container from "../components/Container";
 import Section from "../components/Section";
 import CompanyHero from "../components/CompanyHero";
 import About from "../components/About";
 import Team from "../components/Team";
 import WhyUs from "../components/WhyUs";
-import FeaturedAppCard from "../components/FeaturedAppCard";
-import PhoneMockup from "../components/PhoneMockup";
+import SittersPromo from "../components/SittersPromo";
 import StructuredData from "../components/StructuredData";
 import SEO from "../components/SEO";
 
@@ -27,28 +25,13 @@ const homeSchema = {
 };
 
 function SittersFlagshipSection() {
-  const { liveStats } = useLiveStats();
-
   return (
     <Section>
       <Container>
-        <h2 className="text-center font-display text-3xl font-semibold text-white sm:text-4xl">
+        <h2 className="text-center font-display text-3xl font-semibold text-white sm:text-4xl mb-12">
           Our flagship app
         </h2>
-        <div className="mt-12">
-          <FeaturedAppCard
-            eyebrow="Live now"
-            name="Sitters"
-            description="Trusted pet & house sitting marketplace. Find verified sitters, book securely, and keep your pets comfortable at home while you're away."
-            stats={[
-              { value: liveStats.users, suffix: "+", label: "Users" },
-              { value: liveStats.sitters, suffix: "+", label: "Sitters" },
-              { value: liveStats.countries, label: "Countries" },
-            ]}
-            href="/sitters"
-            visual={<PhoneMockup />}
-          />
-        </div>
+        <SittersPromo />
       </Container>
     </Section>
   );
