@@ -196,5 +196,6 @@ export default function BuyMiniApp() {
         </div>
       </Container>
     </Section>
+    </>
   );
 }
