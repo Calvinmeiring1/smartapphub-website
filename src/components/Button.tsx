@@ -10,10 +10,11 @@ type ButtonProps = {
   download?: boolean | string;
   target?: string;
   rel?: string;
+  disabled?: boolean;
 };
 
 const base =
-  "inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-sm font-semibold transition-all duration-200 whitespace-nowrap";
+  "inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-sm font-semibold transition-all duration-200 whitespace-nowrap disabled:opacity-50 disabled:cursor-not-allowed";
 
 const variants: Record<string, string> = {
   primary:
@@ -33,6 +34,7 @@ export default function Button({
   download,
   target,
   rel,
+  disabled,
 }: ButtonProps) {
   const classes = `${base} ${variants[variant]} ${className}`;
 
@@ -46,7 +48,7 @@ export default function Button({
   }
 
   return (
-    <button onClick={onClick} className={classes}>
+    <button onClick={onClick} className={classes} disabled={disabled}>
       {children}
       {icon}
     </button>
