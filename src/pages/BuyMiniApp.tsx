@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import SEO from "../components/SEO";
 import Container from "../components/Container";
@@ -43,19 +44,39 @@ const apps = [
     amount: 999,
     description: "Every detail. Every guest. One seamless celebration. Weddara takes the stress out of planning so you can focus on the \"I do.\" Manage your guest list, track your budget in real-time, and stay on top of your timeline all in one vibrant, intuitive experience.",
     highlight: "How it works:\n1. Set the Stage: Enter your names, date, and venue in seconds.\n2. Build Your Dream: Choose your wedding style and set your target budget in your local currency.\n3. Personalize Your Toolset: Enable only the modules you need from guest RSVPs to vendor management.\n4. Stay on Track: Use the smart dashboard for priority alerts, task countdowns, and real-time budget tracking.\n5. Celebrate Stress-Free: Manage your timeline and vendors on the go, ensuring your big day runs perfectly.",
+    downloadUrl: "/weddara.apk",
   },
   {
     name: "Coming Soon",
-    price: "R 0",
+    price: "TBA",
     amount: 0,
     description: "Watch this space for more mini apps coming soon! We are constantly developing new tools to make your wedding planning experience even more seamless and enjoyable.",
     highlight: "",
+    isComingSoon: true,
   },
 ];
 
 export default function BuyMiniApp() {
   const [searchParams] = useSearchParams();
   const successApp = searchParams.get("success");
+  const [promoCodes, setPromoCodes] = useState<Record<string, string>>({});
+  const [unlockedApps, setUnlockedApps] = useState<string[]>([]);
+
+  const handlePromoChange = (appName: string, value: string) => {
+    setPromoCodes((prev) => ({ ...prev, [appName]: value }));
+  };
+
+  const handleApplyPromo = (appName: string) => {
+    const code = promoCodes[appName]?.toUpperCase();
+    // Logic for promo codes - you can add real codes here
+    if (code === "FREE" || code === "SAH100" || code === "WEDDARA") {
+      setUnlockedApps((prev) => [...prev, appName]);
+      logEventToFirebase("promo_code_applied", {
+        app_name: appName,
+        promo_code: code,
+      });
+    }
+  };
 
   const handlePayFast = (app: (typeof apps)[0]) => {
     const merchantId = "32256199";
@@ -138,50 +159,74 @@ export default function BuyMiniApp() {
               </div>
 
               <div className="mt-8 relative pb-16">
-                <div className="mb-6 rounded-[var(--radius-card)] border border-[var(--color-border)] bg-[var(--color-bg)]/60 p-4">
-                  {successApp === app.name ? (
-                    <>
-                      <p className="text-sm font-medium text-[var(--color-accent)]">Payment Confirmed!</p>
-                      <p className="mt-2 text-sm text-white">Your download is ready below.</p>
-                    </>
-                  ) : (
-                    <>
-                      <p className="text-sm font-medium text-white">Payment unlocks the download link</p>
-                      <p className="mt-2 text-sm text-[var(--color-text-muted)]">
-                        Download access will appear here after payment is confirmed.
-                      </p>
-                    </>
-                  )}
-                </div>
+                {!app.isComingSoon && (
+                  <div className="mb-6 rounded-[var(--radius-card)] border border-[var(--color-border)] bg-[var(--color-bg)]/60 p-4">
+                    {successApp === app.name || unlockedApps.includes(app.name) ? (
+                      <>
+                        <p className="text-sm font-medium text-[var(--color-accent)]">
+                          {unlockedApps.includes(app.name) ? "Promo Applied!" : "Payment Confirmed!"}
+                        </p>
+                        <p className="mt-2 text-sm text-white">Your download is ready below.</p>
+                      </>
+                    ) : (
+                      <>
+                        <p className="text-sm font-medium text-white">Payment unlocks the download link</p>
+                        <p className="mt-2 text-sm text-[var(--color-text-muted)]">
+                          Download access will appear here after payment is confirmed.
+                        </p>
+                        <div className="mt-4 flex gap-2">
+                          <input
+                            type="text"
+                            placeholder="Promo code"
+                            value={promoCodes[app.name] || ""}
+                            onChange={(e) => handlePromoChange(app.name, e.target.value)}
+                            className="flex-1 rounded-lg border border-[var(--color-border)] bg-[var(--color-bg)]/50 px-3 py-2 text-xs text-white placeholder:text-[var(--color-text-faint)] focus:border-[var(--color-accent)] focus:outline-none"
+                          />
+                          <button
+                            onClick={() => handleApplyPromo(app.name)}
+                            className="text-xs font-semibold text-[var(--color-accent)] hover:text-white transition-colors"
+                          >
+                            Apply
+                          </button>
+                        </div>
+                      </>
+                    )}
+                  </div>
+                )}
 
                 <div className="flex items-end justify-between gap-3">
                   <div className="flex flex-col gap-3">
-                    {successApp === app.name && app.downloadUrl ? (
-                      <Button
-                        href={app.downloadUrl}
-                        variant="primary"
-                        download
-                        onClick={() =>
-                          logEventToFirebase("download_app_click", {
-                            app_name: app.name,
-                          })
-                        }
-                      >
-                        Download APK
-                      </Button>
-                    ) : (
-                      <Button
-                        onClick={() => {
-                          logEventToFirebase("pay_to_unlock_click", {
-                            app_name: app.name,
-                            price: app.price,
-                          });
-                          handlePayFast(app);
-                        }}
-                        variant="primary"
-                      >
-                        Pay to unlock
-                      </Button>
+                    {!app.isComingSoon && (
+                      (successApp === app.name || unlockedApps.includes(app.name)) ? (
+                        <Button
+                          href={app.downloadUrl || "#"}
+                          variant="primary"
+                          download={!!app.downloadUrl}
+                          onClick={() => {
+                            if (!app.downloadUrl) {
+                              alert("Download file not found. Please contact support.");
+                            }
+                            logEventToFirebase("download_app_click", {
+                              app_name: app.name,
+                            });
+                          }}
+                        >
+                          Download APK
+                        </Button>
+                      ) : (
+                        <Button
+                          onClick={() => {
+                            logEventToFirebase("pay_to_unlock_click", {
+                              app_name: app.name,
+                              price: app.price,
+                            });
+                            handlePayFast(app);
+                          }}
+                          variant="primary"
+                        >
+                          Pay to unlock
+                        </Button>
+                      )
                     )}
                     <Button
                       href="mailto:smartapphubdev@gmail.com?subject=Mini%20App%20Purchase%20Request"
@@ -191,16 +236,23 @@ export default function BuyMiniApp() {
                     </Button>
                   </div>
                   <div className="flex shrink-0">
-                    <Button
-                      href="https://www.youtube.com/watch?v=VIDEO_ID"
-                      target="_blank"
-                      rel="noreferrer"
-                      variant="secondary"
-                      className="flex flex-col items-center rounded-full px-4 py-2 text-xs"
-                    >
-                      <span>Demo</span>
-                      <span className="block">Coming Soon</span>
-                    </Button>
+                    {(app as any).demoUrl ? (
+                      <Button
+                        href={(app as any).demoUrl}
+                        target="_blank"
+                        rel="noreferrer"
+                        variant="secondary"
+                        className="flex flex-col items-center rounded-full px-4 py-2 text-xs"
+                      >
+                        <span>Watch</span>
+                        <span className="block">Demo</span>
+                      </Button>
+                    ) : (
+                      <div className="flex flex-col items-center rounded-full border border-[var(--color-border)] px-4 py-2 text-xs text-[var(--color-text-faint)]">
+                        <span>Demo</span>
+                        <span className="block italic">Coming Soon</span>
+                      </div>
+                    )}
                   </div>
                 </div>
               </div>
