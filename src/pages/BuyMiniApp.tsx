@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { useSearchParams } from "react-router-dom";
+import { collection, addDoc, query, where, getDocs } from "firebase/firestore";
+import { db } from "../firebase";
 import SEO from "../components/SEO";
 import Container from "../components/Container";
 import Section from "../components/Section";
@@ -61,6 +63,45 @@ export default function BuyMiniApp() {
   const successApp = searchParams.get("success");
   const [promoCodes, setPromoCodes] = useState<Record<string, string>>({});
   const [unlockedApps, setUnlockedApps] = useState<string[]>([]);
+  const [activationEmail, setActivationEmail] = useState("");
+  const [isActivating, setIsActivating] = useState(false);
+  const [activationStatus, setActivationStatus] = useState<"idle" | "success" | "error">("idle");
+
+  const handleRegisterLicense = async (appName: string) => {
+    if (!activationEmail) return;
+    setIsActivating(true);
+    setActivationStatus("idle");
+
+    const mappedAppName = appName.includes("Weddara") ? "Weddara" :
+                         appName.includes("VowVault") ? "VowVault" : appName;
+
+    try {
+      // Check if already registered in purchased_apps
+      const q = query(
+        collection(db, "purchased_apps"),
+        where("email", "==", activationEmail.toLowerCase()),
+        where("app", "==", mappedAppName)
+      );
+      const querySnapshot = await getDocs(q);
+
+      if (querySnapshot.empty) {
+        await addDoc(collection(db, "purchased_apps"), {
+          email: activationEmail.toLowerCase(),
+          app: mappedAppName,
+          status: "paid",
+          purchasedAt: new Date(),
+          deviceId: null, // Will be linked on first app launch
+        });
+      }
+      setActivationStatus("success");
+      logEventToFirebase("license_registered", { app_name: mappedAppName });
+    } catch (error) {
+      console.error("Error registering license:", error);
+      setActivationStatus("error");
+    } finally {
+      setIsActivating(false);
+    }
+  };
 
   const handlePromoChange = (appName: string, value: string) => {
     setPromoCodes((prev) => ({ ...prev, [appName]: value }));
@@ -162,13 +203,47 @@ export default function BuyMiniApp() {
                 {!app.isComingSoon && (
                   <div className="mb-6 rounded-[var(--radius-card)] border border-[var(--color-border)] bg-[var(--color-bg)]/60 p-4">
                     {successApp === app.name || unlockedApps.includes(app.name) ? (
-                      <>
-                        <p className="text-sm font-medium text-[var(--color-accent)]">
-                          {unlockedApps.includes(app.name) ? "Promo Applied!" : "Payment Confirmed!"}
-                        </p>
-                        <p className="mt-2 text-sm text-white">Your download is ready below.</p>
-                      </>
-                    ) : (
+                  <div className="mb-6 rounded-[var(--radius-card)] border border-[var(--color-border)] bg-[var(--color-bg)]/60 p-4">
+                    <p className="text-sm font-medium text-[var(--color-accent)]">
+                      {unlockedApps.includes(app.name) ? "Promo Applied!" : "Payment Confirmed!"}
+                    </p>
+                    <p className="mt-2 text-sm text-white">Your download is ready below.</p>
+
+                    <div className="mt-6 border-t border-[var(--color-border)] pt-4">
+                      <p className="text-xs font-semibold text-white uppercase tracking-wider">Activate your license</p>
+                      <p className="mt-1 text-[11px] text-[var(--color-text-muted)]">
+                        Enter the email you'll use to log in to the app. This links the app to your device.
+                      </p>
+
+                      {activationStatus === "success" ? (
+                        <div className="mt-3 rounded-lg bg-green-500/10 p-3 text-xs text-green-400">
+                          License registered! Use this email in the app to activate.
+                        </div>
+                      ) : (
+                        <div className="mt-3 flex flex-col gap-2">
+                          <input
+                            type="email"
+                            placeholder="Enter your activation email"
+                            value={activationEmail}
+                            onChange={(e) => setActivationEmail(e.target.value)}
+                            className="w-full rounded-lg border border-[var(--color-border)] bg-[var(--color-bg)]/50 px-3 py-2 text-xs text-white placeholder:text-[var(--color-text-faint)] focus:border-[var(--color-accent)] focus:outline-none"
+                          />
+                          <Button
+                            variant="primary"
+                            className="!py-2 !text-xs"
+                            onClick={() => handleRegisterLicense(app.name)}
+                            disabled={isActivating || !activationEmail}
+                          >
+                            {isActivating ? "Registering..." : "Register License"}
+                          </Button>
+                          {activationStatus === "error" && (
+                            <p className="text-[10px] text-red-400">Error registering license. Try again.</p>
+                          )}
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                ) : (
                       <>
                         <p className="text-sm font-medium text-white">Payment unlocks the download link</p>
                         <p className="mt-2 text-sm text-[var(--color-text-muted)]">
