@@ -46,7 +46,7 @@ const apps = [
     amount: 999,
     description: "Every detail. Every guest. One seamless celebration. Weddara takes the stress out of planning so you can focus on the \"I do.\" Manage your guest list, track your budget in real-time, and stay on top of your timeline all in one vibrant, intuitive experience.",
     highlight: "How it works:\n1. Set the Stage: Enter your names, date, and venue in seconds.\n2. Build Your Dream: Choose your wedding style and set your target budget in your local currency.\n3. Personalize Your Toolset: Enable only the modules you need from guest RSVPs to vendor management.\n4. Stay on Track: Use the smart dashboard for priority alerts, task countdowns, and real-time budget tracking.\n5. Celebrate Stress-Free: Manage your timeline and vendors on the go, ensuring your big day runs perfectly.",
-    downloadUrl: "https://drive.google.com/uc?export=download&id=1cVDRB6aorbTKJCEVH78FSVCd7-lz_7XR",
+    downloadUrl: "https://drive.google.com/file/d/1NZ0q3UyTLTuDQGrSJoe1v-aGqPbhMxCS/view?usp=sharing",
   },
   {
     name: "Coming Soon",
