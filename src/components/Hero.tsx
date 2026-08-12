@@ -13,7 +13,7 @@ export default function Hero() {
       <div className="pointer-events-none absolute left-1/2 top-[-10%] -z-10 h-[500px] w-[900px] -translate-x-1/2 rounded-full bg-[var(--color-accent)]/10 blur-[120px]" />
 
       <Container className="grid items-center gap-16 md:grid-cols-2 md:gap-8">
-        <Reveal trigger="mount" y={16}>
+        <div className="animate-reveal">
           <Badge icon={<Sparkles size={12} />}>Now live in 5 countries</Badge>
 
           <h1 className="mt-6 font-display text-4xl font-semibold leading-[1.08] tracking-tight text-white sm:text-5xl md:text-6xl">
@@ -39,7 +39,7 @@ export default function Hero() {
           <p className="mt-6 text-xs text-[var(--color-text-faint)]">
             Free for pet owners · No booking fees hidden
           </p>
-        </Reveal>
+        </div>
 
         <PhoneMockup />
       </Container>

@@ -11,34 +11,24 @@ type Stat = {
   label: string;
 };
 
-const defaultStats: Stat[] = [
-  { id: "users", value: 15000, suffix: "+", label: "Users" },
-  { id: "sitters", value: 450, suffix: "+", label: "Verified sitters" },
-  { id: "countries", value: 25, suffix: "", label: "Countries" },
-];
-
 export default function Stats() {
-  const [stats, setStats] = useState<Stat[]>(defaultStats);
+  const [stats, setStats] = useState<Stat[] | null>(null);
 
   useEffect(() => {
-    console.log("Stats: Connecting to Firestore...");
     const unsub = onSnapshot(doc(db, "stats", "public"), (snap) => {
       if (snap.exists()) {
         const data = snap.data();
-        console.log("Stats: Received data:", data);
         setStats([
-          { id: "users", value: data.users || defaultStats[0].value, suffix: "+", label: "Users" },
-          { id: "sitters", value: data.sitters || defaultStats[1].value, suffix: "+", label: "Verified sitters" },
-          { id: "countries", value: data.countries || defaultStats[2].value, suffix: "", label: "Countries" },
+          { id: "users", value: data.users || 0, suffix: "+", label: "Users" },
+          { id: "sitters", value: data.sitters || 0, suffix: "+", label: "Verified sitters" },
+          { id: "countries", value: data.countries || 0, suffix: "", label: "Countries" },
         ]);
-      } else {
-        console.warn("Stats: stats/public document does not exist in Firestore.");
       }
-    }, (error) => {
-      console.error("Stats: Firestore error:", error);
     });
     return unsub;
   }, []);
+
+  if (!stats) return null;
 
   return (
     <Container>

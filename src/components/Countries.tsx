@@ -14,17 +14,19 @@ const countries = [
 ];
 
 export default function Countries() {
-  const [count, setCount] = useState(5);
+  const [count, setCount] = useState<number | null>(null);
 
   useEffect(() => {
     const unsub = onSnapshot(doc(db, "stats", "public"), (snap) => {
       if (snap.exists()) {
         const data = snap.data();
-        if (data.countries) setCount(data.countries);
+        if (data.countries !== undefined) setCount(data.countries);
       }
     });
     return unsub;
   }, []);
+
+  if (count === null) return null;
 
   return (
     <Section id="countries">

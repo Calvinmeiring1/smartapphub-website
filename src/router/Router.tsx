@@ -2,8 +2,8 @@ import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import { useEffect, lazy, Suspense } from "react";
 import MainLayout from "../layouts/MainLayout";
 import { logPageView } from "../firebase";
+import Home from "../pages/Home";
 
-const Home = lazy(() => import("../pages/Home"));
 const Sitters = lazy(() => import("../pages/Sitters"));
 const Commission = lazy(() => import("../pages/Commission"));
 const GraphicDesign = lazy(() => import("../pages/GraphicDesign"));

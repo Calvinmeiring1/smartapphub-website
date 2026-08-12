@@ -1,18 +1,19 @@
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
+    // Rules for Licensing System
     match /purchased_apps/{docId} {
-      // Allow the website to check and create licenses
-      // and allow the Android app to verify and bind device ID
+      allow read, write: if true;
+    }
+
+    // Public stats for website display
+    match /stats/{docId} {
       allow read: if true;
+    }
 
-      // Allow creation from website
-      allow create: if request.resource.data.app in ['Weddara', 'VowVault']
-                    && request.resource.data.status == 'paid';
-
-      // Allow the app to update ONLY if deviceId is not yet set
-      allow update: if request.resource.data.diff(resource.data).affectedKeys().hasOnly(['deviceId'])
-                    && resource.data.deviceId == null;
+    // Legacy rules (if any)
+    match /{document=**} {
+      allow read, write: if request.auth != null;
     }
   }
 }

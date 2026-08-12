@@ -10,8 +10,13 @@ export default function CompanyHero() {
       <div className="pointer-events-none absolute left-1/2 top-[-10%] -z-10 h-[500px] w-[900px] -translate-x-1/2 rounded-full bg-[var(--color-accent)]/10 blur-[120px]" />
 
       <Container className="text-center">
-        <Reveal trigger="mount" y={16} className="mx-auto max-w-2xl">
-          <img src="/logo-icon.png" alt="SmartAppHub" className="mx-auto h-20 w-20" />
+        <div className="mx-auto max-w-2xl animate-reveal">
+          <img
+            src="/logo-icon.png"
+            alt="SmartAppHub"
+            className="mx-auto h-20 w-20"
+            fetchpriority="high"
+          />
 
           <h1 className="mt-6 font-display text-4xl font-semibold leading-[1.1] tracking-tight text-white sm:text-5xl">
             Building apps that solve{" "}
@@ -32,7 +37,7 @@ export default function CompanyHero() {
               Get in touch
             </Button>
           </div>
-        </Reveal>
+        </div>
       </Container>
     </div>
   );
