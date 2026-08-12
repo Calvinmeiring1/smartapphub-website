@@ -34,16 +34,16 @@ const buyMiniAppSchema = {
 const apps = [
   {
     name: "Wedding Gallery Mini App (VowVault)",
-    price: "R 399",
-    amount: 399,
+    price: "R 199",
+    amount: 199,
     description: "Every photo. Every guest. One wedding album. Let your guests capture the moments you didn't see. Create your wedding QR code, display it at your reception, and let your guests instantly upload their photos and videos into one shared wedding gallery. No app required for guests.",
     highlight: "How it works:\n1. Create your wedding: Enter names and date.\n2. Print your QR code: Put it on your tables.\n3. Guests scan: They use their phone camera.\n4. Guests upload: Photos go to your gallery.\n5. Relive everything: Download all memories.",
     downloadUrl: "/vowvault.apk",
   },
   {
     name: "Weddara: Your All-in-One Wedding Planner",
-    price: "R 999",
-    amount: 999,
+    price: "R 499",
+    amount: 499,
     description: "Every detail. Every guest. One seamless celebration. Weddara takes the stress out of planning so you can focus on the \"I do.\" Manage your guest list, track your budget in real-time, and stay on top of your timeline all in one vibrant, intuitive experience.",
     highlight: "How it works:\n1. Set the Stage: Enter your names, date, and venue in seconds.\n2. Build Your Dream: Choose your wedding style and set your target budget in your local currency.\n3. Personalize Your Toolset: Enable only the modules you need from guest RSVPs to vendor management.\n4. Stay on Track: Use the smart dashboard for priority alerts, task countdowns, and real-time budget tracking.\n5. Celebrate Stress-Free: Manage your timeline and vendors on the go, ensuring your big day runs perfectly.",
     downloadUrl: "https://drive.google.com/file/d/1NZ0q3UyTLTuDQGrSJoe1v-aGqPbhMxCS/view?usp=sharing",
