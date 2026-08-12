@@ -3,7 +3,6 @@ import Container from "./Container";
 import Button from "./Button";
 import Badge from "./Badge";
 import PhoneMockup from "./PhoneMockup";
-import Reveal from "./Reveal";
 
 export default function Hero() {
   return (

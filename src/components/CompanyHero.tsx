@@ -1,7 +1,6 @@
 import { Mail } from "lucide-react";
 import Container from "./Container";
 import Button from "./Button";
-import Reveal from "./Reveal";
 
 export default function CompanyHero() {
   return (
@@ -15,7 +14,7 @@ export default function CompanyHero() {
             src="/logo-icon.png"
             alt="SmartAppHub"
             className="mx-auto h-20 w-20"
-            fetchpriority="high"
+            fetchPriority="high"
           />
 
           <h1 className="mt-6 font-display text-4xl font-semibold leading-[1.1] tracking-tight text-white sm:text-5xl">
