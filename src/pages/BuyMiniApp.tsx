@@ -38,7 +38,7 @@ const apps = [
     amount: 199,
     description: "Every photo. Every guest. One wedding album. Let your guests capture the moments you didn't see. Create your wedding QR code, display it at your reception, and let your guests instantly upload their photos and videos into one shared wedding gallery. No app required for guests.",
     highlight: "How it works:\n1. Create your wedding: Enter names and date.\n2. Print your QR code: Put it on your tables.\n3. Guests scan: They use their phone camera.\n4. Guests upload: Photos go to your gallery.\n5. Relive everything: Download all memories.",
-    downloadUrl: "/vowvault.apk",
+    downloadUrl: "https://drive.google.com/file/d/1cPQKzF-q2x0aMUx8QNV5mq6Xw7n8-6Nx/view?usp=sharing",
   },
   {
     name: "Weddara: Your All-in-One Wedding Planner",
