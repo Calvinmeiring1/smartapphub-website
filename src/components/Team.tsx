@@ -38,7 +38,7 @@ export default function Team() {
 
         <div className="mt-12 grid gap-6 sm:grid-cols-2 sm:max-w-2xl sm:mx-auto">
           {team.map((member, i) => (
-            <Reveal key={member.role} margin="-60px" delay={i * 0.1}>
+            <Reveal key={member.role} margin="0px" delay={i * 0.1}>
               <Card hover className="h-full">
                 <div className="flex items-center justify-between">
                   <img

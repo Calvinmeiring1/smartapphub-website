@@ -42,7 +42,7 @@ export default function Countries() {
           {countries.map((country, i) => (
             <Reveal
               key={country.name}
-              margin="-40px"
+              margin="0px"
               scale={0.95}
               y={0}
               delay={i * 0.08}

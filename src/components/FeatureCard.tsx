@@ -14,7 +14,7 @@ export default function FeatureCard({
   index: number;
 }) {
   return (
-    <Reveal margin="-60px" delay={index * 0.1}>
+    <Reveal margin="0px" delay={index * 0.1}>
       <Card hover className="h-full">
         <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-[var(--color-accent-soft)] text-[var(--color-accent)]">
           {icon}
