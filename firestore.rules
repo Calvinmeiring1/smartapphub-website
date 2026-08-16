@@ -3,15 +3,22 @@ service cloud.firestore {
   match /databases/{database}/documents {
     // Rules for Licensing System
     match /purchased_apps/{docId} {
-      allow read, write: if true;
+      // Allow checking for a specific purchase by email, but prevent listing all documents
+      allow read: if request.query.limit <= 10 &&
+                  request.query.filters.size() >= 1;
+
+      // Allow the website to create a purchase record, but not update or delete existing ones
+      allow create: if true;
+      allow update, delete: if false;
     }
 
     // Public stats for website display
     match /stats/{docId} {
       allow read: if true;
+      allow write: if false;
     }
 
-    // Legacy rules (if any)
+    // Default: Deny everything else unless authenticated
     match /{document=**} {
       allow read, write: if request.auth != null;
     }

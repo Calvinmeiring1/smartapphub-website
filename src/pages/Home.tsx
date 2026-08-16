@@ -5,24 +5,7 @@ import About from "../components/About";
 import Team from "../components/Team";
 import WhyUs from "../components/WhyUs";
 import SittersPromo from "../components/SittersPromo";
-import StructuredData from "../components/StructuredData";
 import SEO from "../components/SEO";
-
-const homeSchema = {
-  "@context": "https://schema.org",
-  "@type": "Organization",
-  "name": "SmartAppHub",
-  "url": "https://smartapphub.co.za/",
-  "logo": "https://smartapphub.co.za/logo-icon.png",
-  "description": "SmartAppHub builds apps and marketplaces like Sitters to help businesses and communities launch faster.",
-  "address": {
-    "@type": "PostalAddress",
-    "addressCountry": "South Africa"
-  },
-  "sameAs": [
-    "https://smartapphub.co.za/sitters"
-  ]
-};
 
 function SittersFlagshipSection() {
   return (
@@ -41,10 +24,9 @@ export default function Home() {
   return (
     <>
       <SEO
-        title="SmartAppHub | Building apps that solve real world problems"
-        description="SmartAppHub builds focused apps and marketplaces like Sitters to help businesses and communities launch faster. Based in South Africa."
+        title="SmartAppHub — App Development Studio | Sitters, Custom Apps & Design"
+        description="SmartAppHub is a boutique app development studio. We build Sitters, alongside custom app development and graphic design commissions."
       />
-      <StructuredData data={homeSchema} />
       <CompanyHero />
       <About />
       <Team />

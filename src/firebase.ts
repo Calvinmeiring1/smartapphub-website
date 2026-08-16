@@ -1,6 +1,7 @@
 import { initializeApp } from "firebase/app";
 import { getAnalytics, isSupported, logEvent } from "firebase/analytics";
 import { getFirestore } from "firebase/firestore";
+import { getFunctions, httpsCallable } from "firebase/functions";
 
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
@@ -14,6 +15,12 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 export const db = getFirestore(app);
+export const functions = getFunctions(app);
+
+export function callFunction(name: string, data?: any) {
+  const callable = httpsCallable(functions, name);
+  return callable(data);
+}
 
 let analyticsInstance: ReturnType<typeof getAnalytics> | null | undefined;
 

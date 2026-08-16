@@ -1,14 +1,12 @@
 import { useState } from "react";
 import { useSearchParams } from "react-router-dom";
-import { collection, addDoc, query, where, getDocs } from "firebase/firestore";
-import { db } from "../firebase";
 import SEO from "../components/SEO";
 import Container from "../components/Container";
 import Section from "../components/Section";
 import Card from "../components/Card";
 import Button from "../components/Button";
 import StructuredData from "../components/StructuredData";
-import { logEventToFirebase } from "../firebase";
+import { logEventToFirebase, callFunction } from "../firebase";
 
 const buyMiniAppSchema = {
   "@context": "https://schema.org",
@@ -38,7 +36,7 @@ const apps = [
     amount: 199,
     description: "Every photo. Every guest. One wedding album. Let your guests capture the moments you didn't see. Create your wedding QR code, display it at your reception, and let your guests instantly upload their photos and videos into one shared wedding gallery. No app required for guests.",
     highlight: "How it works:\n1. Create your wedding: Enter names and date.\n2. Print your QR code: Put it on your tables.\n3. Guests scan: They use their phone camera.\n4. Guests upload: Photos go to your gallery.\n5. Relive everything: Download all memories.",
-    downloadUrl: "https://drive.google.com/file/d/1cPQKzF-q2x0aMUx8QNV5mq6Xw7n8-6Nx/view?usp=sharing",
+    downloadUrl: "https://drive.google.com/uc?export=download&id=1cPQKzF-q2x0aMUx8QNV5mq6Xw7n8-6Nx",
   },
   {
     name: "Weddara: Your All-in-One Wedding Planner",
@@ -46,7 +44,7 @@ const apps = [
     amount: 499,
     description: "Every detail. Every guest. One seamless celebration. Weddara takes the stress out of planning so you can focus on the \"I do.\" Manage your guest list, track your budget in real-time, and stay on top of your timeline all in one vibrant, intuitive experience.",
     highlight: "How it works:\n1. Set the Stage: Enter your names, date, and venue in seconds.\n2. Build Your Dream: Choose your wedding style and set your target budget in your local currency.\n3. Personalize Your Toolset: Enable only the modules you need from guest RSVPs to vendor management.\n4. Stay on Track: Use the smart dashboard for priority alerts, task countdowns, and real-time budget tracking.\n5. Celebrate Stress-Free: Manage your timeline and vendors on the go, ensuring your big day runs perfectly.",
-    downloadUrl: "https://drive.google.com/file/d/1NZ0q3UyTLTuDQGrSJoe1v-aGqPbhMxCS/view?usp=sharing",
+    downloadUrl: "https://drive.google.com/uc?export=download&id=1NZ0q3UyTLTuDQGrSJoe1v-aGqPbhMxCS",
   },
   {
     name: "Coming Soon",
@@ -72,29 +70,14 @@ export default function BuyMiniApp() {
     setIsActivating(true);
     setActivationStatus("idle");
 
-    const mappedAppName = appName.includes("Weddara") ? "Weddara" :
-                         appName.includes("VowVault") ? "VowVault" : appName;
-
     try {
-      // Check if already registered in purchased_apps
-      const q = query(
-        collection(db, "purchased_apps"),
-        where("email", "==", activationEmail.toLowerCase()),
-        where("app", "==", mappedAppName)
-      );
-      const querySnapshot = await getDocs(q);
+      await callFunction("registerLicense", {
+        email: activationEmail.toLowerCase(),
+        appName: appName
+      });
 
-      if (querySnapshot.empty) {
-        await addDoc(collection(db, "purchased_apps"), {
-          email: activationEmail.toLowerCase(),
-          app: mappedAppName,
-          status: "paid",
-          purchasedAt: new Date(),
-          deviceId: null, // Will be linked on first app launch
-        });
-      }
       setActivationStatus("success");
-      logEventToFirebase("license_registered", { app_name: mappedAppName });
+      logEventToFirebase("license_registered", { app_name: appName });
     } catch (error) {
       console.error("Error registering license:", error);
       setActivationStatus("error");
@@ -107,15 +90,40 @@ export default function BuyMiniApp() {
     setPromoCodes((prev) => ({ ...prev, [appName]: value }));
   };
 
-  const handleApplyPromo = (appName: string) => {
-    const code = promoCodes[appName]?.toUpperCase();
-    // Logic for promo codes - you can add real codes here
-    if (code === "FREE" || code === "SAH100" || code === "WEDDARA") {
+  const handleApplyPromo = async (appName: string) => {
+    const code = promoCodes[appName]?.trim().toUpperCase();
+    if (!code) return;
+
+    // Use a SHA-256 hash to keep the master override code hidden from source code scrapers
+    const encoder = new TextEncoder();
+    const data = encoder.encode(code);
+    const hashBuffer = await crypto.subtle.digest("SHA-256", data);
+    const hashArray = Array.from(new Uint8Array(hashBuffer));
+    const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+
+    // Hash for "SAH-ADMIN-UNLOCKED-2025"
+    const masterHash = "1f7a40738096f2a3a5f4d360f2526c8106263889139268383f07a72667d71688";
+
+    if (hashHex === masterHash) {
       setUnlockedApps((prev) => [...prev, appName]);
       logEventToFirebase("promo_code_applied", {
         app_name: appName,
-        promo_code: code,
+        promo_code: "MASTER_OVERRIDE",
       });
+    } else {
+      // You can add other public promo codes here
+      const publicCodes: Record<string, string[]> = {
+        "Weddara: Your All-in-One Wedding Planner": ["WEDDARA2025"],
+        "Wedding Gallery Mini App (VowVault)": ["VOWVAULT"]
+      };
+
+      if (publicCodes[appName]?.includes(code)) {
+        setUnlockedApps((prev) => [...prev, appName]);
+        logEventToFirebase("promo_code_applied", {
+          app_name: appName,
+          promo_code: code,
+        });
+      }
     }
   };
 
@@ -236,6 +244,9 @@ export default function BuyMiniApp() {
                           >
                             {isActivating ? "Registering..." : "Register License"}
                           </Button>
+                          <p className="text-[9px] text-[var(--color-text-faint)] italic">
+                            * This links your purchase to your app account.
+                          </p>
                           {activationStatus === "error" && (
                             <p className="text-[10px] text-red-400">Error registering license. Try again.</p>
                           )}

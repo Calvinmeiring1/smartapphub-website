@@ -14,6 +14,7 @@ export default function SEO({
   ogType = "website"
 }: SEOProps) {
   useEffect(() => {
+    if (typeof window === "undefined") return;
     // Update title
     document.title = title;
 
