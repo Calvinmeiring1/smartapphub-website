@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
 import SEO from "../components/SEO";
 import Container from "../components/Container";
@@ -60,8 +60,21 @@ export default function BuyMiniApp() {
   const [searchParams] = useSearchParams();
   const successApp = searchParams.get("success");
   const [promoCodes, setPromoCodes] = useState<Record<string, string>>({});
-  const [unlockedApps, setUnlockedApps] = useState<string[]>([]);
-  const [activationEmail, setActivationEmail] = useState("");
+  const [unlockedApps, setUnlockedApps] = useState<string[]>(() => {
+    const saved = localStorage.getItem("sah_unlocked_apps");
+    return saved ? JSON.parse(saved) : [];
+  });
+
+  useEffect(() => {
+    if (successApp && !unlockedApps.includes(successApp)) {
+      const nextUnlocked = [...new Set([...unlockedApps, successApp])];
+      setUnlockedApps(nextUnlocked);
+      localStorage.setItem("sah_unlocked_apps", JSON.stringify(nextUnlocked));
+    }
+  }, [successApp, unlockedApps]);
+  const [activationEmail, setActivationEmail] = useState(() => {
+    return localStorage.getItem("sah_activation_email") || "";
+  });
   const [isActivating, setIsActivating] = useState(false);
   const [activationStatus, setActivationStatus] = useState<"idle" | "success" | "error">("idle");
 
@@ -76,6 +89,7 @@ export default function BuyMiniApp() {
         appName: appName
       });
 
+      localStorage.setItem("sah_activation_email", activationEmail);
       setActivationStatus("success");
       logEventToFirebase("license_registered", { app_name: appName });
     } catch (error) {
@@ -104,8 +118,9 @@ export default function BuyMiniApp() {
     // Hash for "SAH-ADMIN-UNLOCKED-2025"
     const masterHash = "1f7a40738096f2a3a5f4d360f2526c8106263889139268383f07a72667d71688";
 
+    let isMatch = false;
     if (hashHex === masterHash) {
-      setUnlockedApps((prev) => [...prev, appName]);
+      isMatch = true;
       logEventToFirebase("promo_code_applied", {
         app_name: appName,
         promo_code: "MASTER_OVERRIDE",
@@ -118,12 +133,18 @@ export default function BuyMiniApp() {
       };
 
       if (publicCodes[appName]?.includes(code)) {
-        setUnlockedApps((prev) => [...prev, appName]);
+        isMatch = true;
         logEventToFirebase("promo_code_applied", {
           app_name: appName,
           promo_code: code,
         });
       }
+    }
+
+    if (isMatch) {
+      const nextUnlocked = [...new Set([...unlockedApps, appName])];
+      setUnlockedApps(nextUnlocked);
+      localStorage.setItem("sah_unlocked_apps", JSON.stringify(nextUnlocked));
     }
   };
 
@@ -147,6 +168,10 @@ export default function BuyMiniApp() {
     };
 
     const queryString = new URLSearchParams(fields).toString();
+
+    // Save success intent for after redirect
+    localStorage.setItem("sah_unlocked_apps", JSON.stringify([...new Set([...unlockedApps, app.name])]));
+
     window.location.href = `https://www.payfast.co.za/eng/process?${queryString}`;
   };
 
@@ -216,6 +241,13 @@ export default function BuyMiniApp() {
                       {unlockedApps.includes(app.name) ? "Promo Applied!" : "Payment Confirmed!"}
                     </p>
                     <p className="mt-2 text-sm text-white">Your download is ready below.</p>
+
+                    <div className="mt-6 border-t border-[var(--color-border)] pt-4">
+                      <p className="text-xs font-semibold text-white uppercase tracking-wider">Update Instructions</p>
+                      <div className="mt-2 rounded-lg bg-blue-500/10 p-3 text-[11px] leading-relaxed text-blue-400">
+                        <span className="font-bold">⚠️ IMPORTANT:</span> Do NOT uninstall your current app. Simply download and install this APK to update while keeping all your data safe.
+                      </div>
+                    </div>
 
                     <div className="mt-6 border-t border-[var(--color-border)] pt-4">
                       <p className="text-xs font-semibold text-white uppercase tracking-wider">Activate your license</p>
