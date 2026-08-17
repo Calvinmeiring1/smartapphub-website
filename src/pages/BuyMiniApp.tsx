@@ -116,7 +116,7 @@ export default function BuyMiniApp() {
     const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
 
     // Hash for "SAH-ADMIN-UNLOCKED-2025"
-    const masterHash = "1f7a40738096f2a3a5f4d360f2526c8106263889139268383f07a72667d71688";
+    const masterHash = "796bc75a21a8166a55f23b5fd44b46c28d8e6f72739202a11a6d30ea998b2d57";
 
     let isMatch = false;
     if (hashHex === masterHash) {
