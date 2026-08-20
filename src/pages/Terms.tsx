@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import SEO from "../components/SEO";
 import Container from "../components/Container";
 import Section from "../components/Section";
 import StructuredData from "../components/StructuredData";
@@ -80,12 +80,13 @@ const sections = [
 ];
 
 export default function Terms() {
-  useEffect(() => {
-    document.title = "Terms of Service | SmartAppHub";
-  }, []);
-
   return (
     <>
+      <SEO
+        title="Terms of Service | SmartAppHub"
+        description="SmartAppHub Terms of Service for using the Sitters app and SmartAppHub marketplace."
+        canonical="https://smartapphub.co.za/terms"
+      />
       <StructuredData data={termsSchema} />
       <Section className="pt-36">
         <Container className="max-w-3xl">

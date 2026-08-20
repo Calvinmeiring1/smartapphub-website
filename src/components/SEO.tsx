@@ -35,8 +35,15 @@ export default function SEO({
     if (ogTypeTag) ogTypeTag.setAttribute("content", ogType);
 
     // Update Canonical
-    const canonicalTag = document.querySelector('link[rel="canonical"]');
-    if (canonicalTag) canonicalTag.setAttribute("href", canonical);
+    let canonicalTag = document.querySelector('link[rel="canonical"]');
+    if (canonicalTag) {
+      canonicalTag.setAttribute("href", canonical);
+    } else {
+      canonicalTag = document.createElement("link");
+      canonicalTag.setAttribute("rel", "canonical");
+      canonicalTag.setAttribute("href", canonical);
+      document.head.appendChild(canonicalTag);
+    }
 
   }, [title, description, canonical, ogType]);
 

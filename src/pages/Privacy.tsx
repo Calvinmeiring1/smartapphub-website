@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import SEO from "../components/SEO";
 import Container from "../components/Container";
 import Section from "../components/Section";
 import StructuredData from "../components/StructuredData";
@@ -68,12 +68,13 @@ const sections = [
 ];
 
 export default function Privacy() {
-  useEffect(() => {
-    document.title = "Privacy Policy | SmartAppHub";
-  }, []);
-
   return (
     <>
+      <SEO
+        title="Privacy Policy | SmartAppHub"
+        description="SmartAppHub Privacy Policy describing how we collect, use, and protect your information when using Sitters and our other services."
+        canonical="https://smartapphub.co.za/privacy"
+      />
       <StructuredData data={privacySchema} />
       <Section className="pt-36">
         <Container className="max-w-3xl">
