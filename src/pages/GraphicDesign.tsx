@@ -195,7 +195,7 @@ export default function GraphicDesign() {
 
             <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
               {weddingServices.map((item, i) => (
-                <Reveal key={item.name} delay={item.name} delay={i * 0.05}>
+                <Reveal key={item.name} delay={i * 0.05}>
                   <div className="flex items-center justify-between rounded-2xl border border-[var(--color-border)] bg-[var(--color-bg)]/30 p-5 transition-colors hover:bg-[var(--color-bg)]/50">
                     <div>
                       <h4 className="font-medium text-white">{item.name}</h4>
