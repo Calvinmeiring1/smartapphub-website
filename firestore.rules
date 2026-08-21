@@ -12,6 +12,12 @@ service cloud.firestore {
       allow update, delete: if false;
     }
 
+    // Allow inquiries to be submitted from the contact form
+    match /design_inquiries/{docId} {
+      allow create: if true;
+      allow read, update, delete: if false;
+    }
+
     // Public stats for website display
     match /stats/{docId} {
       allow read: if true;
