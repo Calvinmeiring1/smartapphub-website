@@ -27,11 +27,6 @@ const graphicDesignSchema = {
 
 const services = [
   {
-    icon: Palette,
-    title: "Brand Identity",
-    description: "Complete branding packages including logo design, color palettes, and typography that make your business stand out."
-  },
-  {
     icon: FileText,
     title: "Custom Stationery",
     description: "Bespoke wedding invitations, letterheads, and business cards designed to leave a lasting impression."
@@ -63,7 +58,7 @@ const weddingPackages = [
     features: ["2 Mini Apps", "Save the Date cards", "Wedding Invitations", "RSVP Notice cards", "QR Code card", "Seating Chart", "Direct consultation"]
   },
   {
-    name: "Mix & Match",
+    name: "Mix & Match Package",
     price: "R1250",
     description: "Flexibility for modern couples who want a digital edge.",
     features: ["1 Custom App", "Choice of 5 Digital Services", "Direct consultation"]
@@ -117,9 +112,9 @@ export default function GraphicDesign() {
       });
       setIsSuccess(true);
       setFormData({ name: "", email: "", interest: "Full Wedding Package", details: "" });
-    } catch (error) {
+    } catch (error: any) {
       console.error("Error submitting inquiry:", error);
-      alert("Something went wrong. Please try again or use WhatsApp.");
+      alert(`Error: ${error.message || "Something went wrong"}. Please try again or use WhatsApp.`);
     } finally {
       setIsSubmitting(false);
     }
