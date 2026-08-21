@@ -4,7 +4,7 @@ import Container from "../components/Container";
 import Section from "../components/Section";
 import Reveal from "../components/Reveal";
 import Card from "../components/Card";
-import { Palette, PenTool, Image as ImageIcon, FileText, ArrowRight, Loader2, CheckCircle2 } from "lucide-react";
+import { PenTool, Image as ImageIcon, FileText, ArrowRight, Loader2, CheckCircle2 } from "lucide-react";
 import { useState } from "react";
 import { db } from "../firebase";
 import { collection, addDoc, serverTimestamp } from "firebase/firestore";
