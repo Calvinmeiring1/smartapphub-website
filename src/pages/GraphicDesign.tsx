@@ -18,7 +18,7 @@ const graphicDesignSchema = {
     "@type": "Organization",
     "name": "SmartAppHub"
   },
-  "description": "Professional graphic design services including branding, custom stationery, and digital assets.",
+  "description": "Professional graphic design services including custom stationery and digital assets.",
   "areaServed": {
     "@type": "Country",
     "name": "South Africa"
@@ -124,8 +124,8 @@ export default function GraphicDesign() {
   return (
     <>
       <SEO
-        title="Graphic Design Services | Branding & Custom Design | SmartAppHub"
-        description="SmartAppHub provides professional graphic design services, specializing in branding, posters, and custom wedding stationery. Based in South Africa."
+        title="Graphic Design Services | Custom Wedding & Digital Design | SmartAppHub"
+        description="SmartAppHub provides professional graphic design services, specializing in posters and custom wedding stationery. Based in South Africa."
         canonical="https://smartapphub.co.za/graphic-design"
       />
       <StructuredData data={graphicDesignSchema} />
@@ -271,7 +271,6 @@ export default function GraphicDesign() {
                       >
                         {weddingPackages.map(p => <option key={p.name} value={p.name} className="bg-[var(--color-bg)]">{p.name}</option>)}
                         <option value="Custom Stationery" className="bg-[var(--color-bg)]">Custom Stationery</option>
-                        <option value="Brand Identity" className="bg-[var(--color-bg)]">Brand Identity</option>
                         <option value="Digital Assets" className="bg-[var(--color-bg)]">Digital Assets</option>
                         <option value="Other" className="bg-[var(--color-bg)]">Other</option>
                       </select>
