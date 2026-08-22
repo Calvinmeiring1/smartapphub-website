@@ -7,6 +7,8 @@ import Countries from "../components/Countries";
 import FAQ from "../components/FAQ";
 import DownloadCTA from "../components/DownloadCTA";
 import StructuredData from "../components/StructuredData";
+import Testimonials from "../components/Testimonials";
+import SafetyTrust from "../components/SafetyTrust";
 
 const sittersSchema = {
   "@context": "https://schema.org",
@@ -34,8 +36,10 @@ export default function Sitters() {
       <Hero />
       <Stats />
       <Features />
+      <SafetyTrust />
       <HowItWorks />
       <Countries />
+      <Testimonials />
       <FAQ />
       <DownloadCTA />
     </>

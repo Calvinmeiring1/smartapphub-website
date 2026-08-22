@@ -1,9 +1,25 @@
+import { useEffect, useState } from "react";
+import { doc, onSnapshot } from "firebase/firestore";
+import { db } from "../firebase";
 import Container from "./Container";
 import Section from "./Section";
 import Button from "./Button";
 import Reveal from "./Reveal";
+import AnimatedCounter from "./AnimatedCounter";
 
 export default function DownloadCTA() {
+  const [userCount, setUserCount] = useState<number | null>(null);
+
+  useEffect(() => {
+    const unsub = onSnapshot(doc(db, "stats", "public"), (snap) => {
+      if (snap.exists()) {
+        const data = snap.data();
+        setUserCount(data.users || 0);
+      }
+    });
+    return unsub;
+  }, []);
+
   return (
     <Section id="download">
       <Container>
@@ -17,7 +33,13 @@ export default function DownloadCTA() {
             Your pet deserves a sitter you can trust.
           </h2>
           <p className="mx-auto mt-4 max-w-md text-[var(--color-text-muted)]">
-            Join 427+ owners and sitters already using Sitters across South Africa, the US, UK, Canada and Australia.
+            Join{" "}
+            {userCount !== null ? (
+              <AnimatedCounter value={userCount} suffix="+" />
+            ) : (
+              "our"
+            )}{" "}
+            owners and sitters already using Sitters across South Africa, the US, UK, Canada and Australia.
           </p>
 
           <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">

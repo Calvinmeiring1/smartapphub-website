@@ -4,6 +4,7 @@ import Container from "../components/Container";
 import Section from "../components/Section";
 import Reveal from "../components/Reveal";
 import Card from "../components/Card";
+import PortfolioGallery from "../components/PortfolioGallery";
 import { PenTool, Image as ImageIcon, FileText, ArrowRight, Loader2, CheckCircle2 } from "lucide-react";
 import { useState } from "react";
 import { db } from "../firebase";
@@ -137,7 +138,7 @@ export default function GraphicDesign() {
             </p>
           </div>
 
-          <div className="mt-16 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          <div id="services" className="mt-16 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
             {services.map((service, i) => (
               <Reveal key={service.title} delay={i * 0.1}>
                 <Card hover className="h-full">
@@ -151,7 +152,9 @@ export default function GraphicDesign() {
             ))}
           </div>
 
-          <div className="mt-24">
+          <PortfolioGallery />
+
+          <div id="packages" className="mt-24">
             <Reveal>
               <h2 className="font-display text-2xl font-semibold text-white">Wedding Packages</h2>
               <p className="mt-4 text-[var(--color-text-muted)]">Bundled digital solutions to make your wedding planning seamless and affordable.</p>
@@ -182,7 +185,7 @@ export default function GraphicDesign() {
             </div>
           </div>
 
-          <div className="mt-24">
+          <div id="packages" className="mt-24">
             <Reveal>
               <h2 className="font-display text-2xl font-semibold text-white">Individual Digital Wedding Services</h2>
               <p className="mt-4 text-[var(--color-text-muted)]">A-la-carte options for specific digital wedding needs.</p>

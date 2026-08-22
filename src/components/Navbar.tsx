@@ -6,14 +6,20 @@ import Button from "./Button";
 
 const sittersLinks = [
   { label: "Features", href: "#features" },
+  { label: "Safety", href: "#safety" },
   { label: "How it works", href: "#how-it-works" },
-  { label: "Countries", href: "#countries" },
   { label: "FAQ", href: "#faq" },
 ];
 
 const commissionLinks = [
   { label: "Services", href: "#services" },
   { label: "How it works", href: "#contact" },
+];
+
+const graphicDesignLinks = [
+  { label: "Services", href: "#services" },
+  { label: "Portfolio", href: "#portfolio" },
+  { label: "Packages", href: "#packages" },
 ];
 
 const companyLinks = [
@@ -30,8 +36,18 @@ export default function Navbar() {
   const isHome = location.pathname === "/";
   const isSitters = location.pathname === "/sitters";
   const isCommission = location.pathname === "/commission";
+  const isGraphicDesign = location.pathname === "/graphic-design";
   const links = !isHome
-    ? [{ label: "Home", href: "/" }, ...(isSitters ? sittersLinks : isCommission ? commissionLinks : companyLinks)]
+    ? [
+        { label: "Home", href: "/" },
+        ...(isSitters
+          ? sittersLinks
+          : isCommission
+            ? commissionLinks
+            : isGraphicDesign
+              ? graphicDesignLinks
+              : companyLinks),
+      ]
     : companyLinks;
   const primaryCta = isSitters
     ? { label: "Download App", href: "#download" }

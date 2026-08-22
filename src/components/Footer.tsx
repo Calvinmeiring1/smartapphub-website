@@ -92,7 +92,7 @@ export default function Footer() {
       </Container>
 
       <Container className="mt-12 flex flex-col gap-4 border-t border-[var(--color-border)] pt-6 text-xs text-[var(--color-text-faint)] sm:flex-row sm:items-center sm:justify-between">
-        <span>© 2025 SMARTAPPHUB (PTY) LTD. All rights reserved.</span>
+        <span>© {new Date().getFullYear()} SMARTAPPHUB (PTY) LTD. All rights reserved.</span>
         <span>South Africa</span>
       </Container>
     </footer>

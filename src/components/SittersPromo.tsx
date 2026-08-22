@@ -304,7 +304,7 @@ export default function SittersPromo() {
           <span className="sp-brandname">Sitters</span>
           <div className="sp-rating">
             <Star size={13} fill="currentColor" stroke="none" />
-            5.0 · 500+ installs
+            5.0 · 11 reviews
           </div>
         </div>
 

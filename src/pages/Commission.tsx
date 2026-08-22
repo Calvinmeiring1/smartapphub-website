@@ -2,6 +2,7 @@ import SEO from "../components/SEO";
 import StructuredData from "../components/StructuredData";
 import CommissionHero from "../components/CommissionHero";
 import Services from "../components/Services";
+import CaseStudies from "../components/CaseStudies";
 import Process from "../components/Process";
 import CommissionCTA from "../components/CommissionCTA";
 import Section from "../components/Section";
@@ -75,6 +76,7 @@ export default function Commission() {
       <CommissionHero />
       <Services />
       <TechStackSection />
+      <CaseStudies />
       <Process />
       <CommissionCTA />
     </>
