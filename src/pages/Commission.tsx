@@ -257,8 +257,8 @@ export default function Commission() {
       </div>
 
       {/* Code Snippet Easter Egg */}
-      <div className="pointer-events-none fixed inset-0 -z-20 flex items-center justify-center overflow-hidden animate-code select-none">
-        <pre className="text-[12vw] font-bold text-[var(--color-text-muted)] leading-none tracking-tighter opacity-50">
+      <div className="pointer-events-none fixed inset-0 -z-20 flex items-center justify-center overflow-hidden animate-code select-none opacity-20">
+        <pre className="text-[12vw] font-bold text-[var(--color-text-muted)] leading-none tracking-tighter opacity-20">
           {`fun build() {\n  val idea = get()\n  launch(idea)\n}`}
         </pre>
       </div>
