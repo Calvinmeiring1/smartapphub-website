@@ -7,7 +7,7 @@ import Process from "../components/Process";
 import Section from "../components/Section";
 import Container from "../components/Container";
 import Reveal from "../components/Reveal";
-import { ArrowRight, Loader2, CheckCircle2, Mail } from "lucide-react";
+import { ArrowRight, Loader2, CheckCircle2, Mail, Code, Terminal, Cpu, Database, Smartphone, Laptop } from "lucide-react";
 import { useState } from "react";
 import { db } from "../firebase";
 import { collection, addDoc, serverTimestamp } from "firebase/firestore";
@@ -36,34 +36,35 @@ const technologies = [
 ];
 
 function TechStackSection() {
+  const allTools = technologies.flatMap(t => t.tools);
+  // Duplicate for seamless loop
+  const displayTools = [...allTools, ...allTools, ...allTools];
+
   return (
-    <Section className="border-t border-[var(--color-border)]">
+    <Section className="border-t border-[var(--color-border)] overflow-hidden">
       <Container>
-        <div className="grid gap-10 lg:grid-cols-2 lg:items-center">
-          <div>
-            <h2 className="font-display text-3xl font-semibold text-white sm:text-4xl">
-              Our Tech Stack
-            </h2>
-            <p className="mt-4 text-lg text-[var(--color-text-muted)]">
-              We leverage modern, industry-standard technologies to build scalable and maintainable applications. From native performance to cross-platform efficiency, we choose the right tool for your specific goal.
-            </p>
-          </div>
-          <div className="grid gap-6 sm:grid-cols-2">
-            {technologies.map((tech) => (
-              <div key={tech.category} className="rounded-2xl border border-[var(--color-border)] bg-[var(--color-bg)]/50 p-6">
-                <h3 className="font-display text-sm font-bold uppercase tracking-wider text-[var(--color-accent)]">
-                  {tech.category}
-                </h3>
-                <ul className="mt-4 space-y-2">
-                  {tech.tools.map((tool) => (
-                    <li key={tool} className="text-sm text-white">{tool}</li>
-                  ))}
-                </ul>
-              </div>
-            ))}
-          </div>
+        <div className="text-center">
+          <h2 className="font-display text-3xl font-semibold text-white sm:text-4xl text-shimmer">
+            Our Tech Stack
+          </h2>
+          <p className="mt-4 mx-auto max-w-2xl text-lg text-[var(--color-text-muted)]">
+            We leverage modern, industry-standard technologies to build scalable applications.
+          </p>
         </div>
       </Container>
+
+      <div className="mt-16 flex whitespace-nowrap overflow-hidden py-10">
+        <div className="animate-marquee flex gap-12 items-center px-6">
+          {displayTools.map((tool, i) => (
+            <span
+              key={i}
+              className="font-display text-4xl md:text-6xl font-bold text-white/5 hover:text-[var(--color-accent)]/20 transition-colors cursor-default"
+            >
+              {tool}
+            </span>
+          ))}
+        </div>
+      </div>
     </Section>
   );
 }
@@ -113,7 +114,7 @@ function CommissionForm() {
     <Section id="contact" className="border-t border-[var(--color-border)]">
       <Container className="max-w-4xl">
         <Reveal>
-          <h2 className="font-display text-3xl font-semibold text-white text-center">Start your project</h2>
+          <h2 className="font-display text-3xl font-semibold text-white text-center text-shimmer">Start your project</h2>
           <p className="mt-4 text-[var(--color-text-muted)] text-center">
             Tell us about your app idea using the form below, or reach out directly.
           </p>
@@ -241,19 +242,41 @@ function CommissionForm() {
 
 export default function Commission() {
   return (
-    <>
+    <div className="relative min-h-screen">
       <SEO
         title="Commission an App | Custom Mobile Development | SmartAppHub"
         description="Have an app idea? SmartAppHub builds custom native Android and iOS apps end to end. Get a professional, production-ready app for your business using Kotlin, Swift, Python, and SQL."
         canonical="https://smartapphub.co.za/commission"
       />
       <StructuredData data={commissionSchema} />
+
+      {/* Background Logic Flow */}
+      <div className="pointer-events-none fixed inset-0 -z-20 opacity-20">
+        <div className="absolute top-0 left-1/4 h-full w-px bg-gradient-to-b from-transparent via-[var(--color-accent)] to-transparent animate-scan" />
+        <div className="absolute top-0 right-1/3 h-full w-px bg-gradient-to-b from-transparent via-[var(--color-accent)] to-transparent animate-scan" style={{ animationDelay: '3s', animationDuration: '12s' }} />
+      </div>
+
+      {/* Code Snippet Easter Egg */}
+      <div className="pointer-events-none fixed inset-0 -z-20 flex items-center justify-center overflow-hidden animate-code select-none">
+        <pre className="text-[12vw] font-bold text-[var(--color-text-muted)] leading-none tracking-tighter opacity-50">
+          {`fun build() {\n  val idea = get()\n  launch(idea)\n}`}
+        </pre>
+      </div>
+
+      {/* Floating Engineering Icons */}
+      <div className="pointer-events-none fixed inset-0 -z-10 overflow-hidden">
+        <Code className="absolute left-[5%] top-[20%] text-[var(--color-accent)] opacity-10 alive-float h-24 w-24" strokeWidth={0.5} />
+        <Terminal className="absolute right-[8%] top-[40%] text-white opacity-10 alive-float h-32 w-32" style={{ animationDelay: '2s' }} strokeWidth={0.5} />
+        <Cpu className="absolute left-[10%] bottom-[15%] text-[var(--color-accent)] opacity-10 alive-float h-40 w-40" style={{ animationDelay: '4s' }} strokeWidth={0.5} />
+        <Database className="absolute right-[5%] bottom-[10%] text-white opacity-5 alive-float h-28 w-28" style={{ animationDelay: '3s' }} strokeWidth={0.5} />
+      </div>
+
       <CommissionHero />
       <Services />
       <TechStackSection />
       <CaseStudies />
       <Process />
       <CommissionForm />
-    </>
+    </div>
   );
 }

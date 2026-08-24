@@ -5,8 +5,8 @@ import Section from "../components/Section";
 import Reveal from "../components/Reveal";
 import Card from "../components/Card";
 import PortfolioGallery from "../components/PortfolioGallery";
-import { PenTool, Image as ImageIcon, FileText, ArrowRight, Loader2, CheckCircle2, Mail } from "lucide-react";
-import { useState } from "react";
+import { PenTool, Image as ImageIcon, FileText, ArrowRight, Loader2, CheckCircle2, Mail, Layers, Palette, Sparkles } from "lucide-react";
+import { useState, useMemo } from "react";
 import { db } from "../firebase";
 import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 
@@ -49,7 +49,7 @@ const weddingPackages = [
     name: "Full Wedding Package",
     price: "R2300",
     description: "Our complete digital suite for the perfect wedding experience.",
-    features: ["All 10 Digital Wedding Services", "2 Custom Wedding Apps", "Priority Support", "Direct consultation"],
+    features: ["All 10 Digital Wedding Services", "2 Mini Wedding Apps", "Priority Support", "Direct consultation"],
     highlight: true
   },
   {
@@ -62,7 +62,7 @@ const weddingPackages = [
     name: "Mix & Match Package",
     price: "R1250",
     description: "Flexibility for modern couples who want a digital edge.",
-    features: ["1 Custom App", "Choice of 5 Digital Services", "Direct consultation"]
+    features: ["1 Mini App", "Choice of 5 Digital Services", "Direct consultation"]
   },
   {
     name: "Little Budget Package",
@@ -101,6 +101,17 @@ export default function GraphicDesign() {
     details: ""
   });
 
+  // Generate a field of glitter
+  const sparkles = useMemo(() => {
+    return Array.from({ length: 60 }).map((_, i) => ({
+      top: `${Math.random() * 100}%`,
+      left: `${Math.random() * 100}%`,
+      delay: `${Math.random() * 10}s`,
+      duration: `${2 + Math.random() * 3}s`,
+      size: 2 + Math.random() * 6
+    }));
+  }, []);
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
@@ -129,13 +140,51 @@ export default function GraphicDesign() {
         canonical="https://smartapphub.co.za/graphic-design"
       />
       <StructuredData data={graphicDesignSchema} />
-      <Section className="pt-36">
-        <Container>
+      <Section className="relative overflow-hidden pt-36">
+        {/* Background Atmosphere */}
+        <div className="bg-grid pointer-events-none absolute inset-0 opacity-40 [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_30%,transparent_100%)]" />
+        <div className="alive-drift pointer-events-none absolute left-1/2 top-[-10%] -z-10 h-[500px] w-[900px] -translate-x-1/2 rounded-full bg-[var(--color-accent)]/10 blur-[120px]" />
+
+        {/* Random Tiny Glitter Sparkles */}
+        {sparkles.map((s, i) => (
+          <div
+            key={i}
+            className="pointer-events-none absolute animate-glitter text-white opacity-0"
+            style={{
+              top: s.top,
+              left: s.left,
+              animationDelay: s.delay,
+              animationDuration: s.duration,
+            }}
+          >
+            <div
+              className="bg-white rounded-full shadow-[0_0_8px_white]"
+              style={{ width: s.size, height: s.size }}
+            />
+          </div>
+        ))}
+
+        {/* Floating Decorative Elements */}
+        <div className="pointer-events-none absolute right-[5%] top-[10%] z-20 alive-float opacity-40 text-blue-500 lg:right-[10%] lg:top-[15%] lg:opacity-50">
+          <Palette className="h-24 w-24 lg:h-32 lg:w-32" strokeWidth={1} />
+        </div>
+        <div className="pointer-events-none absolute left-[2%] top-[30%] z-20 alive-float opacity-30 text-white lg:left-[5%] lg:top-[40%] lg:opacity-40" style={{ animationDelay: '1s' }}>
+          <Layers className="h-20 w-20 lg:h-28 lg:w-28" strokeWidth={1} />
+        </div>
+        <div className="pointer-events-none absolute right-[2%] top-[60%] z-20 alive-float opacity-10 text-[var(--color-accent)] lg:opacity-20" style={{ animationDelay: '2s' }}>
+          <Sparkles className="h-16 w-16 lg:h-24 lg:w-24" strokeWidth={0.5} />
+        </div>
+
+        <Container className="relative z-10">
           <div className="max-w-3xl">
-            <h1 className="font-display text-3xl font-semibold text-white sm:text-4xl">Graphic Design</h1>
-            <p className="mt-6 text-lg text-[var(--color-text-muted)]">
-              We pair software engineering with professional design to create cohesive, beautiful experiences. From your first logo to your wedding day stationery, we handle the creative details so you don't have to.
-            </p>
+            <Reveal>
+              <h1 className="font-display text-4xl font-semibold tracking-tight text-white sm:text-5xl lg:text-6xl">
+                Graphic <span className="bg-gradient-to-r from-[var(--color-accent)] to-white bg-clip-text text-transparent">Design</span>
+              </h1>
+              <p className="mt-6 text-lg leading-relaxed text-[var(--color-text-muted)]">
+                We pair software engineering with professional design to create cohesive, beautiful experiences. From your first logo to your wedding day stationery, we handle the creative details so you don't have to.
+              </p>
+            </Reveal>
           </div>
 
           <div id="services" className="mt-16 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
@@ -156,7 +205,7 @@ export default function GraphicDesign() {
 
           <div id="packages" className="mt-24">
             <Reveal>
-              <h2 className="font-display text-2xl font-semibold text-white">Wedding Packages</h2>
+              <h2 className="font-display text-2xl font-semibold text-white text-shimmer">Wedding Packages</h2>
               <p className="mt-4 text-[var(--color-text-muted)]">Bundled digital solutions to make your wedding planning seamless and affordable.</p>
             </Reveal>
 
@@ -187,7 +236,7 @@ export default function GraphicDesign() {
 
           <div id="packages" className="mt-24">
             <Reveal>
-              <h2 className="font-display text-2xl font-semibold text-white">Individual Digital Wedding Services</h2>
+              <h2 className="font-display text-2xl font-semibold text-white text-shimmer">Individual Digital Wedding Services</h2>
               <p className="mt-4 text-[var(--color-text-muted)]">A-la-carte options for specific digital wedding needs.</p>
             </Reveal>
 

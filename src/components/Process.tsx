@@ -13,7 +13,7 @@ const steps = [
 
 export default function Process() {
   return (
-    <Section className="border-y border-[var(--color-border)]">
+    <Section id="process" className="border-y border-[var(--color-border)]">
       <Container>
         <div className="mx-auto max-w-xl text-center">
           <h2 className="font-display text-3xl font-semibold text-white sm:text-4xl">How it works</h2>
@@ -30,12 +30,12 @@ export default function Process() {
                 y={16}
                 margin="-60px"
                 delay={i * 0.25}
-                className="relative flex flex-col items-center text-center md:items-start md:text-left"
+                className="group relative flex flex-col items-center text-center md:items-start md:text-left"
               >
-                <div className="relative z-10 flex h-12 w-12 items-center justify-center rounded-full border border-[var(--color-accent)]/30 bg-[var(--color-bg)] text-[var(--color-accent)]">
+                <div className="relative z-10 flex h-12 w-12 items-center justify-center rounded-full border border-[var(--color-accent)]/30 bg-[var(--color-bg)] text-[var(--color-accent)] transition-all duration-300 group-hover:scale-110 group-hover:border-[var(--color-accent)] group-hover:shadow-[0_0_20px_rgba(91,127,255,0.3)]">
                   <step.icon size={20} />
                 </div>
-                <h3 className="mt-4 font-display text-base font-semibold text-white">{step.title}</h3>
+                <h3 className="mt-4 font-display text-base font-semibold text-white transition-colors group-hover:text-[var(--color-accent)]">{step.title}</h3>
                 <p className="mt-1.5 text-sm text-[var(--color-text-muted)]">{step.description}</p>
               </Reveal>
             ))}

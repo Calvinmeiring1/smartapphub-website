@@ -66,26 +66,95 @@ button:focus-visible {
   background-size: 32px 32px;
 }
 
-@keyframes float {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-8px); }
-}
-
 @keyframes reveal {
-  from {
-    opacity: 0;
-    transform: translateY(16px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
-.animate-float {
-  animation: float 4s ease-in-out infinite;
+@keyframes float-custom {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-30px) rotate(3deg); }
+}
+
+@keyframes drift-custom {
+  0%, 100% { transform: translate(-50%, 0) scale(1); }
+  50% { transform: translate(-45%, 5%) scale(1.05); }
+}
+
+@keyframes text-shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.text-shimmer {
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.4) 50%,
+    transparent 100%
+  );
+  background-size: 200% auto;
+  background-clip: text;
+  -webkit-background-clip: text;
+  animation: text-shimmer 4s infinite linear;
 }
 
 .animate-reveal {
   animation: reveal 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+}
+
+.alive-float {
+  animation: float-custom 6s ease-in-out infinite;
+}
+
+.alive-drift {
+  animation: drift-custom 15s ease-in-out infinite;
+}
+
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+@keyframes code-flicker {
+  0%, 100% { opacity: 0.015; }
+  50% { opacity: 0.04; }
+}
+
+@keyframes scan-line {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(100%); }
+}
+
+.animate-marquee {
+  animation: marquee 30s linear infinite;
+}
+
+.animate-code {
+  animation: code-flicker 4s ease-in-out infinite;
+}
+
+.animate-scan {
+  animation: scan-line 8s linear infinite;
+}
+
+@keyframes glitter-flicker {
+  0%, 100% { opacity: 0; transform: scale(0); }
+  30%, 70% { opacity: 0; }
+  45% { opacity: 1; transform: scale(1) rotate(45deg); filter: brightness(2) contrast(2); }
+  50% { opacity: 0.4; transform: scale(0.6) rotate(90deg); filter: brightness(1); }
+  55% { opacity: 1; transform: scale(1.1) rotate(135deg); filter: brightness(2) contrast(2); }
+}
+
+@keyframes logo-pulse {
+  0%, 100% { transform: scale(1); box-shadow: 0 0 20px rgba(91, 127, 255, 0.2); }
+  50% { transform: scale(1.05); box-shadow: 0 0 40px rgba(91, 127, 255, 0.4); }
+}
+
+.animate-glitter {
+  animation: glitter-flicker 3s ease-in-out infinite;
+}
+
+.animate-logo {
+  animation: logo-pulse 4s ease-in-out infinite;
 }

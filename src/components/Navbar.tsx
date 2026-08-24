@@ -13,7 +13,7 @@ const sittersLinks = [
 
 const commissionLinks = [
   { label: "Services", href: "#services" },
-  { label: "How it works", href: "#contact" },
+  { label: "How it works", href: "#process" },
 ];
 
 const graphicDesignLinks = [

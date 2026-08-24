@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { useSearchParams } from "react-router-dom";
 import SEO from "../components/SEO";
 import Container from "../components/Container";
@@ -7,6 +7,8 @@ import Card from "../components/Card";
 import Button from "../components/Button";
 import StructuredData from "../components/StructuredData";
 import { logEventToFirebase, callFunction } from "../firebase";
+
+import { Package, ShoppingBag, Rocket, Sparkles } from "lucide-react";
 
 const buyMiniAppSchema = {
   "@context": "https://schema.org",
@@ -64,6 +66,17 @@ export default function BuyMiniApp() {
     const saved = localStorage.getItem("sah_unlocked_apps");
     return saved ? JSON.parse(saved) : [];
   });
+
+  // Glitter effect for marketplace
+  const glitter = useMemo(() => {
+    return Array.from({ length: 40 }).map((_, i) => ({
+      top: `${Math.random() * 100}%`,
+      left: `${Math.random() * 100}%`,
+      delay: `${Math.random() * 10}s`,
+      duration: `${3 + Math.random() * 4}s`,
+      size: 2 + Math.random() * 4
+    }));
+  }, []);
 
   useEffect(() => {
     if (successApp && !unlockedApps.includes(successApp)) {
@@ -183,12 +196,45 @@ export default function BuyMiniApp() {
         canonical="https://smartapphub.co.za/buy-mini-app"
       />
       <StructuredData data={buyMiniAppSchema} />
-      <Section className="pt-36">
-        <Container className="max-w-6xl">
+      <Section className="relative overflow-hidden pt-36">
+        {/* Background Atmosphere */}
+        <div className="bg-grid pointer-events-none absolute inset-0 opacity-40 [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_30%,transparent_100%)]" />
+        <div className="alive-drift pointer-events-none absolute left-1/2 top-[-10%] -z-10 h-[500px] w-[900px] -translate-x-1/2 rounded-full bg-[var(--color-accent)]/10 blur-[120px]" />
+
+        {/* Market Glitter */}
+        {glitter.map((g, i) => (
+          <div
+            key={i}
+            className="pointer-events-none absolute animate-glitter text-white opacity-0"
+            style={{
+              top: g.top,
+              left: g.left,
+              animationDelay: g.delay,
+              animationDuration: g.duration,
+            }}
+          >
+            <div className="bg-[var(--color-accent)] rounded-full shadow-[0_0_8px_var(--color-accent)]" style={{ width: g.size, height: g.size }} />
+          </div>
+        ))}
+
+        {/* Floating Marketplace Icons */}
+        <div className="pointer-events-none absolute right-[8%] top-[15%] z-10 alive-float opacity-10 text-[var(--color-accent)] lg:opacity-20">
+          <Package size={80} strokeWidth={0.5} />
+        </div>
+        <div className="pointer-events-none absolute left-[5%] top-[40%] z-10 alive-float opacity-10 text-white lg:opacity-20" style={{ animationDelay: '2s' }}>
+          <ShoppingBag size={100} strokeWidth={0.5} />
+        </div>
+        <div className="pointer-events-none absolute right-[10%] bottom-[20%] z-10 alive-float opacity-5 text-[var(--color-accent)]" style={{ animationDelay: '4s' }}>
+          <Rocket size={120} strokeWidth={0.5} />
+        </div>
+
+        <Container className="relative z-20 max-w-6xl">
         <div className="max-w-3xl">
-          <h1 className="font-display text-3xl font-semibold text-white sm:text-4xl">Buy a Mini App</h1>
-          <p className="mt-4 text-lg leading-relaxed text-[var(--color-text-muted)]">
-            Browse ready-made mini apps below. Each app is designed to launch fast, simplify operations, and help your customers or guests engage effortlessly. Once you pay, the download link for that app will be unlocked for you.
+          <h1 className="font-display text-4xl font-semibold tracking-tight text-white sm:text-5xl lg:text-6xl">
+            Buy a <span className="bg-gradient-to-r from-[var(--color-accent)] to-white bg-clip-text text-transparent">Mini App</span>
+          </h1>
+          <p className="mt-6 text-lg leading-relaxed text-[var(--color-text-muted)]">
+            Browse ready-made mini apps below. Each app is designed to launch fast, simplify operations, and help your customers or guests engage effortlessly.
           </p>
         </div>
 

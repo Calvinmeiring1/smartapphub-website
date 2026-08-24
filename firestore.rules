@@ -18,6 +18,11 @@ service cloud.firestore {
       allow read, update, delete: if false;
     }
 
+    match /app_inquiries/{docId} {
+      allow create: if true;
+      allow read, update, delete: if false;
+    }
+
     // Public stats for website display
     match /stats/{docId} {
       allow read: if true;
