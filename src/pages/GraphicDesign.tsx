@@ -103,7 +103,7 @@ export default function GraphicDesign() {
 
   // Generate a field of glitter
   const sparkles = useMemo(() => {
-    return Array.from({ length: 60 }).map((_, i) => ({
+    return Array.from({ length: 60 }).map(() => ({
       top: `${Math.random() * 100}%`,
       left: `${Math.random() * 100}%`,
       delay: `${Math.random() * 10}s`,

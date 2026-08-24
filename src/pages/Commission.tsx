@@ -7,7 +7,7 @@ import Process from "../components/Process";
 import Section from "../components/Section";
 import Container from "../components/Container";
 import Reveal from "../components/Reveal";
-import { ArrowRight, Loader2, CheckCircle2, Mail, Code, Terminal, Cpu, Database, Smartphone, Laptop } from "lucide-react";
+import { ArrowRight, Loader2, CheckCircle2, Mail, Code, Terminal, Cpu, Database } from "lucide-react";
 import { useState } from "react";
 import { db } from "../firebase";
 import { collection, addDoc, serverTimestamp } from "firebase/firestore";

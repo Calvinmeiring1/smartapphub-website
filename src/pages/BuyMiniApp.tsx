@@ -8,7 +8,7 @@ import Button from "../components/Button";
 import StructuredData from "../components/StructuredData";
 import { logEventToFirebase, callFunction } from "../firebase";
 
-import { Package, ShoppingBag, Rocket, Sparkles } from "lucide-react";
+import { Package, ShoppingBag, Rocket } from "lucide-react";
 
 const buyMiniAppSchema = {
   "@context": "https://schema.org",
@@ -69,7 +69,7 @@ export default function BuyMiniApp() {
 
   // Glitter effect for marketplace
   const glitter = useMemo(() => {
-    return Array.from({ length: 40 }).map((_, i) => ({
+    return Array.from({ length: 40 }).map(() => ({
       top: `${Math.random() * 100}%`,
       left: `${Math.random() * 100}%`,
       delay: `${Math.random() * 10}s`,
