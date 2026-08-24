@@ -27,11 +27,10 @@ export default function CommissionHero() {
 
           <div className="mt-8 flex justify-center">
             <Button
-              href="mailto:smartapphubdev@gmail.com?subject=App%20project%20enquiry"
+              href="#contact"
               variant="primary"
-              icon={<Mail size={16} />}
             >
-              Tell us about your project
+              Get in touch
             </Button>
           </div>
         </Reveal>

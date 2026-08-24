@@ -1,4 +1,3 @@
-import { Mail } from "lucide-react";
 import Container from "./Container";
 import Button from "./Button";
 
@@ -24,16 +23,16 @@ export default function CompanyHero() {
 
           <p className="mx-auto mt-6 max-w-lg text-lg leading-relaxed text-[var(--color-text-muted)]">
             SmartAppHub is a small, independent studio based in South
-            Africa. We design and build focused apps end to end, starting
+            Africa. We design and build focused apps and graphic design solutions, starting
             with Sitters, our trusted pet & house sitting marketplace.
           </p>
 
           <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
-            <Button href="/sitters" variant="primary">
-              Explore Sitters
+            <Button href="/commission" variant="primary">
+              Commission an App
             </Button>
-            <Button href="mailto:smartapphubdev@gmail.com" variant="secondary" icon={<Mail size={16} />}>
-              Get in touch
+            <Button href="/graphic-design" variant="secondary">
+              Graphic Design
             </Button>
           </div>
         </div>

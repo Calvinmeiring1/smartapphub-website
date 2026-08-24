@@ -24,8 +24,8 @@ export default function Home() {
   return (
     <>
       <SEO
-        title="SmartAppHub — App Development Studio | Sitters, Custom Apps & Design"
-        description="SmartAppHub is a boutique app development studio. We build Sitters, alongside custom app development and graphic design commissions."
+        title="SmartAppHub | App Development & Graphic Design Studio"
+        description="SmartAppHub is a boutique studio specializing in custom app development and graphic design. We build Sitters, alongside custom mobile apps and digital graphic design commissions."
       />
       <CompanyHero />
       <About />

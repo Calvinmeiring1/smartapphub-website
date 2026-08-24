@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import { Link } from "react-router-dom";
 
 type ButtonProps = {
   children: ReactNode;
@@ -39,6 +40,17 @@ export default function Button({
   const classes = `${base} ${variants[variant]} ${className}`;
 
   if (href) {
+    const isInternal = href.startsWith("/") && !href.startsWith("//");
+
+    if (isInternal && !download) {
+      return (
+        <Link to={href} onClick={onClick} className={classes}>
+          {children}
+          {icon}
+        </Link>
+      );
+    }
+
     return (
       <a href={href} onClick={onClick} className={classes} download={download} target={target} rel={rel}>
         {children}

@@ -37,6 +37,7 @@ export default function Navbar() {
   const isSitters = location.pathname === "/sitters";
   const isCommission = location.pathname === "/commission";
   const isGraphicDesign = location.pathname === "/graphic-design";
+  const isMiniApp = location.pathname === "/buy-mini-app";
   const links = !isHome
     ? [
         { label: "Home", href: "/" },
@@ -53,8 +54,18 @@ export default function Navbar() {
     ? { label: "Download App", href: "#download" }
     : isCommission
       ? { label: "Get in touch", href: "#contact" }
-      : { label: "Explore Sitters", href: "/sitters" };
-  const tag = isSitters ? "Sitters" : isCommission ? "Commission" : null;
+      : isGraphicDesign
+        ? { label: "Get in touch", href: "#contact" }
+        : { label: "Commission an App", href: "/commission" };
+  const tag = isSitters
+    ? "Sitters"
+    : isCommission
+      ? "Commission"
+      : isGraphicDesign
+        ? "Design"
+        : isMiniApp
+          ? "Mini Apps"
+          : null;
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8);
@@ -121,8 +132,12 @@ export default function Navbar() {
         </nav>
 
         <div className="hidden md:block">
-          <Button href={primaryCta.href} variant="primary" className="!py-2.5">
-            {primaryCta.label}
+          <Button
+            href={isHome ? "mailto:smartapphubdev@gmail.com" : primaryCta.href}
+            variant="primary"
+            className="!py-2.5"
+          >
+            {isHome ? "Get in touch" : primaryCta.label}
           </Button>
         </div>
 
@@ -159,9 +174,15 @@ export default function Navbar() {
                 </a>
               ),
             )}
-            <Button href={primaryCta.href} variant="primary" className="mt-2 w-full">
-              {primaryCta.label}
-            </Button>
+            {!isHome ? (
+              <Button href={primaryCta.href} variant="primary" className="mt-2 w-full">
+                {primaryCta.label}
+              </Button>
+            ) : (
+              <Button href="mailto:smartapphubdev@gmail.com" variant="primary" className="mt-2 w-full">
+                Get in touch
+              </Button>
+            )}
           </Container>
         </div>
       )}

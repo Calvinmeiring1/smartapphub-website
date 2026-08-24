@@ -16,7 +16,7 @@ export default function About() {
               SmartAppHub started as one developer building apps he wanted to
               exist from the code up. It's still small by design, but no
               longer solo: SmartAppHub is now run as a husband and wife studio
-              from South Africa, pairing <Link to="/commission" className="text-white hover:text-[var(--color-accent)] transition-colors">custom app commissions</Link> with <Link to="/graphic-design" className="text-white hover:text-[var(--color-accent)] transition-colors">professional graphic design</Link>.
+              from South Africa, pairing <Link to="/commission" className="text-white hover:text-[var(--color-accent)] transition-colors">custom app commissions</Link> with <Link to="/graphic-design" className="text-white hover:text-[var(--color-accent)] transition-colors">graphic design</Link>.
             </p>
           </div>
 
