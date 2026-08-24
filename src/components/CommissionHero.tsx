@@ -1,4 +1,3 @@
-import { Mail } from "lucide-react";
 import Container from "./Container";
 import Button from "./Button";
 import Badge from "./Badge";
