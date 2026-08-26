@@ -7,7 +7,7 @@ export default function About() {
   return (
     <Section>
       <Container className="max-w-3xl">
-        <Reveal margin="100px">
+        <Reveal margin="200px">
           <div className="text-center">
             <h2 className="font-display text-3xl font-semibold text-white sm:text-4xl">
               A small studio, built deliberately
