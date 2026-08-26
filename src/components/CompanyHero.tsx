@@ -27,7 +27,7 @@ export default function CompanyHero() {
             <div className="absolute inset-2 animate-[spin_15s_linear_infinite_reverse] rounded-full border border-dotted border-white/10" />
 
             {/* The Logo Orb */}
-            <div className="relative flex h-24 w-24 animate-logo items-center justify-center rounded-full border border-white/10 bg-[var(--color-surface)]/50 shadow-2xl backdrop-blur-md transition-transform duration-500 hover:scale-110">
+            <div className="relative flex h-24 w-24 animate-logo items-center justify-center rounded-full border border-white/10 bg-[var(--color-surface)]/50 shadow-2xl backdrop-blur-sm md:backdrop-blur-md transition-transform duration-500 hover:scale-110">
               <img
                 src="/logo-icon.png"
                 alt="SmartAppHub"

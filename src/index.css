@@ -22,6 +22,8 @@
 
 html {
   scroll-behavior: smooth;
+  /* Faster font rendering */
+  text-rendering: optimizeSpeed;
 }
 
 body {
@@ -30,6 +32,14 @@ body {
   color: var(--color-text);
   font-family: var(--font-body);
   -webkit-font-smoothing: antialiased;
+  /* Prevent horizontal scroll issues during animations */
+  overflow-x: hidden;
+}
+
+section {
+  /* Performance: Only render when near viewport */
+  content-visibility: auto;
+  contain-intrinsic-size: 1px 500px;
 }
 
 h1, h2, h3, h4 {
@@ -114,6 +124,19 @@ button:focus-visible {
 
 .alive-drift {
   animation: drift-custom 15s ease-in-out infinite;
+}
+
+/* Mobile optimizations for GPU-heavy blurs */
+@media (max-width: 768px) {
+  .alive-drift {
+    blur: 60px !important;
+    opacity: 0.2 !important;
+    animation-duration: 25s !important;
+  }
+
+  .bg-grid {
+    opacity: 0.25 !important;
+  }
 }
 
 @keyframes marquee {
