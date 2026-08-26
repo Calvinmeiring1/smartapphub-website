@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import { useLocation, Link } from "react-router-dom";
 import { Menu, X } from "lucide-react";
 import Container from "./Container";
@@ -33,44 +33,54 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const location = useLocation();
+
   const isHome = location.pathname === "/";
   const isSitters = location.pathname === "/sitters";
   const isCommission = location.pathname === "/commission";
   const isGraphicDesign = location.pathname === "/graphic-design";
   const isMiniApp = location.pathname === "/buy-mini-app";
-  const links = !isHome
-    ? [
-        { label: "Home", href: "/" },
-        ...(isSitters
-          ? sittersLinks
-          : isCommission
-            ? commissionLinks
-            : isGraphicDesign
-              ? graphicDesignLinks
-              : companyLinks),
-      ]
-    : companyLinks;
-  const primaryCta = isSitters
-    ? { label: "Download App", href: "#download" }
-    : isCommission
-      ? { label: "Get in touch", href: "#contact" }
-      : isGraphicDesign
+
+  const links = useMemo(() => {
+    return !isHome
+      ? [
+          { label: "Home", href: "/" },
+          ...(isSitters
+            ? sittersLinks
+            : isCommission
+              ? commissionLinks
+              : isGraphicDesign
+                ? graphicDesignLinks
+                : companyLinks),
+        ]
+      : companyLinks;
+  }, [isHome, isSitters, isCommission, isGraphicDesign]);
+
+  const primaryCta = useMemo(() => {
+    return isSitters
+      ? { label: "Download App", href: "#download" }
+      : isCommission
         ? { label: "Get in touch", href: "#contact" }
-        : { label: "Commission an App", href: "/commission" };
-  const tag = isSitters
-    ? "Sitters"
-    : isCommission
-      ? "Commission"
-      : isGraphicDesign
-        ? "Design"
-        : isMiniApp
-          ? "Mini Apps"
-          : null;
+        : isGraphicDesign
+          ? { label: "Get in touch", href: "#contact" }
+          : { label: "Commission an App", href: "/commission" };
+  }, [isSitters, isCommission, isGraphicDesign]);
+
+  const tag = useMemo(() => {
+    return isSitters
+      ? "Sitters"
+      : isCommission
+        ? "Commission"
+        : isGraphicDesign
+          ? "Design"
+          : isMiniApp
+            ? "Mini Apps"
+            : null;
+  }, [isSitters, isCommission, isGraphicDesign, isMiniApp]);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8);
     onScroll();
-    window.addEventListener("scroll", onScroll);
+    window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
@@ -81,9 +91,9 @@ export default function Navbar() {
 
   return (
     <header
-      className={`fixed top-0 z-50 w-full transition-all duration-300 ${
+      className={`fixed top-0 z-50 w-full transition-[background-color,border-color,backdrop-filter] duration-300 ${
         scrolled
-          ? "bg-[var(--color-bg)]/70 backdrop-blur-xl border-b border-[var(--color-border)]"
+          ? "bg-[var(--color-bg)]/80 backdrop-blur-md md:backdrop-blur-xl border-b border-[var(--color-border)]"
           : "bg-transparent border-b border-transparent"
       }`}
     >
@@ -151,7 +161,7 @@ export default function Navbar() {
       </Container>
 
       {open && (
-        <div className="border-t border-[var(--color-border)] bg-[var(--color-bg)]/95 backdrop-blur-xl md:hidden">
+        <div className="border-t border-[var(--color-border)] bg-[var(--color-bg)]/95 backdrop-blur-md md:hidden">
           <Container className="flex flex-col gap-4 py-6">
             {links.map((link) =>
               link.href.startsWith("/") ? (

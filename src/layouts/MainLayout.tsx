@@ -6,14 +6,22 @@ import Footer from "../components/Footer";
 
 function MouseSpotlight() {
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
+  const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
+    // Only enable spotlight on devices with a mouse
+    const isMouseDevice = window.matchMedia("(pointer: fine)").matches;
+    if (!isMouseDevice) return;
+
     const handleMouseMove = (e: MouseEvent) => {
       setMousePos({ x: e.clientX, y: e.clientY });
+      if (!isVisible) setIsVisible(true);
     };
     window.addEventListener("mousemove", handleMouseMove);
     return () => window.removeEventListener("mousemove", handleMouseMove);
-  }, []);
+  }, [isVisible]);
+
+  if (!isVisible) return null;
 
   return (
     <div
