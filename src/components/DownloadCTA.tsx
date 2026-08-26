@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { doc, onSnapshot } from "firebase/firestore";
-import { db } from "../firebase";
+import { getDb } from "../firebase";
 import Container from "./Container";
 import Section from "./Section";
 import Button from "./Button";
@@ -11,13 +11,19 @@ export default function DownloadCTA() {
   const [userCount, setUserCount] = useState<number | null>(null);
 
   useEffect(() => {
-    const unsub = onSnapshot(doc(db, "stats", "public"), (snap) => {
-      if (snap.exists()) {
-        const data = snap.data();
-        setUserCount(data.users || 0);
-      }
-    });
-    return unsub;
+    let unsub: (() => void) | undefined;
+
+    (async () => {
+      const db = await getDb();
+      unsub = onSnapshot(doc(db, "stats", "public"), (snap) => {
+        if (snap.exists()) {
+          const data = snap.data();
+          setUserCount(data.users || 0);
+        }
+      });
+    })();
+
+    return () => unsub?.();
   }, []);
 
   return (

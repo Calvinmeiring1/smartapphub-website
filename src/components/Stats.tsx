@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { doc, onSnapshot } from "firebase/firestore";
-import { db } from "../firebase";
+import { getDb } from "../firebase";
 import Container from "./Container";
 import AnimatedCounter from "./AnimatedCounter";
 
@@ -15,17 +15,23 @@ export default function Stats() {
   const [stats, setStats] = useState<Stat[] | null>(null);
 
   useEffect(() => {
-    const unsub = onSnapshot(doc(db, "stats", "public"), (snap) => {
-      if (snap.exists()) {
-        const data = snap.data();
-        setStats([
-          { id: "users", value: data.users || 0, suffix: "+", label: "Users" },
-          { id: "sitters", value: data.sitters || 0, suffix: "+", label: "Verified sitters" },
-          { id: "countries", value: data.countries || 0, suffix: "", label: "Countries" },
-        ]);
-      }
-    });
-    return unsub;
+    let unsub: (() => void) | undefined;
+
+    (async () => {
+      const db = await getDb();
+      unsub = onSnapshot(doc(db, "stats", "public"), (snap) => {
+        if (snap.exists()) {
+          const data = snap.data();
+          setStats([
+            { id: "users", value: data.users || 0, suffix: "+", label: "Users" },
+            { id: "sitters", value: data.sitters || 0, suffix: "+", label: "Verified sitters" },
+            { id: "countries", value: data.countries || 0, suffix: "", label: "Countries" },
+          ]);
+        }
+      });
+    })();
+
+    return () => unsub?.();
   }, []);
 
   if (!stats) return null;

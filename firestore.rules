@@ -1,15 +1,30 @@
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
+
+    // --- Helpers ---
+    function isSignedIn() { return request.auth != null; }
+    function isAdmin() {
+      return isSignedIn() && get(/databases/$(database)/documents/users/$(request.auth.uid)).data.isAdmin == true;
+    }
+
     // Rules for Licensing System
     match /purchased_apps/{docId} {
       // Allow checking for a specific purchase by email, but prevent listing all documents
-      allow read: if request.query.limit <= 10 &&
-                  request.query.filters.size() >= 1;
+      // This supports the Weddara/VowVault activation check
+      allow read: if true;
 
-      // Allow the website to create a purchase record, but not update or delete existing ones
+      // Allow the website/app to create a purchase record
       allow create: if true;
-      allow update, delete: if false;
+
+      // Allow the app to link a deviceId if it is currently null or not set
+      allow update: if isAdmin() || (
+        request.resource.data.diff(resource.data).affectedKeys().hasOnly(['deviceId'])
+        && (resource.data.get('deviceId', null) == null)
+      );
+
+      // Prevent unauthorized deletion of purchase records
+      allow delete: if isAdmin();
     }
 
     // Allow inquiries to be submitted from the contact form
@@ -26,7 +41,18 @@ service cloud.firestore {
     // Public stats for website display
     match /stats/{docId} {
       allow read: if true;
-      allow write: if false;
+      allow write: if isAdmin();
+    }
+
+    // Allow inquiries to be submitted from the contact form (design context)
+    match /design_inquiries/{docId} {
+      allow create: if true;
+      allow read, update, delete: if false;
+    }
+
+    match /app_inquiries/{docId} {
+      allow create: if true;
+      allow read, update, delete: if false;
     }
 
     // Default: Deny everything else unless authenticated

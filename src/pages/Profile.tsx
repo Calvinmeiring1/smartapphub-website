@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { doc, getDoc } from "firebase/firestore";
-import { db } from "../firebase";
+import { getDb } from "../firebase";
 import Container from "../components/Container";
 import Section from "../components/Section";
 import StructuredData from "../components/StructuredData";
@@ -16,14 +16,17 @@ export default function Profile() {
 
     if (id) {
       setLoading(true);
-      getDoc(doc(db, "users", id)).then((snap) => {
-        if (snap.exists()) {
-          const data = snap.data();
-          setUser(data);
-          document.title = `${data.name || "Sitter"} | SmartAppHub`;
-        }
-        setLoading(false);
-      }).catch(() => setLoading(false));
+      (async () => {
+        const db = await getDb();
+        getDoc(doc(db, "users", id)).then((snap) => {
+          if (snap.exists()) {
+            const data = snap.data();
+            setUser(data);
+            document.title = `${data.name || "Sitter"} | SmartAppHub`;
+          }
+          setLoading(false);
+        }).catch(() => setLoading(false));
+      })();
     }
   }, [id]);
 

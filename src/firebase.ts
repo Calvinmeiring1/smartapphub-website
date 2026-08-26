@@ -1,7 +1,4 @@
 import { initializeApp } from "firebase/app";
-import { getAnalytics, isSupported, logEvent } from "firebase/analytics";
-import { getFirestore } from "firebase/firestore";
-import { getFunctions, httpsCallable } from "firebase/functions";
 
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
@@ -14,30 +11,47 @@ const firebaseConfig = {
 };
 
 const app = initializeApp(firebaseConfig);
-export const db = getFirestore(app);
-export const functions = getFunctions(app);
 
-export function callFunction(name: string, data?: any) {
+// Lazy-loaded Firestore
+export const getDb = async () => {
+  const { getFirestore } = await import("firebase/firestore");
+  return getFirestore(app);
+};
+
+// Lazy-loaded Functions
+export async function callFunction(name: string, data?: any) {
+  const { getFunctions, httpsCallable } = await import("firebase/functions");
+  const functions = getFunctions(app);
   const callable = httpsCallable(functions, name);
   return callable(data);
 }
 
-let analyticsInstance: ReturnType<typeof getAnalytics> | null | undefined;
+// Lazy-loaded Analytics
+let analyticsPromise: Promise<any> | null = null;
 
 async function getAnalyticsInstance() {
-  if (analyticsInstance !== undefined) {
-    return analyticsInstance;
-  }
+  if (typeof window === "undefined") return null;
 
-  const supported = await isSupported();
-  analyticsInstance = supported ? getAnalytics(app) : null;
-  return analyticsInstance;
+  if (!analyticsPromise) {
+    analyticsPromise = (async () => {
+      try {
+        const { getAnalytics, isSupported } = await import("firebase/analytics");
+        const supported = await isSupported();
+        return supported ? getAnalytics(app) : null;
+      } catch (e) {
+        console.error("Analytics load failed", e);
+        return null;
+      }
+    })();
+  }
+  return analyticsPromise;
 }
 
 export async function logPageView(path: string) {
   const analytics = await getAnalyticsInstance();
   if (!analytics) return;
 
+  const { logEvent } = await import("firebase/analytics");
   logEvent(analytics, "page_view", {
     page_path: path,
   });
@@ -47,5 +61,6 @@ export async function logEventToFirebase(name: string, params?: Record<string, u
   const analytics = await getAnalyticsInstance();
   if (!analytics) return;
 
+  const { logEvent } = await import("firebase/analytics");
   logEvent(analytics, name, params);
 }

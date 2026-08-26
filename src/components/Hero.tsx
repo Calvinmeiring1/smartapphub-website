@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { doc, onSnapshot } from "firebase/firestore";
-import { db } from "../firebase";
+import { getDb } from "../firebase";
 import { Sparkles, ArrowRight } from "lucide-react";
 import Container from "./Container";
 import Button from "./Button";
@@ -11,13 +11,19 @@ export default function Hero() {
   const [countriesCount, setCountriesCount] = useState<number | null>(null);
 
   useEffect(() => {
-    const unsub = onSnapshot(doc(db, "stats", "public"), (snap) => {
-      if (snap.exists()) {
-        const data = snap.data();
-        setCountriesCount(data.countries || 5);
-      }
-    });
-    return unsub;
+    let unsub: (() => void) | undefined;
+
+    (async () => {
+      const db = await getDb();
+      unsub = onSnapshot(doc(db, "stats", "public"), (snap) => {
+        if (snap.exists()) {
+          const data = snap.data();
+          setCountriesCount(data.countries || 5);
+        }
+      });
+    })();
+
+    return () => unsub?.();
   }, []);
 
   return (

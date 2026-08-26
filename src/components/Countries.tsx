@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { doc, onSnapshot } from "firebase/firestore";
-import { db } from "../firebase";
+import { getDb } from "../firebase";
 import Container from "./Container";
 import Section from "./Section";
 import Reveal from "./Reveal";
@@ -17,13 +17,19 @@ export default function Countries() {
   const [count, setCount] = useState<number | null>(null);
 
   useEffect(() => {
-    const unsub = onSnapshot(doc(db, "stats", "public"), (snap) => {
-      if (snap.exists()) {
-        const data = snap.data();
-        if (data.countries !== undefined) setCount(data.countries);
-      }
-    });
-    return unsub;
+    let unsub: (() => void) | undefined;
+
+    (async () => {
+      const db = await getDb();
+      unsub = onSnapshot(doc(db, "stats", "public"), (snap) => {
+        if (snap.exists()) {
+          const data = snap.data();
+          if (data.countries !== undefined) setCount(data.countries);
+        }
+      });
+    })();
+
+    return () => unsub?.();
   }, []);
 
   if (count === null) return null;

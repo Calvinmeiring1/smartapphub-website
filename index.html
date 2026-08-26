@@ -73,12 +73,21 @@
       ]
     }
     </script>
-    <script async src="https://www.googletagmanager.com/gtag/js?id=%VITE_FIREBASE_MEASUREMENT_ID%"></script>
     <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', '%VITE_FIREBASE_MEASUREMENT_ID%');
+      (function() {
+        const measurementId = '%VITE_FIREBASE_MEASUREMENT_ID%';
+        if (measurementId && !measurementId.startsWith('%')) {
+          const script = document.createElement('script');
+          script.async = true;
+          script.src = 'https://www.googletagmanager.com/gtag/js?id=' + measurementId;
+          document.head.appendChild(script);
+
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', measurementId);
+        }
+      })();
     </script>
     <title>SmartAppHub | App Development & Graphic Design Studio</title>
   </head>

@@ -7,7 +7,7 @@ import Card from "../components/Card";
 import PortfolioGallery from "../components/PortfolioGallery";
 import { PenTool, Image as ImageIcon, FileText, ArrowRight, Loader2, CheckCircle2, Mail, Layers, Palette, Sparkles } from "lucide-react";
 import { useState, useMemo } from "react";
-import { db } from "../firebase";
+import { getDb } from "../firebase";
 import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 
 const graphicDesignSchema = {
@@ -117,6 +117,7 @@ export default function GraphicDesign() {
     setIsSubmitting(true);
 
     try {
+      const db = await getDb();
       await addDoc(collection(db, "design_inquiries"), {
         ...formData,
         status: "new",

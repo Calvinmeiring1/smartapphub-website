@@ -9,7 +9,7 @@ import Container from "../components/Container";
 import Reveal from "../components/Reveal";
 import { ArrowRight, Loader2, CheckCircle2, Mail, Code, Terminal, Cpu, Database } from "lucide-react";
 import { useState } from "react";
-import { db } from "../firebase";
+import { getDb } from "../firebase";
 import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 
 const commissionSchema = {
@@ -95,6 +95,7 @@ function CommissionForm() {
     setIsSubmitting(true);
 
     try {
+      const db = await getDb();
       await addDoc(collection(db, "app_inquiries"), {
         ...formData,
         status: "new",
