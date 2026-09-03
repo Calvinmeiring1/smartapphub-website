@@ -3,12 +3,18 @@ import Container from "./Container";
 import Section from "./Section";
 import Reveal from "./Reveal";
 
+import { ShieldCheck } from "lucide-react";
+
 export default function About() {
   return (
     <Section>
       <Container className="max-w-3xl">
         <Reveal margin="200px">
           <div className="text-center">
+            <div className="mb-6 flex items-center justify-center gap-2 text-xs font-bold tracking-[0.2em] text-[var(--color-accent)] uppercase">
+              <ShieldCheck size={16} />
+              Verified Studio
+            </div>
             <h2 className="font-display text-3xl font-semibold text-white sm:text-4xl">
               A small studio, built deliberately
             </h2>

@@ -8,6 +8,8 @@ const Sitters = lazy(() => import("../pages/Sitters"));
 const Commission = lazy(() => import("../pages/Commission"));
 const GraphicDesign = lazy(() => import("../pages/GraphicDesign"));
 const BuyMiniApp = lazy(() => import("../pages/BuyMiniApp"));
+const Blog = lazy(() => import("../pages/Blog"));
+const BlogPost = lazy(() => import("../pages/BlogPost"));
 const Profile = lazy(() => import("../pages/Profile"));
 const Privacy = lazy(() => import("../pages/Privacy"));
 const Terms = lazy(() => import("../pages/Terms"));
@@ -34,6 +36,8 @@ export default function Router() {
             <Route path="/commission" element={<Commission />} />
             <Route path="/graphic-design" element={<GraphicDesign />} />
             <Route path="/buy-mini-app" element={<BuyMiniApp />} />
+            <Route path="/blog" element={<Blog />} />
+            <Route path="/blog/:slug" element={<BlogPost />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/profile/:id" element={<Profile />} />
             <Route path="/privacy" element={<Privacy />} />

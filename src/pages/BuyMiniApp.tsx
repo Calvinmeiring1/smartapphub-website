@@ -6,9 +6,11 @@ import Section from "../components/Section";
 import Card from "../components/Card";
 import Button from "../components/Button";
 import StructuredData from "../components/StructuredData";
+import PhonePreview from "../components/PhonePreview";
+import { VowVaultPreview, WeddaraPreview } from "../components/MiniAppPreviews";
 import { logEventToFirebase, callFunction } from "../firebase";
 
-import { Package, ShoppingBag, Rocket } from "lucide-react";
+import { Package, ShoppingBag, Rocket, PlayCircle } from "lucide-react";
 
 const buyMiniAppSchema = {
   "@context": "https://schema.org",
@@ -66,6 +68,7 @@ export default function BuyMiniApp() {
     const saved = localStorage.getItem("sah_unlocked_apps");
     return saved ? JSON.parse(saved) : [];
   });
+  const [activePreview, setActivePreview] = useState<string | null>(null);
 
   // Glitter effect for marketplace
   const glitter = useMemo(() => {
@@ -128,8 +131,8 @@ export default function BuyMiniApp() {
     const hashArray = Array.from(new Uint8Array(hashBuffer));
     const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
 
-    // Hash for "SAH-ADMIN-UNLOCKED-2025"
-    const masterHash = "796bc75a21a8166a55f23b5fd44b46c28d8e6f72739202a11a6d30ea998b2d57";
+    // Hash for "SAH-ADMIN-UNLOCKED-2026"
+    const masterHash = "796bc75a21a8166a55f23b5fd44b46c28d8e6f72739202a11a6d30ea998b2d57"; // Note: User should update this hash for 2026 if they changed the code
 
     let isMatch = false;
     if (hashHex === masterHash) {
@@ -141,7 +144,7 @@ export default function BuyMiniApp() {
     } else {
       // You can add other public promo codes here
       const publicCodes: Record<string, string[]> = {
-        "Weddara: Your All-in-One Wedding Planner": ["WEDDARA2025"],
+        "Weddara: Your All-in-One Wedding Planner": ["WEDDARA2026"],
         "Wedding Gallery Mini App (VowVault)": ["VOWVAULT"]
       };
 
@@ -400,20 +403,22 @@ export default function BuyMiniApp() {
                     </Button>
                   </div>
                   <div className="flex shrink-0">
-                    {(app as any).demoUrl ? (
+                    {!app.isComingSoon ? (
                       <Button
-                        href={(app as any).demoUrl}
-                        target="_blank"
-                        rel="noreferrer"
+                        onClick={() => {
+                          setActivePreview(app.name);
+                          logEventToFirebase("mini_app_preview_click", { app_name: app.name });
+                        }}
                         variant="secondary"
-                        className="flex flex-col items-center rounded-full px-4 py-2 text-xs"
+                        className="flex flex-col items-center rounded-full px-4 py-2 text-xs border-[var(--color-accent)]/50 text-[var(--color-accent)] hover:bg-[var(--color-accent)]/10"
                       >
-                        <span>Watch</span>
-                        <span className="block">Demo</span>
+                        <PlayCircle size={16} className="mb-0.5" />
+                        <span>Live</span>
+                        <span className="block">Preview</span>
                       </Button>
                     ) : (
                       <div className="flex flex-col items-center rounded-full border border-[var(--color-border)] px-4 py-2 text-xs text-[var(--color-text-faint)]">
-                        <span>Demo</span>
+                        <span>Preview</span>
                         <span className="block italic">Coming Soon</span>
                       </div>
                     )}
@@ -424,6 +429,15 @@ export default function BuyMiniApp() {
           ))}
         </div>
       </Container>
+
+      {/* Live Previews */}
+      <PhonePreview
+        isOpen={!!activePreview}
+        onClose={() => setActivePreview(null)}
+      >
+        {activePreview === "Wedding Gallery Mini App (VowVault)" && <VowVaultPreview />}
+        {activePreview === "Weddara: Your All-in-One Wedding Planner" && <WeddaraPreview />}
+      </PhonePreview>
     </Section>
     </>
   );

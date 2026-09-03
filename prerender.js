@@ -6,7 +6,19 @@ import fs from 'fs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
-const routes = ['/', '/sitters', '/commission', '/graphic-design', '/buy-mini-app', '/privacy', '/terms'];
+const routes = [
+  '/',
+  '/sitters',
+  '/commission',
+  '/graphic-design',
+  '/buy-mini-app',
+  '/blog',
+  '/blog/how-to-build-app-south-africa',
+  '/blog/modern-wedding-stationery-trends',
+  '/blog/native-vs-cross-platform',
+  '/privacy',
+  '/terms'
+];
 
 async function run() {
   // Skip prerendering if explicitly disabled (e.g., in CI environments without Puppeteer dependencies)

@@ -4,29 +4,39 @@ import CommissionHero from "../components/CommissionHero";
 import Services from "../components/Services";
 import CaseStudies from "../components/CaseStudies";
 import Process from "../components/Process";
+import AppEstimator from "../components/AppEstimator";
 import Section from "../components/Section";
 import Container from "../components/Container";
 import Reveal from "../components/Reveal";
 import { ArrowRight, Loader2, CheckCircle2, Mail, Code, Terminal, Cpu, Database } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { getDb } from "../firebase";
 import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 
 const commissionSchema = {
-  // ... (keeping schema as is)
   "@context": "https://schema.org",
   "@type": "Service",
-  "name": "App Development Commission",
+  "name": "Custom Mobile App Development",
   "provider": {
-    "@type": "Organization",
-    "name": "SmartAppHub"
+    "@type": "LocalBusiness",
+    "name": "SmartAppHub",
+    "image": "https://smartapphub.co.za/apple-touch-icon.png",
+    "address": {
+      "@type": "PostalAddress",
+      "addressCountry": "South Africa"
+    }
   },
-  "description": "Commission a custom native Android or iOS app. We build products from idea to App Store launch.",
-  "areaServed": {
-    "@type": "Country",
-    "name": "South Africa"
-  },
-  "serviceType": "Software Development"
+  "description": "Professional custom native Android (Kotlin) and iOS (Swift) application development. We build scalable mobile solutions from concept to launch.",
+  "areaServed": [
+    { "@type": "Country", "name": "South Africa" },
+    { "@type": "Country", "name": "United Kingdom" },
+    { "@type": "Country", "name": "United States" }
+  ],
+  "serviceType": "Software Development",
+  "offers": {
+    "@type": "Offer",
+    "description": "Custom app development quotes available upon request."
+  }
 };
 
 const technologies = [
@@ -80,7 +90,7 @@ const commissionInterests = [
   "Other"
 ];
 
-function CommissionForm() {
+function CommissionForm({ initialDetails }: { initialDetails?: string }) {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const [formData, setFormData] = useState({
@@ -89,6 +99,15 @@ function CommissionForm() {
     interest: "New App Development",
     details: ""
   });
+
+  useEffect(() => {
+    if (initialDetails) {
+      setFormData(prev => ({
+        ...prev,
+        details: initialDetails
+      }));
+    }
+  }, [initialDetails]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -242,6 +261,12 @@ function CommissionForm() {
 }
 
 export default function Commission() {
+  const [estimateSummary, setEstimateSummary] = useState("");
+
+  const handleEstimateChange = (total: number, summary: string) => {
+    setEstimateSummary(`Estimated Price: R${total.toLocaleString()}\n\nSelections:\n${summary}`);
+  };
+
   return (
     <div className="relative min-h-screen">
       <SEO
@@ -277,7 +302,8 @@ export default function Commission() {
       <TechStackSection />
       <CaseStudies />
       <Process />
-      <CommissionForm />
+      <AppEstimator onEstimateChange={handleEstimateChange} />
+      <CommissionForm initialDetails={estimateSummary} />
     </div>
   );
 }

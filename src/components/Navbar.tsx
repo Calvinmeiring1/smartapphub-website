@@ -23,10 +23,11 @@ const graphicDesignLinks = [
 ];
 
 const companyLinks = [
-  { label: "Sitters", href: "/sitters" },
+  { label: "Commission an App", href: "/commission" },
   { label: "Graphic Design", href: "/graphic-design" },
   { label: "Buy a Mini App", href: "/buy-mini-app" },
-  { label: "Commission an App", href: "/commission" },
+  { label: "Sitters", href: "/sitters" },
+  { label: "Blog", href: "/blog" },
 ];
 
 export default function Navbar() {

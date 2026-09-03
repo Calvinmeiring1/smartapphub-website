@@ -21,8 +21,12 @@ export default function Footer() {
             <h4 className="font-display text-sm font-semibold text-white">Product</h4>
             <ul className="mt-3 space-y-2 text-sm text-[var(--color-text-muted)]">
               <li><Link to="/sitters" className="hover:text-white">Sitters app</Link></li>
+              <li><Link to="/blog" className="hover:text-white">Our Blog</Link></li>
               <li><Link to="/sitters#how-it-works" className="hover:text-white">How it works</Link></li>
               <li><Link to="/sitters#download" className="hover:text-white">Download</Link></li>
+              <li className="pt-2">
+                <div google-add-preferred-source-btn data-theme="dark" data-lang="en"></div>
+              </li>
             </ul>
           </div>
           <div>
