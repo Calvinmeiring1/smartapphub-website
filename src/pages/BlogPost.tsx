@@ -1,6 +1,5 @@
 import { useParams, Link } from "react-router-dom";
 import Container from "../components/Container";
-import Section from "../components/Section";
 import SEO from "../components/SEO";
 import StructuredData from "../components/StructuredData";
 import Reveal from "../components/Reveal";
@@ -67,11 +66,18 @@ export default function BlogPost() {
           <div className="text-lg text-[var(--color-text-muted)] leading-relaxed space-y-8">
             {post.content.map((section, idx) => {
               if (section.type === 'heading') {
-                const Tag = `h${section.level || 2}` as keyof JSX.IntrinsicElements;
+                const level = section.level || 2;
                 return (
-                  <Tag key={idx} className="font-display text-2xl font-bold text-white mt-12 mb-4">
+                  <div
+                    key={idx}
+                    className={`font-display font-bold text-white mt-12 mb-4 ${
+                      level === 1 ? 'text-3xl' : level === 2 ? 'text-2xl' : 'text-xl'
+                    }`}
+                    role="heading"
+                    aria-level={level}
+                  >
                     {section.text}
-                  </Tag>
+                  </div>
                 );
               }
               if (section.type === 'paragraph') {

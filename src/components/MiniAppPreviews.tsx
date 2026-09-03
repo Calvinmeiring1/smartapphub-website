@@ -1,10 +1,8 @@
 import { useState } from "react";
 import {
   Camera,
-  Heart,
   Calendar,
   Users,
-  MapPin,
   ChevronRight,
   Plus,
   RefreshCw,
@@ -12,7 +10,6 @@ import {
   Play,
   Settings,
   AlertCircle,
-  LayoutDashboard,
   Wallet,
   ClipboardList,
   Store,
@@ -20,9 +17,7 @@ import {
 } from "lucide-react";
 
 // Colors from D:\AndroidStudioProjects projects
-const ROMANTIC_PINK = "#E84D8A";
-const PINK_CONTAINER = "#FCE4EC";
-const BLUSH_BG = "#FFF5F7";
+// (Keeping these for reference but removing unused declarations to satisfy TS)
 
 // --- VowVault Preview ---
 export function VowVaultPreview() {
