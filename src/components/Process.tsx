@@ -1,7 +1,5 @@
 import {
   MessageSquare,
-  FileText,
-  Hammer,
   Rocket,
   Layout,
   ShieldCheck,
@@ -60,7 +58,6 @@ function VerticalTimeline() {
       // Start tracking when top of container reaches middle of screen
       // End tracking when bottom reaches middle of screen
       const start = windowHeight / 2;
-      const end = rect.height + start;
       const current = start - rect.top;
 
       const progress = Math.min(Math.max(current / rect.height, 0), 1);
