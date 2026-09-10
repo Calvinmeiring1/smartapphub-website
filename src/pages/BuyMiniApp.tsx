@@ -35,6 +35,15 @@ const buyMiniAppSchema = {
 
 const apps = [
   {
+    name: "Wedding Duo Bundle (Save R99!)",
+    price: "R 599",
+    amount: 599,
+    description: "The complete digital wedding suite. Get both VowVault and Weddara at a discounted price. Manage your planning process and capture guest memories in one seamless experience.",
+    highlight: "Includes:\n• VowVault (Wedding Gallery)\n• Weddara (Wedding Planner)",
+    isBundle: true,
+    bundleItems: ["Wedding Gallery Mini App (VowVault)", "Weddara: Your All-in-One Wedding Planner"]
+  },
+  {
     name: "Wedding Gallery Mini App (VowVault)",
     price: "R 199",
     amount: 199,
@@ -82,12 +91,22 @@ export default function BuyMiniApp() {
   }, []);
 
   useEffect(() => {
-    if (successApp && !unlockedApps.includes(successApp)) {
-      const nextUnlocked = [...new Set([...unlockedApps, successApp])];
-      setUnlockedApps(nextUnlocked);
-      localStorage.setItem("sah_unlocked_apps", JSON.stringify(nextUnlocked));
+    if (successApp) {
+      const app = apps.find(a => a.name === successApp);
+      let nextUnlocked = [...unlockedApps];
+
+      if (app?.isBundle && app.bundleItems) {
+        nextUnlocked = [...new Set([...nextUnlocked, ...app.bundleItems, successApp])];
+      } else if (!unlockedApps.includes(successApp)) {
+        nextUnlocked = [...new Set([...nextUnlocked, successApp])];
+      }
+
+      if (nextUnlocked.length !== unlockedApps.length) {
+        setUnlockedApps(nextUnlocked);
+        localStorage.setItem("sah_unlocked_apps", JSON.stringify(nextUnlocked));
+      }
     }
-  }, [successApp, unlockedApps]);
+  }, [successApp]);
   const [activationEmail, setActivationEmail] = useState(() => {
     return localStorage.getItem("sah_activation_email") || "";
   });
@@ -158,7 +177,15 @@ export default function BuyMiniApp() {
     }
 
     if (isMatch) {
-      const nextUnlocked = [...new Set([...unlockedApps, appName])];
+      let nextUnlocked = [...unlockedApps];
+      const app = apps.find(a => a.name === appName);
+
+      if (app?.isBundle && app.bundleItems) {
+        nextUnlocked = [...new Set([...nextUnlocked, ...app.bundleItems, appName])];
+      } else {
+        nextUnlocked = [...new Set([...nextUnlocked, appName])];
+      }
+
       setUnlockedApps(nextUnlocked);
       localStorage.setItem("sah_unlocked_apps", JSON.stringify(nextUnlocked));
     }
@@ -264,7 +291,16 @@ export default function BuyMiniApp() {
 
         <div className="mt-12 grid gap-6 lg:grid-cols-3">
           {apps.map((app) => (
-            <Card key={app.name} hover className="relative flex h-full flex-col">
+            <Card
+              key={app.name}
+              hover
+              className={`relative flex h-full flex-col ${(app as any).isBundle ? 'border-2 border-[var(--color-accent)] bg-[var(--color-accent-soft)]/10 ring-1 ring-[var(--color-accent)]/20' : ''}`}
+            >
+              {(app as any).isBundle && (
+                <div className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-[var(--color-accent)] px-4 py-1 text-[10px] font-black uppercase tracking-widest text-black shadow-lg">
+                  Best Value
+                </div>
+              )}
               <div className="flex items-center justify-between gap-3">
                 <h2 className="font-display text-xl font-semibold text-white">{app.name}</h2>
                 <span className="shrink-0 rounded-full border border-[var(--color-border)] px-3 py-1 text-sm font-medium text-[var(--color-accent)]">
@@ -437,6 +473,7 @@ export default function BuyMiniApp() {
       >
         {activePreview === "Wedding Gallery Mini App (VowVault)" && <VowVaultPreview />}
         {activePreview === "Weddara: Your All-in-One Wedding Planner" && <WeddaraPreview />}
+        {activePreview === "Wedding Duo Bundle (Save R99!)" && <VowVaultPreview />} {/* Default to Gallery for bundle preview */}
       </PhonePreview>
     </Section>
     </>

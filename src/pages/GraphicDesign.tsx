@@ -5,6 +5,7 @@ import Section from "../components/Section";
 import Reveal from "../components/Reveal";
 import Card from "../components/Card";
 import PortfolioGallery from "../components/PortfolioGallery";
+import BeforeAfterSlider from "../components/BeforeAfterSlider";
 import { PenTool, Image as ImageIcon, FileText, ArrowRight, Loader2, CheckCircle2, Mail, Layers, Palette, Sparkles } from "lucide-react";
 import { useState, useMemo } from "react";
 import { getDb } from "../firebase";
@@ -101,6 +102,19 @@ export default function GraphicDesign() {
     details: ""
   });
 
+  const selectService = (interest: string, detailText?: string) => {
+    setFormData(prev => ({
+      ...prev,
+      interest,
+      details: detailText ? `I am interested in ${detailText}.\n\n` : prev.details
+    }));
+
+    const contactSection = document.getElementById("contact");
+    if (contactSection) {
+      contactSection.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  };
+
   // Generate a field of glitter
   const sparkles = useMemo(() => {
     return Array.from({ length: 60 }).map(() => ({
@@ -188,15 +202,35 @@ export default function GraphicDesign() {
             </Reveal>
           </div>
 
-          <div id="services" className="mt-16 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          {/* Transformation Showcase */}
+          <div className="mt-16">
+            <BeforeAfterSlider
+              beforeImage="/invite.jpeg"
+              afterImage="/invite.jpeg"
+              beforeLabel="Rough Concept"
+              afterLabel="Studio Finish"
+            />
+            <p className="mt-4 text-center text-xs font-bold uppercase tracking-widest text-[var(--color-text-faint)]">
+              Drag the handle to see the transformation
+            </p>
+          </div>
+
+          <div id="services" className="mt-24 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
             {services.map((service, i) => (
               <Reveal key={service.title} delay={i * 0.1}>
-                <Card hover className="h-full">
-                  <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-[var(--color-accent-soft)] text-[var(--color-accent)]">
+                <Card
+                  hover
+                  className="h-full cursor-pointer group"
+                  onClick={() => selectService(service.title)}
+                >
+                  <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-[var(--color-accent-soft)] text-[var(--color-accent)] transition-colors group-hover:bg-[var(--color-accent)] group-hover:text-black">
                     <service.icon size={20} />
                   </div>
                   <h3 className="mt-5 font-display text-lg font-semibold text-white">{service.title}</h3>
                   <p className="mt-2 text-sm leading-relaxed text-[var(--color-text-muted)]">{service.description}</p>
+                  <div className="mt-6 flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest text-[var(--color-accent)]">
+                    Enquire <ArrowRight size={10} />
+                  </div>
                 </Card>
               </Reveal>
             ))}
@@ -228,6 +262,13 @@ export default function GraphicDesign() {
                           </li>
                         ))}
                       </ul>
+
+                      <button
+                        onClick={() => selectService(pkg.name)}
+                        className="mt-8 w-full rounded-full border border-[var(--color-border)] py-2.5 text-[10px] font-bold uppercase tracking-widest text-white transition-all hover:bg-white hover:text-black active:scale-95"
+                      >
+                        Select Package
+                      </button>
                     </div>
                   </Card>
                 </Reveal>
@@ -244,12 +285,20 @@ export default function GraphicDesign() {
             <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
               {weddingServices.map((item, i) => (
                 <Reveal key={item.name} delay={i * 0.05}>
-                  <div className="flex items-center justify-between rounded-2xl border border-[var(--color-border)] bg-[var(--color-bg)]/30 p-5 transition-colors hover:bg-[var(--color-bg)]/50">
-                    <div>
-                      <h4 className="font-medium text-white">{item.name}</h4>
-                      {item.note && <p className="text-xs text-[var(--color-accent)] mt-0.5">{item.note}</p>}
+                  <div className="flex flex-col rounded-2xl border border-[var(--color-border)] bg-[var(--color-bg)]/30 p-5 transition-all hover:bg-[var(--color-bg)]/50 hover:border-[var(--color-accent)]/30 group">
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <h4 className="font-medium text-white">{item.name}</h4>
+                        {item.note && <p className="text-[10px] text-[var(--color-accent)] mt-0.5 leading-tight">{item.note}</p>}
+                      </div>
+                      <span className="font-display font-semibold text-white">{item.price}</span>
                     </div>
-                    <span className="font-display font-semibold text-white">{item.price}</span>
+                    <button
+                      onClick={() => selectService("Other", item.name)}
+                      className="mt-4 flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest text-[var(--color-accent)] opacity-0 transition-all group-hover:opacity-100 hover:text-white"
+                    >
+                      Enquire about this <ArrowRight size={10} />
+                    </button>
                   </div>
                 </Reveal>
               ))}
