@@ -12,7 +12,7 @@ export default function Footer() {
             SmartAppHub
           </div>
           <p className="mt-3 text-sm text-[var(--color-text-muted)]">
-            Custom apps and graphic design, made in South Africa.
+            Apps, websites and graphic design, made in South Africa.
           </p>
         </div>
 
@@ -32,7 +32,7 @@ export default function Footer() {
           <div>
             <h4 className="font-display text-sm font-semibold text-white">Services</h4>
             <ul className="mt-3 space-y-2 text-sm text-[var(--color-text-muted)]">
-              <li><Link to="/commission" className="hover:text-white">Commission an app</Link></li>
+              <li><Link to="/commission" className="hover:text-white">Apps & websites</Link></li>
               <li><Link to="/graphic-design" className="hover:text-white">Graphic design</Link></li>
               <li><Link to="/buy-mini-app" className="hover:text-white">Mini apps</Link></li>
               <li><Link to="/commission#services" className="hover:text-white">What we build</Link></li>
@@ -61,7 +61,7 @@ export default function Footer() {
                   rel="noopener noreferrer"
                   className="flex items-center gap-1.5 hover:text-white"
                 >
-                  <MessageCircle size={14} /> WhatsApp Calvin · Apps
+                  <MessageCircle size={14} /> WhatsApp Calvin · Development
                 </a>
               </li>
               <li><a href="https://wa.me/27662070280" target="_blank" rel="noopener noreferrer" className="hover:text-white">WhatsApp Dominique · Design</a></li>

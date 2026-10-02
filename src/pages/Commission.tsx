@@ -18,7 +18,7 @@ import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 const commissionSchema = {
   "@context": "https://schema.org",
   "@type": "Service",
-  "name": "Custom Mobile App Development",
+  "name": "Custom App and Website Development",
   "provider": {
     "@type": "LocalBusiness",
     "name": "SmartAppHub",
@@ -28,7 +28,7 @@ const commissionSchema = {
       "addressCountry": "South Africa"
     }
   },
-  "description": "Professional custom native Android (Kotlin) and iOS (Swift) application development. We build scalable mobile solutions from concept to launch.",
+  "description": "Custom websites and native Android and iOS apps, from concept to launch.",
   "areaServed": [
     { "@type": "Country", "name": "South Africa" },
     { "@type": "Country", "name": "United Kingdom" },
@@ -37,7 +37,7 @@ const commissionSchema = {
   "serviceType": "Software Development",
   "offers": {
     "@type": "Offer",
-    "description": "Custom app development quotes available upon request."
+    "description": "Custom app and website development quotes available upon request."
   }
 };
 
@@ -83,6 +83,8 @@ function TechStackSection() {
 
 const commissionInterests = [
   "New App Development",
+  "Website Development",
+  "Website Redesign",
   "Android App (Kotlin)",
   "iOS App (Swift)",
   "Cross-platform App",
@@ -112,7 +114,7 @@ function CommissionForm({ estimateSummary }: { estimateSummary: string }) {
       const db = await getDb();
       await addDoc(collection(db, "app_inquiries"), {
         ...formData,
-        estimateSummary,
+        estimateSummary: formData.interest.startsWith("Website") ? "" : estimateSummary,
         status: "new",
         createdAt: serverTimestamp()
       });
@@ -132,11 +134,11 @@ function CommissionForm({ estimateSummary }: { estimateSummary: string }) {
         <Reveal>
           <h2 className="font-display text-3xl font-semibold text-white text-center text-shimmer">Start your project</h2>
           <p className="mt-4 text-[var(--color-text-muted)] text-center">
-            Tell Calvin about your app idea. We typically reply within 5 minutes and will discuss your requirements before preparing a quote.
+            Tell Calvin about your app or website idea. We typically reply within 5 minutes and will discuss your requirements before preparing a quote.
           </p>
         </Reveal>
 
-        {estimateSummary && (
+        {estimateSummary && !formData.interest.startsWith("Website") && (
           <div className="mt-8 rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] p-6">
             <h3 className="font-semibold text-white">Your estimate is included with this enquiry</h3>
             <p className="mt-3 whitespace-pre-line text-sm text-[var(--color-text-muted)]">{estimateSummary}</p>
@@ -216,7 +218,7 @@ function CommissionForm({ estimateSummary }: { estimateSummary: string }) {
                   id="app-details"
                   name="details"
                   rows={4}
-                  placeholder="Tell us about the app you want to build, the problems it solves, or your specific requirements..."
+                  placeholder="Tell us about your app or website, your audience, the features you need, and any existing website you want to redesign..."
                   className="w-full bg-transparent border-b border-white/25 py-3 text-white placeholder:text-[var(--color-text-muted)] focus:outline-none focus:border-[var(--color-accent)] transition-colors resize-none"
                   value={formData.details}
                   onChange={e => setFormData({ ...formData, details: e.target.value })}
@@ -263,8 +265,8 @@ export default function Commission() {
   return (
     <div className="relative min-h-screen">
       <SEO
-        title="Commission an App | Custom Mobile Development | SmartAppHub"
-        description="Have an app idea? SmartAppHub builds custom native Android and iOS apps end to end. Get a professional, production-ready app for your business using Kotlin, Swift, Python, and SQL."
+        title="Apps & Websites | Custom Development | SmartAppHub"
+        description="Work directly with Calvin on custom websites and Android or iOS apps. Discuss design, development and launch with SmartAppHub."
         canonical="https://smartapphub.co.za/commission"
       />
       <StructuredData data={commissionSchema} />

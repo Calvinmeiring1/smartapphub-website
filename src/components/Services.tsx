@@ -1,10 +1,15 @@
-import { Smartphone, Apple, Database, CreditCard, Sparkles, LifeBuoy } from "lucide-react";
+import { Globe, Smartphone, Apple, Database, CreditCard, Sparkles, LifeBuoy } from "lucide-react";
 import Container from "./Container";
 import Section from "./Section";
 import Card from "./Card";
 import Reveal from "./Reveal";
 
 const services = [
+  {
+    icon: Globe,
+    title: "Website development",
+    description: "Custom, mobile-friendly business websites and landing pages, plus redesigns of existing sites. Tell Calvin about the pages and functionality you need for a tailored quote.",
+  },
   {
     icon: Smartphone,
     title: "Android apps",

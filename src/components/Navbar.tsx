@@ -23,7 +23,7 @@ const graphicDesignLinks = [
 ];
 
 const companyLinks = [
-  { label: "App Development", href: "/commission" },
+  { label: "Apps & Websites", href: "/commission" },
   { label: "Graphic Design", href: "/graphic-design" },
   { label: "Buy a Mini App", href: "/buy-mini-app" },
   { label: "Sitters", href: "/sitters" },
@@ -50,7 +50,7 @@ export default function Navbar() {
     if (!sectionLinks) return [{ label: "Home", href: "/" }, ...companyLinks];
     return [
       { label: "Home", href: "/" },
-      { label: isGraphicDesign ? "App Development" : "Graphic Design", href: isGraphicDesign ? "/commission" : "/graphic-design" },
+      { label: isGraphicDesign ? "Apps & Websites" : "Graphic Design", href: isGraphicDesign ? "/commission" : "/graphic-design" },
       ...sectionLinks,
     ];
   }, [isHome, isSitters, isCommission, isGraphicDesign]);

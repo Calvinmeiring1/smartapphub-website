@@ -14,14 +14,12 @@ export default function CommissionHero() {
           <Badge>Now taking on new projects</Badge>
 
           <h1 className="mt-6 font-display text-4xl font-semibold leading-[1.1] tracking-tight text-white sm:text-5xl">
-            Have an app idea?{" "}
+            Need an app or website?{" "}
             <span className="text-[var(--color-accent)]">Let's build it.</span>
           </h1>
 
           <p className="mx-auto mt-6 max-w-lg text-lg leading-relaxed text-[var(--color-text-muted)]">
-            SmartAppHub builds native Android and iOS apps end to end,
-            from a first idea to a real product on the App Store and Google
-            Play. Same team that builds Sitters, working on your project.
+            Work directly with Calvin to build a custom website or native Android and iOS app. From your first idea to launch, we shape the design and development around your business.
           </p>
 
           <div className="mt-8 flex justify-center">

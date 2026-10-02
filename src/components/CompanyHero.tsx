@@ -38,19 +38,19 @@ export default function CompanyHero() {
           </div>
 
           <h1 className="mt-6 font-display text-4xl font-semibold leading-[1.1] tracking-tight text-white sm:text-6xl lg:text-7xl">
-            Custom apps and graphic design{" "}
+            Apps, websites and graphic design{" "}
             <span className="bg-gradient-to-r from-[var(--color-accent)] to-white bg-clip-text text-transparent">
               for your business.
             </span>
           </h1>
 
           <p className="mx-auto mt-6 max-w-lg text-lg leading-relaxed text-[var(--color-text-muted)]">
-            We're Calvin and Dominique, a South African studio building Android and iOS apps, business graphics, digital assets and wedding stationery. Work directly with the people creating your project.
+            We're Calvin and Dominique, a South African studio building Android and iOS apps, websites, business graphics, digital assets and wedding stationery. Work directly with the people creating your project.
           </p>
 
           <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
             <Button href="/commission" variant="primary">
-              Discuss an app project
+              Discuss apps or a website
             </Button>
             <Button href="/graphic-design" variant="secondary">
               Explore design services

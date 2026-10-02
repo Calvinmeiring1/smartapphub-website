@@ -4,7 +4,7 @@ import Section from "./Section";
 const questions = [
   {
     question: "Do I need a finished specification?",
-    answer: "Start with the problem you want to solve, who will use the app and the features that matter most. Discovery helps turn that idea into a practical project scope.",
+    answer: "Start with the problem you want to solve, who will use the app or website and the features that matter most. Discovery helps turn that idea into a practical project scope.",
   },
   {
     question: "Can we start with a smaller first version?",
@@ -12,7 +12,7 @@ const questions = [
   },
   {
     question: "How much will it cost, and how long will it take?",
-    answer: "The estimator gives a starting point for cost. Your final quote and timeline depend on the platforms, features, integrations and design requirements agreed for your project.",
+    answer: "The app estimator gives a starting point for mobile app costs. Websites are quoted separately based on your pages, content and functionality. Your final quote and timeline depend on the platforms, features, integrations and design requirements agreed for your project.",
   },
   {
     question: "What should we agree before development starts?",

@@ -9,7 +9,7 @@ const team = [
     photo: "/team-calvin.jpg",
     name: "Calvin Meiring",
     role: "Founder & Developer",
-    bio: "Builds every SmartAppHub app end to end, Kotlin, Swift, Firebase, and a lot of attention to detail.",
+    bio: "Builds SmartAppHub apps and custom websites from design through development and launch, with attention to every detail.",
     badge: null,
     imageClassName: "object-cover object-center",
   },
