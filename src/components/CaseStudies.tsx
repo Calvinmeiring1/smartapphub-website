@@ -4,6 +4,7 @@ import Section from "./Section";
 import Card from "./Card";
 import Reveal from "./Reveal";
 import Badge from "./Badge";
+import PhoneMockup from "./PhoneMockup";
 
 const features = [
   {
@@ -38,16 +39,9 @@ export default function CaseStudies() {
         </div>
 
         <div className="mt-16 grid gap-12 lg:grid-cols-2 lg:items-center">
-          <Reveal>
-            <div className="relative aspect-[4/3] overflow-hidden rounded-[var(--radius-card)] border border-[var(--color-border)] bg-[var(--color-surface)]/50 p-8">
-              <div className="absolute inset-0 bg-gradient-to-tr from-[var(--color-accent)]/10 to-transparent opacity-50" />
-              <img
-                src="https://play-lh.googleusercontent.com/cDpdSO5uGb-LnVM_vwqSSKhgSUK_hLt9adsqqdqYOVoWkqeNrgtpmRk7BavbhfWPmVqdpqpdf-l2p5U3w3HQZg=w526-h296"
-                alt="Sitters App Screenshot"
-                className="relative z-10 h-full w-full object-contain drop-shadow-2xl transition-transform duration-500 hover:scale-[1.02]"
-              />
-            </div>
-          </Reveal>
+          <div className="rounded-[var(--radius-card)] border border-[var(--color-border)] bg-[var(--color-surface)]/50 px-4 py-8 sm:px-8">
+            <PhoneMockup />
+          </div>
 
           <div className="space-y-8">
             <Reveal delay={0.1}>
