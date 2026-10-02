@@ -10,7 +10,7 @@ export default defineConfig({
     tailwindcss(),
     VitePWA({
       registerType: 'autoUpdate',
-      includeAssets: ['favicon-32.png', 'logo-icon.png', 'apple-touch-icon.png', 'robots.txt'],
+      includeAssets: ['favicon-32.png', 'favicon-192.png', 'logo-icon.png', 'apple-touch-icon.png', 'robots.txt'],
       manifest: {
         name: 'SmartAppHub',
         short_name: 'SmartAppHub',
