@@ -1,4 +1,4 @@
-import { useEffect, useState, useMemo } from "react";
+import { useEffect, useState, useMemo, useRef } from "react";
 import { useLocation, Link } from "react-router-dom";
 import { Menu, X } from "lucide-react";
 import Container from "./Container";
@@ -32,7 +32,10 @@ const companyLinks = [
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
-  const [open, setOpen] = useState(false);
+  const menuRef = useRef<HTMLDetailsElement>(null);
+  const closeMenu = () => {
+    if (menuRef.current) menuRef.current.open = false;
+  };
   const location = useLocation();
 
   const isHome = location.pathname === "/";
@@ -83,21 +86,32 @@ export default function Navbar() {
 
   // Close menu on navigation
   useEffect(() => {
-    setOpen(false);
+    if (menuRef.current) menuRef.current.open = false;
   }, [location.pathname, location.hash]);
+
+  useEffect(() => {
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape" && menuRef.current?.open) {
+        menuRef.current.open = false;
+        menuRef.current.querySelector("summary")?.focus();
+      }
+    };
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, []);
 
   return (
     <header
-      className={`fixed top-0 z-50 w-full transition-[background-color,border-color,backdrop-filter] duration-300 ${
+      className={`fixed top-0 z-50 w-full bg-[var(--color-bg)] transition-[background-color,border-color] duration-200 ${
         scrolled
-          ? "bg-[var(--color-bg)]/80 backdrop-blur-md md:backdrop-blur-xl border-b border-[var(--color-border)]"
-          : "bg-transparent border-b border-transparent"
+          ? "xl:bg-[var(--color-bg)]/80 xl:backdrop-blur-xl border-b border-[var(--color-border)]"
+          : "xl:bg-transparent border-b border-transparent"
       }`}
     >
       <Container className="flex h-18 items-center justify-between py-4">
         <Link
           to="/"
-          onClick={() => setOpen(false)}
+          onClick={closeMenu}
           className="flex items-center gap-2.5 font-display text-lg font-semibold leading-none tracking-tight"
         >
           <span className="flex h-11 w-11 items-center justify-center">
@@ -148,27 +162,27 @@ export default function Navbar() {
           </Button>
         </div>
 
-        <button
-          aria-label="Toggle menu"
-          aria-expanded={open}
-          aria-controls={open ? "mobile-menu" : undefined}
-          onClick={() => setOpen((v) => !v)}
-          className="text-white xl:hidden"
-        >
-          {open ? <X size={22} /> : <Menu size={22} />}
-        </button>
       </Container>
 
-      {open && (
-        <div id="mobile-menu" className="border-t border-[var(--color-border)] bg-[var(--color-bg)]/95 backdrop-blur-md xl:hidden">
+      {/* Native disclosure opens immediately, including before React loads. */}
+      <details ref={menuRef} className="group xl:hidden">
+        <summary
+          aria-label="Toggle menu"
+          aria-controls="mobile-menu"
+          className="absolute right-4 top-3 flex h-12 w-12 cursor-pointer list-none touch-manipulation items-center justify-center rounded-lg text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white [&::-webkit-details-marker]:hidden"
+        >
+          <Menu size={24} className="group-open:hidden" aria-hidden="true" />
+          <X size={24} className="hidden group-open:block" aria-hidden="true" />
+        </summary>
+        <nav id="mobile-menu" aria-label="Mobile navigation" className="max-h-[calc(100dvh-4.5rem)] overflow-y-auto border-t border-[var(--color-border)] bg-[var(--color-bg)]">
           <Container className="flex flex-col gap-4 py-6">
             {links.map((link) =>
               link.href.startsWith("/") ? (
                 <Link
                   key={link.href}
                   to={link.href}
-                  onClick={() => setOpen(false)}
-                  className="text-sm text-[var(--color-text-muted)] hover:text-white"
+                  onClick={closeMenu}
+                  className="flex min-h-11 items-center text-base text-[var(--color-text-muted)] hover:text-white"
                 >
                   {link.label}
                 </Link>
@@ -176,25 +190,25 @@ export default function Navbar() {
                 <a
                   key={link.href}
                   href={link.href}
-                  onClick={() => setOpen(false)}
-                  className="text-sm text-[var(--color-text-muted)] hover:text-white"
+                  onClick={closeMenu}
+                  className="flex min-h-11 items-center text-base text-[var(--color-text-muted)] hover:text-white"
                 >
                   {link.label}
                 </a>
               ),
             )}
             {!isHome ? (
-              <Button href={primaryCta.href} onClick={() => setOpen(false)} variant="primary" className="mt-2 w-full">
+              <Button href={primaryCta.href} onClick={closeMenu} variant="primary" className="mt-2 w-full">
                 {primaryCta.label}
               </Button>
             ) : (
-              <Button href="/contact" onClick={() => setOpen(false)} variant="primary" className="mt-2 w-full">
+              <Button href="/contact" onClick={closeMenu} variant="primary" className="mt-2 w-full">
                 Discuss your project
               </Button>
             )}
           </Container>
-        </div>
-      )}
+        </nav>
+      </details>
     </header>
   );
 }
