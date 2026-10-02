@@ -25,7 +25,9 @@ const commissionSchema = {
     "image": "https://smartapphub.co.za/apple-touch-icon.png",
     "address": {
       "@type": "PostalAddress",
-      "addressCountry": "South Africa"
+      "addressCountry": "South Africa",
+      "addressLocality": "Pretoria",
+      "addressRegion": "Gauteng"
     }
   },
   "description": "Custom websites and native Android and iOS apps, from concept to launch.",
@@ -265,8 +267,8 @@ export default function Commission() {
   return (
     <div className="relative min-h-screen">
       <SEO
-        title="Apps & Websites | Custom Development | SmartAppHub"
-        description="Work directly with Calvin on custom websites and Android or iOS apps. Discuss design, development and launch with SmartAppHub."
+        title="Software, App & Website Development in Pretoria | SmartAppHub"
+        description="Custom software, Android and iOS apps, and website development from Pretoria, serving businesses across South Africa. Work directly with Calvin from idea to launch."
         canonical="https://smartapphub.co.za/commission"
       />
       <StructuredData data={commissionSchema} />

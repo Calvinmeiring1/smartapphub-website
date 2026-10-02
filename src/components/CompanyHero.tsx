@@ -45,7 +45,7 @@ export default function CompanyHero() {
           </h1>
 
           <p className="mx-auto mt-6 max-w-lg text-lg leading-relaxed text-[var(--color-text-muted)]">
-            We're Calvin and Dominique, a South African studio building Android and iOS apps, websites, business graphics, digital assets and wedding stationery. Work directly with the people creating your project.
+            We're Calvin and Dominique, a Pretoria-based studio serving clients across South Africa. We build Android and iOS apps, websites, business graphics, digital assets and wedding stationery. Work directly with us online.
           </p>
 
           <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">

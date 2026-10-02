@@ -19,7 +19,7 @@ export default function CommissionHero() {
           </h1>
 
           <p className="mx-auto mt-6 max-w-lg text-lg leading-relaxed text-[var(--color-text-muted)]">
-            Work directly with Calvin to build a custom website or native Android and iOS app. From your first idea to launch, we shape the design and development around your business.
+            Work directly with Calvin to build a custom website or native Android and iOS app. Based in Pretoria, we work remotely with clients across South Africa, from your first idea to launch.
           </p>
 
           <div className="mt-8 flex justify-center">

@@ -12,7 +12,7 @@ export default function Footer() {
             SmartAppHub
           </div>
           <p className="mt-3 text-sm text-[var(--color-text-muted)]">
-            Apps, websites and graphic design, made in South Africa.
+            Apps, websites and graphic design. Based in Pretoria, serving South Africa.
           </p>
         </div>
 

@@ -7,11 +7,11 @@ import ContactLinks from "../components/ContactLinks";
 export default function Contact() {
   return (
     <>
-      <SEO title="Discuss Your Project | SmartAppHub" description="Contact Calvin for app and website development or Dominique for graphic design and wedding stationery. A South African studio with direct, personal support." />
+      <SEO title="Discuss Your Project | SmartAppHub" description="Contact Calvin for app and website development or Dominique for graphic design and wedding stationery. Based in Pretoria and working remotely with clients across South Africa." canonical="https://smartapphub.co.za/contact" />
       <Section className="pt-28 sm:pt-36">
         <Container>
           <h1 className="font-display text-4xl font-semibold text-white sm:text-5xl">Discuss your project</h1>
-          <p className="mt-5 max-w-2xl text-lg text-[var(--color-text-muted)]">Choose the service you need and speak directly with the person creating your work. We typically reply within 5 minutes.</p>
+          <p className="mt-5 max-w-2xl text-lg text-[var(--color-text-muted)]">Based in Pretoria, we work remotely with clients across South Africa. Choose the service you need and speak directly with the person creating your work. We typically reply within 5 minutes.</p>
           <div className="mt-10 grid gap-6 lg:grid-cols-2">
             <div className="rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface)] p-6 sm:p-8">
               <p className="text-sm text-[var(--color-accent)]">Calvin Meiring · Developer</p>

@@ -25,8 +25,8 @@ export default function Home() {
   return (
     <div className="relative overflow-hidden">
       <SEO
-        title="SmartAppHub | Apps, Websites & Graphic Design Studio"
-        description="SmartAppHub is a boutique studio specializing in custom apps, websites and graphic design. We build Sitters, alongside custom mobile apps and digital graphic design commissions."
+        title="Software & Website Development in Pretoria | SmartAppHub"
+        description="Pretoria-based software and design studio serving clients across South Africa. Custom Android and iOS apps, websites, business graphics and wedding stationery."
       />
 
       {/* Background Atmosphere */}
