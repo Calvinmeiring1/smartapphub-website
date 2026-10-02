@@ -44,10 +44,34 @@ export default function WebsiteDevelopment() {
         </Container>
       </div>
       <Section id="services"><Container><h2 className="font-display text-3xl font-semibold text-white">What can we build for you?</h2><div className="mt-8 grid gap-5 sm:grid-cols-2">{services.map(({icon: Icon,title,text})=><Card key={title}><Icon className="text-[var(--color-accent)]" size={24} aria-hidden="true" /><h3 className="mt-4 text-xl font-semibold text-white">{title}</h3><p className="mt-3 leading-relaxed text-[var(--color-text-muted)]">{text}</p></Card>)}</div></Container></Section>
-      <Section id="website-example" className="border-y border-[var(--color-border)]"><Container className="grid gap-8 lg:grid-cols-2">
-        <div><p className="text-sm font-semibold text-[var(--color-accent)]">WEBSITE EXAMPLE</p><h2 className="mt-3 font-display text-3xl font-semibold text-white">SmartAppHub</h2><p className="mt-4 leading-relaxed text-[var(--color-text-muted)]">Our own studio website brings app development, website services and graphic design into one clear journey. Explore it to see Calvin’s website work in practice.</p><ul className="mt-5 space-y-3 text-sm text-[var(--color-text-muted)]"><li>Layouts for phones, tablets and desktop screens</li><li>Dedicated service pages and project enquiry forms</li><li>Portfolio galleries and an illustrative app preview</li><li>Page metadata, sitemap and search setup</li></ul><Link to="/" className="mt-6 inline-flex min-h-12 items-center gap-2 font-semibold text-[var(--color-accent)]">Explore SmartAppHub <ArrowRight size={17} /></Link></div>
-        <div className="overflow-hidden rounded-2xl border border-[var(--color-border)] bg-[var(--color-bg)]"><div className="flex items-center gap-2 border-b border-[var(--color-border)] bg-[var(--color-surface)] p-4"><span className="h-2 w-2 rounded-full bg-[var(--color-accent)]" /><span className="text-xs text-[var(--color-text-muted)]">smartapphub.co.za · Studio website</span></div><div className="p-6 sm:p-10"><img src="/logo-icon.png" alt="SmartAppHub" className="h-12 w-12 object-contain" /><p className="mt-6 font-display text-3xl font-semibold leading-tight text-white">Apps, websites and graphic design for your business.</p><p className="mt-5 text-sm leading-relaxed text-[var(--color-text-muted)]">A Pretoria-based studio serving clients across South Africa.</p><div className="mt-8 grid gap-3 sm:grid-cols-3">{["Apps", "Websites", "Design"].map(label=><span key={label} className="rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] p-4 text-sm font-semibold text-white">{label}</span>)}</div></div></div>
-      </Container></Section>
+      <Section id="website-example" className="border-y border-[var(--color-border)]">
+        <Container>
+          <div className="max-w-2xl">
+            <p className="text-sm font-semibold text-[var(--color-accent)]">WEBSITE CASE STUDY · OUR STUDIO</p>
+            <h2 className="mt-3 font-display text-3xl font-semibold text-white">SmartAppHub: one website, three services</h2>
+            <p className="mt-4 leading-relaxed text-[var(--color-text-muted)]">Designed and built by Calvin, our studio website helps visitors explore app development, website services and graphic design, then contact the right person about their project.</p>
+          </div>
+          <div className="mt-8 grid items-start gap-6 lg:grid-cols-[minmax(0,1fr)_220px]">
+            <figure className="min-w-0 overflow-hidden rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface)]">
+              <figcaption className="border-b border-[var(--color-border)] px-5 py-3 text-sm text-[var(--color-text-muted)]">Desktop · SmartAppHub homepage</figcaption>
+              <a href="/work/smartapphub-desktop.png" target="_blank" rel="noopener noreferrer" aria-label="View full desktop screenshot of SmartAppHub"><img src="/work/smartapphub-desktop.png" alt="Actual SmartAppHub desktop homepage with service navigation and project enquiry button" width={1425} height={990} loading="lazy" className="block h-auto w-full" /></a>
+            </figure>
+            <figure className="mx-auto w-full max-w-[220px] overflow-hidden rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface)]">
+              <figcaption className="border-b border-[var(--color-border)] px-4 py-3 text-sm text-[var(--color-text-muted)]">Mobile · Same website</figcaption>
+              <a href="/work/smartapphub-mobile.png" target="_blank" rel="noopener noreferrer" aria-label="View full mobile screenshot of SmartAppHub"><img src="/work/smartapphub-mobile.png" alt="Actual SmartAppHub mobile homepage with menu button and vertically stacked enquiry buttons" width={375} height={812} loading="lazy" className="block h-auto w-full" /></a>
+            </figure>
+          </div>
+          <p className="mt-3 text-xs text-[var(--color-text-muted)]">Screenshots of the website we built. Select either image to view it at full size.</p>
+          <div className="mt-8 grid gap-5 md:grid-cols-3">
+            {[
+              ["Clear service navigation", "Dedicated pages explain each service, helping visitors find the right information before they enquire."],
+              ["Work visitors can explore", "Design galleries and the Sitters case study show the studio’s work, alongside information about who creates it."],
+              ["A direct enquiry journey", "Project forms, email and WhatsApp give customers a clear way to reach Calvin or Dominique. Page metadata and a sitemap support search discovery."],
+            ].map(([title, text]) => <Card key={title}><h3 className="text-lg font-semibold text-white">{title}</h3><p className="mt-3 text-sm leading-relaxed text-[var(--color-text-muted)]">{text}</p></Card>)}
+          </div>
+          <div className="mt-8 flex flex-wrap items-center gap-4"><Button href="#contact">Discuss your website</Button><Link to="/" className="inline-flex min-h-12 items-center gap-2 text-sm font-semibold text-[var(--color-accent)]">Explore SmartAppHub <ArrowRight size={17} aria-hidden="true" /></Link></div>
+        </Container>
+      </Section>
       <Section id="process"><Container><h2 className="font-display text-3xl font-semibold text-white">From your brief to your website</h2><div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">{[["01","Tell us what you need","Share your business, audience, pages and goals."],["02","Agree the scope","Confirm the features, content, quote and timeline."],["03","Build and review","Review the design and build against the agreed brief."],["04","Launch and hand over","Check the site, arrange launch and confirm ongoing support."]].map(([number,title,text])=><div key={number}><span className="text-sm font-bold text-[var(--color-accent)]">{number}</span><h3 className="mt-3 text-lg font-semibold text-white">{title}</h3><p className="mt-3 text-sm leading-relaxed text-[var(--color-text-muted)]">{text}</p></div>)}</div></Container></Section>
       <Section><Container className="max-w-4xl"><h2 className="font-display text-3xl font-semibold text-white">Before we start</h2><div className="mt-8 space-y-4">{questions.map(([question,answer])=><details key={question} className="rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] p-5"><summary className="cursor-pointer font-semibold text-white">{question}</summary><p className="mt-4 text-sm leading-relaxed text-[var(--color-text-muted)]">{answer}</p></details>)}</div></Container></Section>
       <DevelopmentForm website />

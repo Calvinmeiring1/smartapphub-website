@@ -48,8 +48,8 @@ export default function CompanyHero() {
           </p>
 
           <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
-            <Button href="/commission" variant="primary">
-              Discuss apps or a website
+            <Button href="/contact" variant="primary">
+              Discuss your project
             </Button>
             <Button href="/graphic-design" variant="secondary">
               Explore design services

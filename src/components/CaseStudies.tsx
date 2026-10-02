@@ -1,103 +1,50 @@
-import { ArrowRight, MapPin, ShieldCheck, CreditCard } from "lucide-react";
+import { MapPin, ShieldCheck, CreditCard } from "lucide-react";
 import Container from "./Container";
 import Section from "./Section";
 import Card from "./Card";
-import Reveal from "./Reveal";
 import Badge from "./Badge";
+import Button from "./Button";
 import PhoneMockup from "./PhoneMockup";
 
 const features = [
-  {
-    icon: MapPin,
-    title: "Real-time GPS Tracking",
-    description: "Built a robust background location service that shares walk progress live with pet owners."
-  },
-  {
-    icon: ShieldCheck,
-    title: "Identity Verification",
-    description: "Integrated secure selfie and document verification to ensure community trust."
-  },
-  {
-    icon: CreditCard,
-    title: "Secure Marketplace",
-    description: "Handled complex payment flows and automated sitter payouts via secure payment gateways."
-  }
+  { icon: MapPin, title: "Walk tracking", description: "Background location updates let owners follow walk progress in the app." },
+  { icon: ShieldCheck, title: "Identity verification", description: "Selfie and document verification form part of the sitter onboarding journey." },
+  { icon: CreditCard, title: "Booking and payments", description: "Booking, payment and sitter payout flows connect both sides of the marketplace." },
+];
+const decisions = [
+  ["Separate user journeys", "Owners manage pets and post care requests; sitters handle their profiles and opportunities. Each role gets an interface built around its tasks."],
+  ["Native mobile interfaces", "Android uses Kotlin and Jetpack Compose. The iOS version uses Swift and SwiftUI, with interfaces adapted to each platform."],
+  ["Connected backend", "Firebase supports authentication and shared app data, connecting profiles, requests and bookings across the user journeys."],
 ];
 
 export default function CaseStudies() {
   return (
     <Section id="case-studies" className="border-t border-[var(--color-border)]">
       <Container>
-        <div className="mx-auto max-w-xl text-center">
-          <Badge tone="verified">Featured Case Study</Badge>
-          <h2 className="mt-6 font-display text-3xl font-semibold text-white sm:text-4xl">
-            Sitters: From Concept to Global Launch
-          </h2>
-          <p className="mt-4 text-[var(--color-text-muted)]">
-            Our flagship product demonstrates our ability to build complex, high-performance applications that users trust.
-          </p>
+        <div className="mx-auto max-w-2xl text-center">
+          <Badge tone="verified">Our own product · Development case study</Badge>
+          <h2 className="mt-6 font-display text-3xl font-semibold text-white sm:text-4xl">Sitters: building a pet and house sitting marketplace</h2>
+          <p className="mt-4 leading-relaxed text-[var(--color-text-muted)]">From owner and sitter journeys to bookings, verification and payments, Sitters shows how Calvin brings the parts of a mobile product together.</p>
         </div>
-
-        <div className="mt-16 grid gap-12 lg:grid-cols-2 lg:items-center">
-          <div className="rounded-[var(--radius-card)] border border-[var(--color-border)] bg-[var(--color-surface)]/50 px-4 py-8 sm:px-8">
-            <PhoneMockup />
-          </div>
-
-          <div className="space-y-8">
-            <Reveal delay={0.1}>
-              <div className="space-y-4">
-                <h3 className="font-display text-2xl font-semibold text-white">The Challenge</h3>
-                <p className="text-sm leading-relaxed text-[var(--color-text-muted)]">
-                  Building a two-sided marketplace for pet care requires more than just a list of names. It requires a system that handles real-time safety, international payment regulations, and deep trust through verified identities.
-                </p>
-              </div>
-            </Reveal>
-
-            <div className="grid gap-4">
-              {features.map((feature, i) => (
-                <Reveal key={feature.title} delay={0.2 + (i * 0.1)}>
-                  <div className="flex gap-4">
-                    <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[var(--color-accent-soft)] text-[var(--color-accent)]">
-                      <feature.icon size={18} />
-                    </div>
-                    <div>
-                      <h4 className="text-sm font-semibold text-white">{feature.title}</h4>
-                      <p className="mt-1 text-xs leading-relaxed text-[var(--color-text-muted)]">
-                        {feature.description}
-                      </p>
-                    </div>
-                  </div>
-                </Reveal>
-              ))}
+        <div className="mt-12 grid gap-10 lg:grid-cols-2 lg:items-center">
+          <div className="rounded-[var(--radius-card)] border border-[var(--color-border)] bg-[var(--color-surface)]/50 px-4 py-8 sm:px-8"><PhoneMockup /></div>
+          <div className="space-y-7">
+            <div><h3 className="font-display text-2xl font-semibold text-white">The problem</h3><p className="mt-3 text-sm leading-relaxed text-[var(--color-text-muted)]">Owners need a way to arrange pet and house care, while sitters need to manage requests and bookings. The product brings these journeys into one app, with communication and verification built into the process.</p></div>
+            <div><h3 className="font-display text-2xl font-semibold text-white">Calvin’s role</h3><p className="mt-3 text-sm leading-relaxed text-[var(--color-text-muted)]">Sitters is a SmartAppHub product, developed by Calvin. His work spans the app interface, native Android development, the iOS version, Firebase backend integration and store submission.</p></div>
+            <div>
+              <h3 className="font-display text-2xl font-semibold text-white">What we built</h3>
+              <ul className="mt-4 space-y-4">{features.map(({ icon: Icon, title, description }) => (
+                <li key={title} className="flex gap-4"><div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[var(--color-accent-soft)] text-[var(--color-accent)]"><Icon size={18} aria-hidden="true" /></div><div><h4 className="font-semibold text-white">{title}</h4><p className="mt-1 text-sm leading-relaxed text-[var(--color-text-muted)]">{description}</p></div></li>
+              ))}</ul>
             </div>
-
-            <Reveal delay={0.5}>
-              <div className="pt-4">
-                <a
-                  href="/sitters"
-                  className="group inline-flex items-center gap-2 text-sm font-bold tracking-wider text-[var(--color-accent)] uppercase hover:text-white transition-colors"
-                >
-                  View Full Product Details
-                  <ArrowRight size={14} className="transition-transform group-hover:translate-x-1" />
-                </a>
-              </div>
-            </Reveal>
           </div>
         </div>
-
-        <div className="mt-20 grid gap-6 sm:grid-cols-3">
-            <Card className="text-center py-10">
-                <p className="font-display text-3xl font-bold text-white">5.0</p>
-                <a href="https://play.google.com/store/apps/details?id=com.smartapphub.thesitters" target="_blank" rel="noopener noreferrer" className="mt-2 inline-block text-xs uppercase tracking-widest text-[var(--color-text-muted)] underline">Google Play Rating</a>
-            </Card>
-            <Card className="text-center py-10">
-                <p className="font-display text-3xl font-bold text-white">5</p>
-                <p className="text-xs uppercase tracking-widest text-[var(--color-text-muted)] mt-2">Countries Live</p>
-            </Card>
-            <Card className="text-center py-10">
-                <p className="font-display text-3xl font-bold text-white">100%</p>
-                <p className="text-xs uppercase tracking-widest text-[var(--color-text-muted)] mt-2">Native Kotlin</p>
-            </Card>
+        <div className="mt-10 grid gap-5 md:grid-cols-3">{decisions.map(([title, text]) => <Card key={title}><h3 className="font-display text-xl font-semibold text-white">{title}</h3><p className="mt-3 text-sm leading-relaxed text-[var(--color-text-muted)]">{text}</p></Card>)}</div>
+        <div className="mt-8 rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface)] p-6 sm:p-8">
+          <h3 className="font-display text-xl font-semibold text-white">Launch status</h3>
+          <p className="mt-3 text-sm leading-relaxed text-[var(--color-text-muted)]">Android is available on Google Play. Sitters for iOS is built and awaiting App Store approval.</p>
+          <a href="https://play.google.com/store/apps/details?id=com.smartapphub.thesitters" target="_blank" rel="noopener noreferrer" className="mt-3 inline-flex min-h-12 items-center text-sm font-semibold text-[var(--color-accent)] underline">View Sitters and its reviews on Google Play</a>
+          <div className="mt-5 flex flex-wrap gap-3"><Button href="#contact">Discuss a similar app</Button><Button href="/sitters" variant="secondary">Explore Sitters features</Button></div>
         </div>
       </Container>
     </Section>
