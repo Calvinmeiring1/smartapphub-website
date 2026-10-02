@@ -7,6 +7,7 @@ import Team from "../components/Team";
 import WhyUs from "../components/WhyUs";
 import SittersPromo from "../components/SittersPromo";
 import SEO from "../components/SEO";
+import ScrollShowcase from "../components/ScrollShowcase";
 
 function SittersFlagshipSection() {
   return (
@@ -23,7 +24,7 @@ function SittersFlagshipSection() {
 
 export default function Home() {
   return (
-    <div className="relative overflow-hidden">
+    <div className="relative overflow-clip">
       <SEO
         title="Software & Website Development in Pretoria | SmartAppHub"
         description="Pretoria-based software and design studio serving clients across South Africa. Custom Android and iOS apps, websites, business graphics and wedding stationery."
@@ -34,6 +35,7 @@ export default function Home() {
       <div className="alive-drift pointer-events-none absolute left-1/2 top-[-10%] -z-10 h-[500px] w-[900px] -translate-x-1/2 rounded-full bg-[var(--color-accent)]/10 blur-[120px]" />
 
       <CompanyHero />
+      <ScrollShowcase />
       <StudioServices />
       <About />
       <Team />
