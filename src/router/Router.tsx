@@ -4,6 +4,7 @@ import MainLayout from "../layouts/MainLayout";
 import { logPageView } from "../firebase";
 import Home from "../pages/Home";
 
+const WebsiteDevelopment = lazy(() => import("../pages/WebsiteDevelopment"));
 const Contact = lazy(() => import("../pages/Contact"));
 const Sitters = lazy(() => import("../pages/Sitters"));
 const Commission = lazy(() => import("../pages/Commission"));
@@ -54,6 +55,7 @@ export default function Router() {
             <Route path="/" element={<Home />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/sitters" element={<Sitters />} />
+            <Route path="/website-development" element={<WebsiteDevelopment />} />
             <Route path="/commission" element={<Commission />} />
             <Route path="/graphic-design" element={<GraphicDesign />} />
             <Route path="/buy-mini-app" element={<BuyMiniApp />} />

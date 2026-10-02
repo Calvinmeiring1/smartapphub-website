@@ -32,7 +32,8 @@ export default function Footer() {
           <div>
             <h4 className="font-display text-sm font-semibold text-white">Services</h4>
             <ul className="mt-3 space-y-2 text-sm text-[var(--color-text-muted)]">
-              <li><Link to="/commission" className="hover:text-white">Apps & websites</Link></li>
+              <li><Link to="/commission" className="hover:text-white">App development</Link></li>
+              <li><Link to="/website-development" className="hover:text-white">Website development</Link></li>
               <li><Link to="/graphic-design" className="hover:text-white">Graphic design</Link></li>
               <li><Link to="/buy-mini-app" className="hover:text-white">Mini apps</Link></li>
               <li><Link to="/commission#services" className="hover:text-white">What we build</Link></li>

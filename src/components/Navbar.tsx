@@ -23,7 +23,8 @@ const graphicDesignLinks = [
 ];
 
 const companyLinks = [
-  { label: "Apps & Websites", href: "/commission" },
+  { label: "App Development", href: "/commission" },
+  { label: "Websites", href: "/website-development" },
   { label: "Graphic Design", href: "/graphic-design" },
   { label: "Buy a Mini App", href: "/buy-mini-app" },
   { label: "Sitters", href: "/sitters" },
@@ -40,42 +41,44 @@ export default function Navbar() {
 
   const isHome = location.pathname === "/";
   const isSitters = location.pathname === "/sitters";
+  const isWebsite = location.pathname === "/website-development";
   const isCommission = location.pathname === "/commission";
   const isGraphicDesign = location.pathname === "/graphic-design";
   const isMiniApp = location.pathname === "/buy-mini-app";
 
   const links = useMemo(() => {
     if (isHome) return companyLinks;
-    const sectionLinks = isSitters ? sittersLinks : isCommission ? commissionLinks : isGraphicDesign ? graphicDesignLinks : null;
+    const sectionLinks = isSitters ? sittersLinks : (isCommission || isWebsite) ? commissionLinks : isGraphicDesign ? graphicDesignLinks : null;
     if (!sectionLinks) return [{ label: "Home", href: "/" }, ...companyLinks];
     return [
       { label: "Home", href: "/" },
-      { label: isGraphicDesign ? "Apps & Websites" : "Graphic Design", href: isGraphicDesign ? "/commission" : "/graphic-design" },
+      { label: isGraphicDesign ? "App Development" : "Graphic Design", href: isGraphicDesign ? "/commission" : "/graphic-design" },
+      { label: isWebsite ? "App Development" : "Websites", href: isWebsite ? "/commission" : "/website-development" },
       ...sectionLinks,
     ];
-  }, [isHome, isSitters, isCommission, isGraphicDesign]);
+  }, [isHome, isSitters, isCommission, isWebsite, isGraphicDesign]);
 
   const primaryCta = useMemo(() => {
     return isSitters
       ? { label: "Download App", href: "#download" }
-      : isCommission
+      : (isCommission || isWebsite)
         ? { label: "Get in touch", href: "#contact" }
         : isGraphicDesign
           ? { label: "Get in touch", href: "#contact" }
           : { label: "Discuss your project", href: "/contact" };
-  }, [isSitters, isCommission, isGraphicDesign]);
+  }, [isSitters, isCommission, isWebsite, isGraphicDesign]);
 
   const tag = useMemo(() => {
     return isSitters
       ? "Sitters"
-      : isCommission
-        ? "Commission"
+      : (isCommission || isWebsite)
+        ? (isWebsite ? "Websites" : "Apps")
         : isGraphicDesign
           ? "Design"
           : isMiniApp
             ? "Mini Apps"
             : null;
-  }, [isSitters, isCommission, isGraphicDesign, isMiniApp]);
+  }, [isSitters, isCommission, isWebsite, isGraphicDesign, isMiniApp]);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8);
