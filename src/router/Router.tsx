@@ -4,6 +4,7 @@ import MainLayout from "../layouts/MainLayout";
 import { logPageView } from "../firebase";
 import Home from "../pages/Home";
 
+const Contact = lazy(() => import("../pages/Contact"));
 const Sitters = lazy(() => import("../pages/Sitters"));
 const Commission = lazy(() => import("../pages/Commission"));
 const GraphicDesign = lazy(() => import("../pages/GraphicDesign"));
@@ -16,11 +17,30 @@ const Terms = lazy(() => import("../pages/Terms"));
 const NotFound = lazy(() => import("../pages/NotFound"));
 
 function ScrollToTop() {
-  const { pathname } = useLocation();
+  const { pathname, hash } = useLocation();
   useEffect(() => {
-    window.scrollTo(0, 0);
     logPageView(pathname);
   }, [pathname]);
+
+  useEffect(() => {
+    if (!hash) {
+      window.scrollTo({ top: 0, behavior: "instant" });
+      return;
+    }
+    // Lazy routes may not have mounted when navigation first changes the URL.
+    const scrollToTarget = () => {
+      const target = document.getElementById(hash.slice(1));
+      if (!target) return false;
+      target.scrollIntoView({ block: "start", behavior: "instant" });
+      return true;
+    };
+    if (scrollToTarget()) return;
+    const observer = new MutationObserver(() => {
+      if (scrollToTarget()) observer.disconnect();
+    });
+    observer.observe(document.getElementById("root") ?? document.body, { childList: true, subtree: true });
+    return () => observer.disconnect();
+  }, [pathname, hash]);
   return null;
 }
 
@@ -29,9 +49,10 @@ export default function Router() {
     <BrowserRouter>
       <ScrollToTop />
       <MainLayout>
-        <Suspense fallback={<div className="min-h-screen" />}>
+        <Suspense fallback={<div role="status" className="min-h-screen pt-32 text-center text-[var(--color-text-muted)]">Loading page…</div>}>
           <Routes>
             <Route path="/" element={<Home />} />
+            <Route path="/contact" element={<Contact />} />
             <Route path="/sitters" element={<Sitters />} />
             <Route path="/commission" element={<Commission />} />
             <Route path="/graphic-design" element={<GraphicDesign />} />

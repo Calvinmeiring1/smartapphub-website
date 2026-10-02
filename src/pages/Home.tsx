@@ -1,6 +1,7 @@
 import Container from "../components/Container";
 import Section from "../components/Section";
 import CompanyHero from "../components/CompanyHero";
+import StudioServices from "../components/StudioServices";
 import About from "../components/About";
 import Team from "../components/Team";
 import WhyUs from "../components/WhyUs";
@@ -12,7 +13,7 @@ function SittersFlagshipSection() {
     <Section>
       <Container>
         <h2 className="text-center font-display text-3xl font-semibold text-white sm:text-4xl mb-12 text-shimmer">
-          Our flagship app
+          Built by SmartAppHub: Sitters
         </h2>
         <SittersPromo />
       </Container>
@@ -33,6 +34,7 @@ export default function Home() {
       <div className="alive-drift pointer-events-none absolute left-1/2 top-[-10%] -z-10 h-[500px] w-[900px] -translate-x-1/2 rounded-full bg-[var(--color-accent)]/10 blur-[120px]" />
 
       <CompanyHero />
+      <StudioServices />
       <About />
       <Team />
       <WhyUs />

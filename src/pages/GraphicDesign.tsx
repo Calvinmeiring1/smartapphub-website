@@ -1,12 +1,12 @@
 import SEO from "../components/SEO";
 import StructuredData from "../components/StructuredData";
 import Container from "../components/Container";
+import ContactLinks from "../components/ContactLinks";
 import Section from "../components/Section";
 import Reveal from "../components/Reveal";
 import Card from "../components/Card";
 import PortfolioGallery from "../components/PortfolioGallery";
-import BeforeAfterSlider from "../components/BeforeAfterSlider";
-import { PenTool, Image as ImageIcon, FileText, ArrowRight, Loader2, CheckCircle2, Mail, Layers, Palette, Sparkles } from "lucide-react";
+import { PenTool, Image as ImageIcon, FileText, ArrowRight, Loader2, CheckCircle2, Layers, Palette, Sparkles } from "lucide-react";
 import { useState, useMemo } from "react";
 import { getDb } from "../firebase";
 import { collection, addDoc, serverTimestamp } from "firebase/firestore";
@@ -40,8 +40,8 @@ const services = [
   },
   {
     icon: ImageIcon,
-    title: "Print Media",
-    description: "High-quality designs for physical posters, banners, and marketing materials ready for professional printing."
+    title: "Print-ready Artwork",
+    description: "Posters, banners and marketing artwork supplied as digital files ready for your printer. Printing is not included."
   }
 ];
 
@@ -95,10 +95,11 @@ const weddingServices = [
 export default function GraphicDesign() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
+  const [submitError, setSubmitError] = useState("");
   const [formData, setFormData] = useState({
     name: "",
     email: "",
-    interest: "Full Wedding Package",
+    interest: "",
     details: ""
   });
 
@@ -106,7 +107,7 @@ export default function GraphicDesign() {
     setFormData(prev => ({
       ...prev,
       interest,
-      details: detailText ? `I am interested in ${detailText}.\n\n` : prev.details
+      details: detailText ? [prev.details, `I am interested in ${detailText}.`].filter(Boolean).join("\n\n") : prev.details
     }));
 
     const contactSection = document.getElementById("contact");
@@ -129,6 +130,7 @@ export default function GraphicDesign() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
+    setSubmitError("");
 
     try {
       const db = await getDb();
@@ -138,10 +140,10 @@ export default function GraphicDesign() {
         createdAt: serverTimestamp()
       });
       setIsSuccess(true);
-      setFormData({ name: "", email: "", interest: "Full Wedding Package", details: "" });
-    } catch (error: any) {
-      console.error("Error submitting inquiry:", error);
-      alert(`Error: ${error.message || "Something went wrong"}. Please try again or use WhatsApp.`);
+      setFormData({ name: "", email: "", interest: "", details: "" });
+    } catch (error) {
+      console.error("Error submitting enquiry:", error);
+      setSubmitError("Your enquiry could not be sent. Your details are still here. Please try again or contact us via WhatsApp or email below.");
     } finally {
       setIsSubmitting(false);
     }
@@ -197,40 +199,38 @@ export default function GraphicDesign() {
                 Graphic <span className="bg-gradient-to-r from-[var(--color-accent)] to-white bg-clip-text text-transparent">Design</span>
               </h1>
               <p className="mt-6 text-lg leading-relaxed text-[var(--color-text-muted)]">
-                We pair software engineering with professional design to create cohesive, beautiful experiences. From your first logo to your wedding day stationery, we handle the creative details so you don't have to.
+                Work directly with Dominique on business graphics, social media assets, print-ready artwork and wedding stationery. All designs are supplied as digital files; printing is not included.
               </p>
             </Reveal>
           </div>
 
-          {/* Transformation Showcase */}
-          <div className="mt-16">
-            <BeforeAfterSlider
-              beforeImage="/invite.jpeg"
-              afterImage="/invite.jpeg"
-              beforeLabel="Rough Concept"
-              afterLabel="Studio Finish"
-            />
-            <p className="mt-4 text-center text-xs font-bold uppercase tracking-widest text-[var(--color-text-faint)]">
-              Drag the handle to see the transformation
-            </p>
+          <div className="mt-8 flex flex-wrap gap-3">
+            <button type="button" onClick={() => selectService("Digital Assets")} className="rounded-full bg-[var(--color-accent)] px-6 py-3 text-sm font-semibold text-white">Discuss business design</button>
+            <a href="#packages" className="rounded-full border border-[var(--color-border)] bg-[var(--color-surface)] px-6 py-3 text-sm font-semibold text-white">View wedding packages</a>
+          </div>
+          <div className="mt-12 grid items-center gap-6 rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface)] p-6 sm:grid-cols-2">
+            <img src="/invite.jpeg" alt="Wedding invitation designed by Dominique" className="max-h-80 w-full rounded-xl object-contain" loading="lazy" />
+            <div>
+              <h2 className="font-display text-2xl font-semibold text-white">Wedding stationery by our studio</h2>
+              <p className="mt-3 text-[var(--color-text-muted)]">Invitations, seating charts and matching digital artwork designed for your celebration. Explore the portfolio below, or tell us what you have in mind.</p>
+            </div>
           </div>
 
-          <div id="services" className="mt-24 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          <div id="services" className="mt-24 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {services.map((service, i) => (
               <Reveal key={service.title} delay={i * 0.1}>
                 <Card
                   hover
-                  className="h-full cursor-pointer group"
-                  onClick={() => selectService(service.title)}
+                  className="h-full group"
                 >
                   <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-[var(--color-accent-soft)] text-[var(--color-accent)] transition-colors group-hover:bg-[var(--color-accent)] group-hover:text-black">
                     <service.icon size={20} />
                   </div>
                   <h3 className="mt-5 font-display text-lg font-semibold text-white">{service.title}</h3>
                   <p className="mt-2 text-sm leading-relaxed text-[var(--color-text-muted)]">{service.description}</p>
-                  <div className="mt-6 flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest text-[var(--color-accent)]">
-                    Enquire <ArrowRight size={10} />
-                  </div>
+                  <button type="button" onClick={() => selectService(service.title)} className="mt-6 inline-flex min-h-11 items-center gap-2 text-sm font-semibold text-[var(--color-accent)]">
+                    Enquire about {service.title.toLowerCase()} <ArrowRight size={14} />
+                  </button>
                 </Card>
               </Reveal>
             ))}
@@ -241,9 +241,10 @@ export default function GraphicDesign() {
           <div id="packages" className="mt-24">
             <Reveal>
               <h2 className="font-display text-2xl font-semibold text-white text-shimmer">Wedding Packages</h2>
-              <p className="mt-4 text-[var(--color-text-muted)]">Bundled digital solutions to make your wedding planning seamless and affordable.</p>
+              <p className="mt-4 text-[var(--color-text-muted)]">Digital stationery packages for your wedding. Mini apps refer to VowVault (photo sharing) and Weddara (wedding planning).</p>
             </Reveal>
 
+            <p className="mt-4 text-sm text-[var(--color-text-muted)]">Before you book, we confirm your brief, file formats, delivery date and revision scope. Digital files only; printing is excluded. <a href="/buy-mini-app" className="text-[var(--color-accent)] underline">Explore the included mini apps</a>.</p>
             <div className="mt-10 grid gap-8 lg:grid-cols-3">
               {weddingPackages.map((pkg, i) => (
                 <Reveal key={pkg.name} delay={i * 0.1}>
@@ -276,7 +277,7 @@ export default function GraphicDesign() {
             </div>
           </div>
 
-          <div id="packages" className="mt-24">
+          <div id="individual-services" className="mt-24">
             <Reveal>
               <h2 className="font-display text-2xl font-semibold text-white text-shimmer">Individual Digital Wedding Services</h2>
               <p className="mt-4 text-[var(--color-text-muted)]">A-la-carte options for specific digital wedding needs.</p>
@@ -295,7 +296,7 @@ export default function GraphicDesign() {
                     </div>
                     <button
                       onClick={() => selectService("Other", item.name)}
-                      className="mt-4 flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest text-[var(--color-accent)] opacity-0 transition-all group-hover:opacity-100 hover:text-white"
+                      className="mt-4 flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest text-[var(--color-accent)] min-h-11 transition-all hover:text-white"
                     >
                       Enquire about this <ArrowRight size={10} />
                     </button>
@@ -315,20 +316,22 @@ export default function GraphicDesign() {
             <Reveal>
               <h2 className="font-display text-3xl font-semibold text-white text-center">Start your project</h2>
               <p className="mt-4 text-[var(--color-text-muted)] text-center">
-                Contact <strong>Dominique Meiring</strong> using the form below or via WhatsApp.
+                Contact <strong>Dominique Meiring</strong> for business design or wedding stationery. We typically reply within 5 minutes.
               </p>
             </Reveal>
 
-            <form onSubmit={handleSubmit} className="mt-16 space-y-12">
+            <form aria-busy={isSubmitting} onSubmit={handleSubmit} className="mt-16 space-y-12">
+              {submitError && <p role="alert" className="rounded-xl border border-red-400/40 bg-red-400/10 p-4 text-sm text-red-200">{submitError}</p>}
               {isSuccess ? (
                 <Reveal>
                   <div className="flex flex-col items-center justify-center space-y-4 py-12 rounded-2xl border border-[var(--color-verified-soft)] bg-[var(--color-verified-soft)]/5 text-center">
                     <CheckCircle2 size={48} className="text-[var(--color-verified)]" />
                     <h3 className="text-xl font-display font-bold text-white">Enquiry Sent!</h3>
                     <p className="text-[var(--color-text-muted)] max-w-sm">
-                      Thank you for reaching out. Dominique will get back to you as soon as possible.
+                      Thank you for reaching out. Dominique will review your brief and get back to you. We typically reply within 5 minutes.
                     </p>
                     <button
+                      type="button"
                       onClick={() => setIsSuccess(false)}
                       className="mt-4 text-xs font-bold tracking-[0.2em] text-[var(--color-accent)] uppercase hover:underline"
                     >
@@ -340,34 +343,47 @@ export default function GraphicDesign() {
                 <>
                   <div className="grid gap-x-12 gap-y-12 sm:grid-cols-2">
                     <div className="space-y-4">
-                      <label className="block text-[10px] font-bold tracking-[0.2em] text-[var(--color-text-muted)] uppercase">Name</label>
+                      <label htmlFor="design-name" className="block text-xs font-bold tracking-[0.12em] text-[var(--color-text-muted)] uppercase">Name</label>
                       <input
+                        id="design-name"
+                        name="name"
+                        autoComplete="name"
                         type="text"
                         required
                         placeholder="Your name"
-                        className="w-full bg-transparent border-b border-[var(--color-border)] py-3 text-white placeholder:text-[var(--color-text-faint)] focus:outline-none focus:border-[var(--color-accent)] transition-colors"
+                        className="w-full bg-transparent border-b border-white/25 py-3 text-white placeholder:text-[var(--color-text-muted)] focus:outline-none focus:border-[var(--color-accent)] transition-colors"
                         value={formData.name}
                         onChange={e => setFormData({ ...formData, name: e.target.value })}
                       />
                     </div>
                     <div className="space-y-4">
-                      <label className="block text-[10px] font-bold tracking-[0.2em] text-[var(--color-text-muted)] uppercase">Email</label>
+                      <label htmlFor="design-email" className="block text-xs font-bold tracking-[0.12em] text-[var(--color-text-muted)] uppercase">Email</label>
                       <input
+                        id="design-email"
+                        name="email"
+                        autoComplete="email"
                         type="email"
                         required
                         placeholder="you@example.com"
-                        className="w-full bg-transparent border-b border-[var(--color-border)] py-3 text-white placeholder:text-[var(--color-text-faint)] focus:outline-none focus:border-[var(--color-accent)] transition-colors"
+                        className="w-full bg-transparent border-b border-white/25 py-3 text-white placeholder:text-[var(--color-text-muted)] focus:outline-none focus:border-[var(--color-accent)] transition-colors"
                         value={formData.email}
                         onChange={e => setFormData({ ...formData, email: e.target.value })}
                       />
                     </div>
                     <div className="space-y-4">
-                      <label className="block text-[10px] font-bold tracking-[0.2em] text-[var(--color-text-muted)] uppercase">I'm interested in</label>
+                      <label htmlFor="design-interest" className="block text-xs font-bold tracking-[0.12em] text-[var(--color-text-muted)] uppercase">I'm interested in</label>
                       <select
-                        className="w-full bg-transparent border-b border-[var(--color-border)] py-3 text-white focus:outline-none focus:border-[var(--color-accent)] transition-colors appearance-none cursor-pointer"
+                        id="design-interest"
+                        name="interest"
+                        required
+                        className="w-full bg-transparent border-b border-white/25 py-3 text-white focus:outline-none focus:border-[var(--color-accent)] transition-colors appearance-none cursor-pointer"
                         value={formData.interest}
                         onChange={e => setFormData({ ...formData, interest: e.target.value })}
                       >
+                        <option value="" disabled className="bg-[var(--color-bg)]">Select a service</option>
+                        <option value="Business Branding" className="bg-[var(--color-bg)]">Business Branding</option>
+                        <option value="Social Media Graphics" className="bg-[var(--color-bg)]">Social Media Graphics</option>
+                        <option value="Print-ready Artwork" className="bg-[var(--color-bg)]">Print-ready Artwork</option>
                         {weddingPackages.map(p => <option key={p.name} value={p.name} className="bg-[var(--color-bg)]">{p.name}</option>)}
                         <option value="Custom Stationery" className="bg-[var(--color-bg)]">Custom Stationery</option>
                         <option value="Digital Assets" className="bg-[var(--color-bg)]">Digital Assets</option>
@@ -377,17 +393,20 @@ export default function GraphicDesign() {
                   </div>
 
                   <div className="space-y-4">
-                    <label className="block text-[10px] font-bold tracking-[0.2em] text-[var(--color-text-muted)] uppercase">Tell me more about what you are looking for</label>
+                    <label htmlFor="design-details" className="block text-xs font-bold tracking-[0.12em] text-[var(--color-text-muted)] uppercase">Tell me more about what you are looking for</label>
                     <textarea
+                      id="design-details"
+                      name="details"
                       rows={4}
                       placeholder="A few details about what you have in mind..."
-                      className="w-full bg-transparent border-b border-[var(--color-border)] py-3 text-white placeholder:text-[var(--color-text-faint)] focus:outline-none focus:border-[var(--color-accent)] transition-colors resize-none"
+                      className="w-full bg-transparent border-b border-white/25 py-3 text-white placeholder:text-[var(--color-text-muted)] focus:outline-none focus:border-[var(--color-accent)] transition-colors resize-none"
                       value={formData.details}
                       onChange={e => setFormData({ ...formData, details: e.target.value })}
                     />
                   </div>
 
-                  <div className="flex flex-col sm:flex-row items-center justify-between gap-8 pt-4">
+                  <p className="text-sm text-[var(--color-text-muted)]">We use your details to respond to your enquiry. <a href="/privacy#website-enquiries" className="text-[var(--color-accent)] underline">Privacy information</a></p>
+                  <div className="flex flex-col lg:flex-row items-center justify-between gap-6 pt-4">
                     <button
                       type="submit"
                       disabled={isSubmitting}
@@ -406,29 +425,7 @@ export default function GraphicDesign() {
                       )}
                     </button>
 
-                    <div className="flex items-center gap-4">
-                      <span className="text-[10px] font-bold tracking-[0.2em] text-[var(--color-text-muted)] uppercase">Or reach out via</span>
-                      <div className="flex items-center gap-3">
-                        <a
-                          href="https://wa.me/27662070280"
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="inline-flex h-12 w-12 items-center justify-center rounded-full border border-[var(--color-border)] text-white hover:bg-[var(--color-surface-hover)] transition-colors"
-                          title="WhatsApp"
-                        >
-                          <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
-                          </svg>
-                        </a>
-                        <a
-                          href="mailto:dominiquecreation30@gmail.com?subject=Design%20project%20enquiry"
-                          className="inline-flex h-12 w-12 items-center justify-center rounded-full border border-[var(--color-border)] text-white hover:bg-[var(--color-surface-hover)] transition-colors"
-                          title="Direct Email"
-                        >
-                          <Mail size={20} />
-                        </a>
-                      </div>
-                    </div>
+                    <ContactLinks design />
                   </div>
                 </>
               )}

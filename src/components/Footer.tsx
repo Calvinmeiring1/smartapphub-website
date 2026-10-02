@@ -5,18 +5,18 @@ import Container from "./Container";
 export default function Footer() {
   return (
     <footer className="border-t border-[var(--color-border)] py-14">
-      <Container className="flex flex-col gap-10 md:flex-row md:items-start md:justify-between">
+      <Container className="flex flex-col gap-10 xl:flex-row xl:items-start xl:justify-between">
         <div className="max-w-xs">
           <div className="flex items-center gap-2.5 font-display text-lg font-semibold">
             <img src="/logo-icon.png" alt="SmartAppHub" className="h-9 w-9" />
             SmartAppHub
           </div>
           <p className="mt-3 text-sm text-[var(--color-text-muted)]">
-            Building apps that solve real-world problems.
+            Custom apps and graphic design, made in South Africa.
           </p>
         </div>
 
-        <div className="grid grid-cols-2 gap-10 sm:grid-cols-4">
+        <div className="grid min-w-0 grid-cols-1 gap-8 sm:grid-cols-2 xl:grid-cols-4">
           <div>
             <h4 className="font-display text-sm font-semibold text-white">Product</h4>
             <ul className="mt-3 space-y-2 text-sm text-[var(--color-text-muted)]">
@@ -25,7 +25,7 @@ export default function Footer() {
               <li><Link to="/sitters#how-it-works" className="hover:text-white">How it works</Link></li>
               <li><Link to="/sitters#download" className="hover:text-white">Download</Link></li>
               <li className="pt-2">
-                <div google-add-preferred-source-btn data-theme="dark" data-lang="en"></div>
+                <div google-add-preferred-source-btn="" data-theme="dark" data-lang="en"></div>
               </li>
             </ul>
           </div>
@@ -33,8 +33,10 @@ export default function Footer() {
             <h4 className="font-display text-sm font-semibold text-white">Services</h4>
             <ul className="mt-3 space-y-2 text-sm text-[var(--color-text-muted)]">
               <li><Link to="/commission" className="hover:text-white">Commission an app</Link></li>
+              <li><Link to="/graphic-design" className="hover:text-white">Graphic design</Link></li>
+              <li><Link to="/buy-mini-app" className="hover:text-white">Mini apps</Link></li>
               <li><Link to="/commission#services" className="hover:text-white">What we build</Link></li>
-              <li><Link to="/commission#contact" className="hover:text-white">Get in touch</Link></li>
+              <li><Link to="/contact" className="hover:text-white">Discuss your project</Link></li>
             </ul>
           </div>
           <div>
@@ -48,7 +50,7 @@ export default function Footer() {
             <h4 className="font-display text-sm font-semibold text-white">Contact</h4>
             <ul className="mt-3 space-y-2 text-sm text-[var(--color-text-muted)]">
               <li>
-                <a href="mailto:smartapphubdev@gmail.com" className="flex items-center gap-1.5 hover:text-white">
+                <a href="mailto:smartapphubdev@gmail.com" className="flex items-center gap-1.5 break-all hover:text-white">
                   <Mail size={14} /> smartapphubdev@gmail.com
                 </a>
               </li>
@@ -59,9 +61,10 @@ export default function Footer() {
                   rel="noopener noreferrer"
                   className="flex items-center gap-1.5 hover:text-white"
                 >
-                  <MessageCircle size={14} /> WhatsApp
+                  <MessageCircle size={14} /> WhatsApp Calvin · Apps
                 </a>
               </li>
+              <li><a href="https://wa.me/27662070280" target="_blank" rel="noopener noreferrer" className="hover:text-white">WhatsApp Dominique · Design</a></li>
               <li>
                 <a
                   href="https://www.facebook.com/profile.php?id=61582954512463"

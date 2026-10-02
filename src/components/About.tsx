@@ -13,7 +13,7 @@ export default function About() {
           <div className="text-center">
             <div className="mb-6 flex items-center justify-center gap-2 text-xs font-bold tracking-[0.2em] text-[var(--color-accent)] uppercase">
               <ShieldCheck size={16} />
-              Verified Studio
+              Independent Studio
             </div>
             <h2 className="font-display text-3xl font-semibold text-white sm:text-4xl">
               A small studio, built deliberately
@@ -36,7 +36,7 @@ export default function About() {
             <div>
               <h3 className="font-display text-xl font-semibold text-white">How we work</h3>
               <p className="mt-4 text-sm leading-relaxed text-[var(--color-text-muted)]">
-                We don't do "templates." Every project starts with a design-first approach, ensuring the brand identity and user experience are solid before a single line of code is written. We favor quality over quantity, taking on a limited number of commissions to ensure each gets our full focus.
+                Custom commissions start with your goals. We define the design and user experience before development, while our ready-made mini apps offer a faster option for focused needs. We favor quality over quantity, taking on a limited number of commissions to ensure each gets our full focus.
               </p>
             </div>
           </div>

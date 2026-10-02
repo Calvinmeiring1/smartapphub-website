@@ -12,6 +12,11 @@
   </url>
 
   <url>
+    <loc>https://smartapphub.co.za/contact</loc>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
     <loc>https://smartapphub.co.za/commission</loc>
     <priority>0.8</priority>
   </url>

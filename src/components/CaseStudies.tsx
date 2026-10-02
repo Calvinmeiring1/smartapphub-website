@@ -94,7 +94,7 @@ export default function CaseStudies() {
         <div className="mt-20 grid gap-6 sm:grid-cols-3">
             <Card className="text-center py-10">
                 <p className="font-display text-3xl font-bold text-white">5.0</p>
-                <p className="text-xs uppercase tracking-widest text-[var(--color-text-muted)] mt-2">App Store Rating</p>
+                <a href="https://play.google.com/store/apps/details?id=com.smartapphub.thesitters" target="_blank" rel="noopener noreferrer" className="mt-2 inline-block text-xs uppercase tracking-widest text-[var(--color-text-muted)] underline">Google Play Rating</a>
             </Card>
             <Card className="text-center py-10">
                 <p className="font-display text-3xl font-bold text-white">5</p>

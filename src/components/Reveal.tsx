@@ -39,7 +39,7 @@ export default function Reveal({
   return (
     <div
       ref={trigger === "view" ? ref : undefined}
-      className={className}
+      className={`reveal ${className}`}
       style={{
         opacity: active ? 1 : 0,
         transform: active ? toTransform : fromTransform,

@@ -23,7 +23,7 @@ const graphicDesignLinks = [
 ];
 
 const companyLinks = [
-  { label: "Commission an App", href: "/commission" },
+  { label: "App Development", href: "/commission" },
   { label: "Graphic Design", href: "/graphic-design" },
   { label: "Buy a Mini App", href: "/buy-mini-app" },
   { label: "Sitters", href: "/sitters" },
@@ -42,18 +42,14 @@ export default function Navbar() {
   const isMiniApp = location.pathname === "/buy-mini-app";
 
   const links = useMemo(() => {
-    return !isHome
-      ? [
-          { label: "Home", href: "/" },
-          ...(isSitters
-            ? sittersLinks
-            : isCommission
-              ? commissionLinks
-              : isGraphicDesign
-                ? graphicDesignLinks
-                : companyLinks),
-        ]
-      : companyLinks;
+    if (isHome) return companyLinks;
+    const sectionLinks = isSitters ? sittersLinks : isCommission ? commissionLinks : isGraphicDesign ? graphicDesignLinks : null;
+    if (!sectionLinks) return [{ label: "Home", href: "/" }, ...companyLinks];
+    return [
+      { label: "Home", href: "/" },
+      { label: isGraphicDesign ? "App Development" : "Graphic Design", href: isGraphicDesign ? "/commission" : "/graphic-design" },
+      ...sectionLinks,
+    ];
   }, [isHome, isSitters, isCommission, isGraphicDesign]);
 
   const primaryCta = useMemo(() => {
@@ -63,7 +59,7 @@ export default function Navbar() {
         ? { label: "Get in touch", href: "#contact" }
         : isGraphicDesign
           ? { label: "Get in touch", href: "#contact" }
-          : { label: "Commission an App", href: "/commission" };
+          : { label: "Discuss your project", href: "/contact" };
   }, [isSitters, isCommission, isGraphicDesign]);
 
   const tag = useMemo(() => {
@@ -88,7 +84,7 @@ export default function Navbar() {
   // Close menu on navigation
   useEffect(() => {
     setOpen(false);
-  }, [location.pathname]);
+  }, [location.pathname, location.hash]);
 
   return (
     <header
@@ -120,7 +116,7 @@ export default function Navbar() {
           )}
         </Link>
 
-        <nav className="hidden items-center gap-8 md:flex">
+        <nav className="hidden items-center gap-4 lg:gap-6 xl:gap-8 xl:flex">
           {links.map((link) =>
             link.href.startsWith("/") ? (
               <Link
@@ -142,27 +138,29 @@ export default function Navbar() {
           )}
         </nav>
 
-        <div className="hidden md:block">
+        <div className="hidden xl:block">
           <Button
-            href={isHome ? "mailto:smartapphubdev@gmail.com" : primaryCta.href}
+            href={isHome ? "/contact" : primaryCta.href}
             variant="primary"
             className="!py-2.5"
           >
-            {isHome ? "Get in touch" : primaryCta.label}
+            {isHome ? "Discuss your project" : primaryCta.label}
           </Button>
         </div>
 
         <button
           aria-label="Toggle menu"
+          aria-expanded={open}
+          aria-controls={open ? "mobile-menu" : undefined}
           onClick={() => setOpen((v) => !v)}
-          className="text-white md:hidden"
+          className="text-white xl:hidden"
         >
           {open ? <X size={22} /> : <Menu size={22} />}
         </button>
       </Container>
 
       {open && (
-        <div className="border-t border-[var(--color-border)] bg-[var(--color-bg)]/95 backdrop-blur-md md:hidden">
+        <div id="mobile-menu" className="border-t border-[var(--color-border)] bg-[var(--color-bg)]/95 backdrop-blur-md xl:hidden">
           <Container className="flex flex-col gap-4 py-6">
             {links.map((link) =>
               link.href.startsWith("/") ? (
@@ -186,12 +184,12 @@ export default function Navbar() {
               ),
             )}
             {!isHome ? (
-              <Button href={primaryCta.href} variant="primary" className="mt-2 w-full">
+              <Button href={primaryCta.href} onClick={() => setOpen(false)} variant="primary" className="mt-2 w-full">
                 {primaryCta.label}
               </Button>
             ) : (
-              <Button href="mailto:smartapphubdev@gmail.com" variant="primary" className="mt-2 w-full">
-                Get in touch
+              <Button href="/contact" onClick={() => setOpen(false)} variant="primary" className="mt-2 w-full">
+                Discuss your project
               </Button>
             )}
           </Container>

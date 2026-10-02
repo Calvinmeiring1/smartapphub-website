@@ -61,6 +61,7 @@
 }
 
 html {
+  overflow-x: clip;
   scroll-behavior: smooth;
   /* Faster font rendering */
   text-rendering: optimizeSpeed;
@@ -74,6 +75,15 @@ body {
   -webkit-font-smoothing: antialiased;
   /* Prevent horizontal scroll issues during animations */
   overflow-x: hidden;
+}
+
+section, [id] {
+  scroll-margin-top: 6rem;
+}
+
+input, select, textarea {
+  min-width: 0;
+  font-size: 16px;
 }
 
 section {
@@ -105,11 +115,17 @@ h1, h2, h3, h4 {
   .alive-float, .alive-drift, .animate-code, .animate-scan, .animate-glitter {
     opacity: 0.05 !important;
   }
+
+  .reveal {
+    opacity: 1 !important;
+    transform: none !important;
+  }
 }
 
 /* Visible keyboard focus */
 a:focus-visible,
-button:focus-visible {
+button:focus-visible,
+summary:focus-visible {
   outline: 2px solid var(--color-accent);
   outline-offset: 3px;
   border-radius: 6px;

@@ -10,6 +10,7 @@ const routes = [
   '/',
   '/sitters',
   '/commission',
+  '/contact',
   '/graphic-design',
   '/buy-mini-app',
   '/blog',

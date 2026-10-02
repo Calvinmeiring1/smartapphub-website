@@ -31,7 +31,7 @@ const sections = [
   },
   {
     heading: "5. Bookings, cancellations & refunds",
-    body: "A booking is confirmed once payment is completed in-app. Our default cancellation policy is: a full refund if cancelled more than 48 hours before the booking start time, a 50% refund if cancelled between 24 to 48 hours before, and no refund inside 24 hours. [SmartAppHub note: confirm these thresholds match your intended policy before launch, they can be edited here at any time.]",
+    body: "A booking is confirmed once payment is completed in-app. Our default cancellation policy is: a full refund if cancelled more than 48 hours before the booking start time, a 50% refund if cancelled between 24 to 48 hours before, and no refund inside 24 hours.",
   },
   {
     heading: "6. Payments & fees",

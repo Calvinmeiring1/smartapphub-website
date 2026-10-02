@@ -1,8 +1,9 @@
-import { useState, useEffect } from "react";
-import { Maximize2, X, ChevronLeft, ChevronRight } from "lucide-react";
+import { useState } from "react";
+import { Maximize2, ChevronLeft, ChevronRight } from "lucide-react";
 import Container from "./Container";
 import Section from "./Section";
 import Reveal from "./Reveal";
+import Dialog from "./Dialog";
 
 const categories = ["All", "Wedding", "Digital"];
 
@@ -30,12 +31,6 @@ const projects = [
     title: "Digital RSVP & Save the Date",
     image: "/rsvp.jpeg",
     description: "Beautifully designed digital stationery for pre-wedding notifications."
-  },
-  {
-    category: "Digital",
-    title: "Custom Social Media Assets",
-    image: "https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?auto=format&fit=crop&q=80&w=800",
-    description: "Tailored digital content for professional online presence."
   }
 ];
 
@@ -46,15 +41,6 @@ export default function PortfolioGallery() {
   const filteredProjects = projects.filter(
     (p) => filter === "All" || p.category === filter
   );
-
-  // Lock scroll when lightbox is open
-  useEffect(() => {
-    if (selectedIndex !== null) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "auto";
-    }
-  }, [selectedIndex]);
 
   const handleNext = (e: React.MouseEvent) => {
     e.stopPropagation();
@@ -77,7 +63,7 @@ export default function PortfolioGallery() {
               Creative Portfolio
             </h2>
             <p className="mt-4 max-w-xl text-[var(--color-text-muted)]">
-              A showcase of our recent design work, from wedding stationery to professional branding. Click any image to view it full-screen.
+              Wedding stationery and digital artwork created by our studio. Select a project to view the design.
             </p>
           </Reveal>
 
@@ -87,6 +73,7 @@ export default function PortfolioGallery() {
                 <button
                   key={cat}
                   onClick={() => setFilter(cat)}
+                  aria-pressed={filter === cat}
                   className={`rounded-full px-6 py-2 text-xs font-bold tracking-widest uppercase transition-all active:scale-95 ${
                     filter === cat
                       ? "bg-[var(--color-accent)] text-white shadow-[0_0_20px_rgba(91,127,255,0.3)]"
@@ -103,18 +90,21 @@ export default function PortfolioGallery() {
         <div className="mt-16 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {filteredProjects.map((project, i) => (
             <Reveal key={project.title} delay={i * 0.1}>
-              <div
+              <button
+                type="button"
+                aria-label={`View ${project.title}`}
                 onClick={() => setSelectedIndex(i)}
-                className="group relative aspect-[4/5] overflow-hidden rounded-[var(--radius-card)] border border-[var(--color-border)] bg-[var(--color-surface)] transition-all duration-500 hover:border-[var(--color-accent)]/50 hover:shadow-[0_20px_40px_rgba(0,0,0,0.5)] cursor-pointer"
+                className="group relative w-full text-left aspect-[4/5] overflow-hidden rounded-[var(--radius-card)] border border-[var(--color-border)] bg-[var(--color-surface)] transition-all duration-500 hover:border-[var(--color-accent)]/50 hover:shadow-[0_20px_40px_rgba(0,0,0,0.5)] cursor-pointer"
               >
                 <img
                   src={project.image}
                   alt={project.title}
+                  loading="lazy"
                   className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-110"
                 />
 
                 {/* Overlay on hover */}
-                <div className="absolute inset-0 flex flex-col justify-end bg-gradient-to-t from-black/90 via-black/20 to-transparent p-8 opacity-0 transition-all duration-300 group-hover:opacity-100">
+                <div className="absolute inset-0 flex flex-col justify-end bg-gradient-to-t from-black/90 via-black/20 to-transparent p-5 opacity-100 transition-all duration-300 sm:p-8">
                   <div className="absolute top-4 right-4 flex h-10 w-10 items-center justify-center rounded-full bg-white/10 text-white backdrop-blur-md transition-transform group-hover:scale-100 scale-50">
                     <Maximize2 size={20} />
                   </div>
@@ -131,67 +121,30 @@ export default function PortfolioGallery() {
                     </p>
                   </div>
                 </div>
-              </div>
+              </button>
             </Reveal>
           ))}
         </div>
       </Container>
 
-      {/* Lightbox Modal */}
       {selectedIndex !== null && (
-        <div
-          className="fixed inset-0 z-[100] flex items-center justify-center bg-[var(--color-bg)]/95 backdrop-blur-xl transition-all duration-300"
-          onClick={() => setSelectedIndex(null)}
-        >
-          {/* Close Button */}
-          <button
-            className="absolute top-8 right-8 z-[110] p-3 text-white hover:bg-white/10 rounded-full transition-colors"
-            onClick={() => setSelectedIndex(null)}
-          >
-            <X size={32} />
-          </button>
-
-          {/* Navigation */}
-          <button
-            className="absolute left-4 z-[110] h-14 w-14 items-center justify-center rounded-full text-white/50 hover:text-white hover:bg-white/5 transition-all hidden md:flex"
-            onClick={handlePrev}
-          >
-            <ChevronLeft size={48} />
-          </button>
-          <button
-            className="absolute right-4 z-[110] h-14 w-14 items-center justify-center rounded-full text-white/50 hover:text-white hover:bg-white/5 transition-all hidden md:flex"
-            onClick={handleNext}
-          >
-            <ChevronRight size={48} />
-          </button>
-
-          {/* Image Content */}
-          <Reveal trigger="mount" scale={0.9} y={0} className="relative max-w-[90vw] max-h-[85vh] overflow-hidden rounded-2xl shadow-2xl border border-white/10">
-            <div className="relative group" onClick={(e) => e.stopPropagation()}>
-              <img
-                src={filteredProjects[selectedIndex].image}
-                alt={filteredProjects[selectedIndex].title}
-                className="max-w-full max-h-[85vh] object-contain"
-              />
-              <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 to-transparent p-8">
-                <span className="text-xs font-bold uppercase tracking-[0.2em] text-[var(--color-accent)]">
-                  {filteredProjects[selectedIndex].category}
-                </span>
-                <h3 className="mt-2 font-display text-2xl font-bold text-white">
-                  {filteredProjects[selectedIndex].title}
-                </h3>
-                <p className="mt-2 text-[var(--color-text-muted)]">
-                  {filteredProjects[selectedIndex].description}
-                </p>
-              </div>
-            </div>
-          </Reveal>
-
-          {/* Counter */}
-          <div className="absolute bottom-8 left-1/2 -translate-x-1/2 rounded-full bg-white/5 px-6 py-2 text-xs font-bold tracking-widest text-white/50 border border-white/10 backdrop-blur-md">
-            {selectedIndex + 1} / {filteredProjects.length}
+        <Dialog label="portfolio viewer" onClose={() => setSelectedIndex(null)}>
+          <img src={filteredProjects[selectedIndex].image} alt={filteredProjects[selectedIndex].title}
+            className="max-h-[calc(100dvh-19rem)] max-w-full rounded-xl object-contain" />
+          <div className="mt-4 w-full text-center">
+            <h3 className="font-display text-xl font-semibold text-white">{filteredProjects[selectedIndex].title}</h3>
+            <p className="mt-2 text-sm text-[var(--color-text-muted)]">{filteredProjects[selectedIndex].description}</p>
           </div>
-        </div>
+          <div className="mt-4 flex items-center justify-center gap-6 text-white">
+            <button type="button" aria-label="Previous project" onClick={handlePrev} className="flex h-12 w-12 items-center justify-center rounded-full bg-[var(--color-surface)]">
+              <ChevronLeft size={24} />
+            </button>
+            <span aria-live="polite">{selectedIndex + 1} / {filteredProjects.length}</span>
+            <button type="button" aria-label="Next project" onClick={handleNext} className="flex h-12 w-12 items-center justify-center rounded-full bg-[var(--color-surface)]">
+              <ChevronRight size={24} />
+            </button>
+          </div>
+        </Dialog>
       )}
     </Section>
   );

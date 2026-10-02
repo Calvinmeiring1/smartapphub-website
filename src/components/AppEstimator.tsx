@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import {
   Smartphone,
   Globe,
@@ -107,29 +107,6 @@ export default function AppEstimator({ onEstimateChange }: { onEstimateChange?: 
         }
       }
 
-      // Calculate new total and summary for the callback
-      let newTotal = 0;
-      let summaryParts: string[] = [];
-
-      Object.entries(newSelections).forEach(([sId, selectedIds]) => {
-        const step = steps.find(s => s.id === sId);
-        const labels: string[] = [];
-        selectedIds.forEach(id => {
-          const option = step?.options.find(o => o.id === id);
-          if (option) {
-            newTotal += option.price;
-            labels.push(option.label);
-          }
-        });
-        if (labels.length > 0) {
-          summaryParts.push(`${step?.title}: ${labels.join(", ")}`);
-        }
-      });
-
-      if (onEstimateChange) {
-        onEstimateChange(newTotal, summaryParts.join("\n"));
-      }
-
       return newSelections;
     });
   };
@@ -145,6 +122,13 @@ export default function AppEstimator({ onEstimateChange }: { onEstimateChange?: 
     });
     return total;
   }, [selections]);
+
+  const summary = useMemo(() => steps.flatMap(step => {
+    const labels = (selections[step.id] ?? []).map(id => step.options.find(option => option.id === id)?.label).filter(Boolean);
+    return labels.length ? [step.title + ": " + labels.join(", ")] : [];
+  }).join("\n"), [selections]);
+
+  useEffect(() => { onEstimateChange?.(totalPrice, summary); }, [totalPrice, summary, onEstimateChange]);
 
   const progress = ((currentStep + 1) / steps.length) * 100;
   const currentStepData = steps[currentStep];
@@ -171,8 +155,9 @@ export default function AppEstimator({ onEstimateChange }: { onEstimateChange?: 
               />
             </div>
 
+            <p className="text-sm text-[var(--color-text-muted)]" aria-live="polite">Step {currentStep + 1} of {steps.length}</p>
             <div className="min-h-[400px]">
-              <h3 className="text-xl font-display font-medium text-white mb-8 flex items-center gap-3">
+              <h3 className="text-xl font-display font-medium text-white mb-8 flex flex-wrap items-center gap-3">
                 <span className="flex h-8 w-8 items-center justify-center rounded-full bg-[var(--color-accent)] text-[10px] font-bold text-black">
                   {currentStep + 1}
                 </span>
@@ -190,6 +175,8 @@ export default function AppEstimator({ onEstimateChange }: { onEstimateChange?: 
                   return (
                     <button
                       key={option.id}
+                      type="button"
+                      aria-pressed={isSelected}
                       onClick={() => toggleOption(currentStepData.id, option.id, currentStepData.type)}
                       className={`group relative flex flex-col gap-3 rounded-xl border p-6 text-left transition-all hover:shadow-2xl ${
                         isSelected
@@ -275,12 +262,12 @@ export default function AppEstimator({ onEstimateChange }: { onEstimateChange?: 
               <div className="mt-8 pt-8 border-t border-[var(--color-border)]">
                 <div className="flex items-end justify-between">
                   <span className="text-sm text-[var(--color-text-muted)]">Estimated Cost</span>
-                  <span className="text-2xl font-display font-bold text-[var(--color-accent)]">
-                    R{totalPrice.toLocaleString()}
+                  <span className="text-xl font-display font-bold text-[var(--color-accent)]">
+                    {summary ? `R${totalPrice.toLocaleString()}` : "Select options"}
                   </span>
                 </div>
-                <p className="mt-4 text-[10px] text-[var(--color-text-faint)] italic leading-relaxed">
-                  * This is a ballpark estimate. Final pricing depends on specific technical requirements and complexity.
+                <p className="mt-4 text-xs text-[var(--color-text-muted)] leading-relaxed">
+                  This is a ballpark estimate, not a final quote. Hosting, third-party subscriptions, store fees and ongoing support are scoped separately.
                 </p>
               </div>
             </div>

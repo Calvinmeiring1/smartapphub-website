@@ -344,7 +344,7 @@ export default function SittersPromo() {
             ))}
           </div>
           <div className="sp-cta-group">
-            <span className="sp-ios">iOS coming soon</span>
+            <span className="sp-ios">iOS awaiting App Store approval</span>
             <a
               href={PLAY_URL}
               target="_blank"
