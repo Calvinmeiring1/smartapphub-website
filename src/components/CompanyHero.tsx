@@ -21,17 +21,16 @@ export default function CompanyHero() {
 
       <Container className="relative z-20 text-center">
         <div className="mx-auto max-w-2xl animate-reveal">
-          <div className="relative mx-auto mb-5 flex h-20 w-20 md:mb-10 md:h-32 md:w-32 items-center justify-center">
-            {/* Decorative Rings */}
-            <div className="absolute inset-0 animate-[spin_10s_linear_infinite] rounded-full border border-dashed border-[var(--color-accent)]/30" />
-            <div className="absolute inset-2 animate-[spin_15s_linear_infinite_reverse] rounded-full border border-dotted border-white/10" />
-
-            {/* The Logo Orb */}
-            <div className="relative flex h-16 w-16 md:h-24 md:w-24 animate-logo items-center justify-center rounded-full border border-white/10 bg-[var(--color-surface)]/50 shadow-2xl backdrop-blur-sm md:backdrop-blur-md transition-transform duration-500 hover:scale-110">
+          <div className="relative mx-auto mb-5 h-20 w-20 md:mb-10 md:h-32 md:w-32">
+            <div aria-hidden="true" className="absolute -inset-2 rounded-[30px] border border-[var(--color-accent)]/15 md:-inset-3 md:rounded-[40px]" />
+            <div className="relative flex h-full w-full items-center justify-center overflow-hidden rounded-[24px] border border-white/15 bg-[#080d16] shadow-[0_8px_32px_rgba(0,0,0,0.3)] md:rounded-[32px]">
+              {/* The source has generous padding; scale its visible mark inside the frame. */}
               <img
                 src="/logo-icon.png"
                 alt="SmartAppHub"
-                className="h-10 w-10 md:h-14 md:w-14 object-contain transition-transform duration-500 hover:rotate-12"
+                width={1024}
+                height={1024}
+                className="h-full w-full scale-[1.9] object-contain"
                 fetchPriority="high"
               />
             </div>
