@@ -1,5 +1,7 @@
 import SEO from "../components/SEO";
 import SittersScreens from "../components/SittersScreens";
+import SittersFilm from "../components/SittersFilm";
+import SittersBackground from "../components/SittersBackground";
 import Hero from "../components/Hero";
 import Stats from "../components/Stats";
 import Features from "../components/Features";
@@ -27,7 +29,8 @@ const sittersSchema = {
 
 export default function Sitters() {
   return (
-    <>
+    <div className="relative isolate">
+      <SittersBackground />
       <SEO
         title="Sitters — Trusted pet & house sitting | SmartAppHub"
         description="Find reliable pet sitters, book securely, and keep your pets comfortable at home while you're away. Now live in 5 countries."
@@ -36,6 +39,7 @@ export default function Sitters() {
       <StructuredData data={sittersSchema} />
       <Hero />
       <Stats />
+      <SittersFilm />
       <Features />
       <SittersScreens />
       <SafetyTrust />
@@ -44,6 +48,6 @@ export default function Sitters() {
       <Testimonials />
       <FAQ />
       <DownloadCTA />
-    </>
+    </div>
   );
 }

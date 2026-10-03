@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { doc, onSnapshot } from "firebase/firestore";
 import { getDb } from "../firebase";
-import { Sparkles, ArrowRight } from "lucide-react";
+import { Sparkles, ArrowRight, Play } from "lucide-react";
 import Container from "./Container";
 import Button from "./Button";
 import Badge from "./Badge";
@@ -61,6 +61,9 @@ export default function Hero() {
           <p className="mt-6 text-xs text-[var(--color-text-faint)]">
             Free for pet owners · No booking fees hidden
           </p>
+          <a href="#sitters-film" className="mt-5 inline-flex items-center gap-2 text-sm font-medium text-[var(--color-text-muted)] transition-colors hover:text-white focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--color-accent)]">
+            <Play size={14} aria-hidden="true" /> Watch Luna’s story <span className="text-[var(--color-text-faint)]">· 18 seconds</span>
+          </a>
         </div>
 
         <PhoneMockup />
