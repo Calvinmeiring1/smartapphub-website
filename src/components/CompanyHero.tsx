@@ -21,22 +21,7 @@ export default function CompanyHero() {
 
       <Container className="relative z-20 text-center">
         <div className="mx-auto max-w-3xl animate-reveal">
-          <div className="relative mx-auto mb-5 h-16 w-16 md:h-20 md:w-20">
-            <div aria-hidden="true" className="absolute -inset-2 rounded-[30px] border border-[var(--color-accent)]/15 md:-inset-3 md:rounded-[40px]" />
-            <div className="relative flex h-full w-full items-center justify-center overflow-hidden rounded-[24px] border border-white/15 bg-[#080d16] shadow-[0_8px_32px_rgba(0,0,0,0.3)] md:rounded-[32px]">
-              {/* The source has generous padding; scale its visible mark inside the frame. */}
-              <img
-                src="/logo-icon.png"
-                alt="SmartAppHub"
-                width={1024}
-                height={1024}
-                className="h-full w-full scale-[1.9] object-contain"
-                fetchPriority="high"
-              />
-            </div>
-          </div>
-
-          <h1 className="mt-6 font-display text-4xl font-semibold leading-[1.12] tracking-tight text-white sm:text-5xl lg:text-6xl">
+          <h1 className="font-display text-4xl font-semibold leading-[1.12] tracking-tight text-white sm:text-5xl lg:text-6xl">
             Apps, websites and graphic design{" "}
             <span className="bg-gradient-to-r from-[var(--color-accent)] to-white bg-clip-text text-transparent">
               for your business.
