@@ -6,6 +6,7 @@ import Section from "../components/Section";
 import Reveal from "../components/Reveal";
 import Card from "../components/Card";
 import PortfolioGallery from "../components/PortfolioGallery";
+import BusinessDesignExamples from "../components/BusinessDesignExamples";
 import { PenTool, Image as ImageIcon, FileText, ArrowRight, Loader2, CheckCircle2, Layers, Palette, Sparkles } from "lucide-react";
 import { useState, useMemo } from "react";
 import { getDb } from "../firebase";
@@ -31,7 +32,7 @@ const services = [
   {
     icon: FileText,
     title: "Custom Stationery",
-    description: "Bespoke wedding invitations, letterheads, and business cards designed to leave a lasting impression."
+    description: "Business cards, letterheads and coordinated stationery that give your business a consistent identity."
   },
   {
     icon: PenTool,
@@ -205,18 +206,29 @@ export default function GraphicDesign() {
           </div>
 
           <div className="mt-8 flex flex-wrap gap-3">
-            <button type="button" onClick={() => selectService("Digital Assets")} className="rounded-full bg-[var(--color-accent)] px-6 py-3 text-sm font-semibold text-white">Discuss business design</button>
-            <a href="#packages" className="rounded-full border border-[var(--color-border)] bg-[var(--color-surface)] px-6 py-3 text-sm font-semibold text-white">View wedding packages</a>
+            <a href="#business-design" className="rounded-full bg-[var(--color-accent)] px-6 py-3 text-sm font-semibold text-white">Explore business design</a>
+            <a href="#wedding-stationery" className="rounded-full border border-[var(--color-border)] bg-[var(--color-surface)] px-6 py-3 text-sm font-semibold text-white">Explore wedding stationery</a>
           </div>
-          <div className="mt-12 grid items-center gap-6 rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface)] p-6 sm:grid-cols-2">
-            <img src="/invite.jpeg" alt="Wedding invitation designed by Dominique" className="max-h-80 w-full rounded-xl object-contain" loading="lazy" />
-            <div>
-              <h2 className="font-display text-2xl font-semibold text-white">Wedding stationery by our studio</h2>
-              <p className="mt-3 text-[var(--color-text-muted)]">Invitations, seating charts and matching digital artwork designed for your celebration. Explore the portfolio below, or tell us what you have in mind.</p>
-            </div>
+          <div className="mt-10 grid gap-5 sm:grid-cols-2">
+            <a href="#business-design" className="group rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface)] p-6 transition-colors hover:border-[var(--color-accent)]">
+              <p className="text-xs font-semibold uppercase tracking-widest text-[var(--color-accent)]">For your business</p>
+              <h2 className="mt-3 font-display text-2xl font-semibold text-white">A consistent, confident identity.</h2>
+              <p className="mt-3 text-sm leading-relaxed text-[var(--color-text-muted)]">Business stationery, social graphics and print-ready artwork built around your brief.</p>
+              <span className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-white">Business design <ArrowRight size={16} /></span>
+            </a>
+            <a href="#wedding-stationery" className="group rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface)] p-6 transition-colors hover:border-[var(--color-accent)]">
+              <p className="text-xs font-semibold uppercase tracking-widest text-[var(--color-accent)]">For your celebration</p>
+              <h2 className="mt-3 font-display text-2xl font-semibold text-white">Details that belong together.</h2>
+              <p className="mt-3 text-sm leading-relaxed text-[var(--color-text-muted)]">Invitations, seating charts and matching stationery. Explore Dominique’s work and wedding packages.</p>
+              <span className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-white">Wedding stationery <ArrowRight size={16} /></span>
+            </a>
           </div>
-
-          <div id="services" className="mt-24 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          <section id="business-design" className="mt-20 border-t border-[var(--color-border)] pt-12">
+            <p className="text-xs font-semibold uppercase tracking-widest text-[var(--color-accent)]">Business design</p>
+            <h2 className="mt-3 font-display text-3xl font-semibold text-white">Make every touchpoint feel like you.</h2>
+            <p className="mt-4 max-w-2xl leading-relaxed text-[var(--color-text-muted)]">Work with Dominique on graphics that carry your identity across social media, stationery and marketing artwork. We agree the formats, delivery date and revision scope before starting.</p>
+            <BusinessDesignExamples />
+          <div id="services" className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {services.map((service, i) => (
               <Reveal key={service.title} delay={i * 0.1}>
                 <Card
@@ -235,8 +247,14 @@ export default function GraphicDesign() {
               </Reveal>
             ))}
           </div>
-
+          </section>
+          <section id="wedding-stationery" className="mt-20 border-t border-[var(--color-border)] pt-12">
+            <p className="text-xs font-semibold uppercase tracking-widest text-[var(--color-accent)]">Wedding stationery</p>
+            <h2 className="mt-3 font-display text-3xl font-semibold text-white">Designed for your day.</h2>
+            <p className="mt-4 max-w-2xl leading-relaxed text-[var(--color-text-muted)]">A collection of invitations, seating charts and matching digital artwork created by Dominique. Explore the designs, then choose a package or request a custom brief.</p>
+            <a href="#packages" className="mt-5 inline-flex min-h-11 items-center gap-2 text-sm font-semibold text-[var(--color-accent)]">View wedding packages <ArrowRight size={16} /></a>
           <PortfolioGallery />
+          </section>
 
           <div id="packages" className="mt-24">
             <Reveal>

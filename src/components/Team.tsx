@@ -29,10 +29,10 @@ export default function Team() {
       <Container>
         <div className="mx-auto max-w-xl text-center">
           <h2 className="font-display text-3xl font-semibold text-white sm:text-4xl">
-            Who's behind SmartAppHub
+            Work directly with the people creating your project
           </h2>
           <p className="mt-4 text-[var(--color-text-muted)]">
-            Two people, two crafts, one studio.
+            We’re Calvin and Dominique, a husband-and-wife studio based in Pretoria. We build apps, websites and graphic design for clients across South Africa.
           </p>
         </div>
 

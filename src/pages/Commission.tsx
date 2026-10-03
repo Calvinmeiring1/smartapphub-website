@@ -3,6 +3,7 @@ import SEO from "../components/SEO";
 import StructuredData from "../components/StructuredData";
 import CommissionHero from "../components/CommissionHero";
 import Services from "../components/Services";
+import SittersScreens from "../components/SittersScreens";
 import CaseStudies from "../components/CaseStudies";
 import Process from "../components/Process";
 import AppEstimator from "../components/AppEstimator";
@@ -121,6 +122,7 @@ export default function Commission() {
       <Services />
       <TechStackSection />
       <CaseStudies />
+      <SittersScreens />
       <Process />
       <AppEstimator onEstimateChange={handleEstimateChange} />
       <ProjectQuestions />

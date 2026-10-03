@@ -3,9 +3,9 @@ import Container from "./Container";
 import Section from "./Section";
 
 const values = [
-  { icon: Target, title: "App & Design Studio", description: "Dedicated to Sitters, custom app commissions, and graphic design." },
-  { icon: ShieldCheck, title: "Built to last", description: "Production infrastructure and secure backends — we don't build weekend projects." },
-  { icon: Rocket, title: "Design-first focus", description: "Every app and commission is paired with branding and UX design." },
+  { icon: Target, title: "Apps, websites & design", description: "One studio for your software, website and visual communication." },
+  { icon: ShieldCheck, title: "Built to last", description: "Clear scope, careful implementation and support agreed before we start." },
+  { icon: Rocket, title: "Design-first focus", description: "We plan the layout and user experience around the people using your product." },
 ];
 
 export default function WhyUs() {

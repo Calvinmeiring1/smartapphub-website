@@ -4,7 +4,6 @@ import Section from "./Section";
 import Card from "./Card";
 import Badge from "./Badge";
 import Button from "./Button";
-import PhoneMockup from "./PhoneMockup";
 
 const features = [
   { icon: MapPin, title: "Walk tracking", description: "Background location updates let owners follow walk progress in the app." },
@@ -27,7 +26,7 @@ export default function CaseStudies() {
           <p className="mt-4 leading-relaxed text-[var(--color-text-muted)]">From owner and sitter journeys to bookings, verification and payments, Sitters shows how Calvin brings the parts of a mobile product together.</p>
         </div>
         <div className="mt-12 grid gap-10 lg:grid-cols-2 lg:items-center">
-          <div className="rounded-[var(--radius-card)] border border-[var(--color-border)] bg-[var(--color-surface)]/50 px-4 py-8 sm:px-8"><PhoneMockup /></div>
+          <figure className="rounded-[var(--radius-card)] border border-[var(--color-border)] bg-[#dff4f4] px-6 py-8"><img src="/work/sitters-booking.png" alt="Actual Sitters Android booking screen with three care services" width={1080} height={2340} loading="lazy" className="mx-auto w-full max-w-[260px] rounded-3xl border-[6px] border-[#142b30] shadow-xl" /><figcaption className="mx-auto mt-5 max-w-sm text-center text-sm text-[#294a50]">Actual Android app. The owner booking journey starts by choosing the type of care.</figcaption></figure>
           <div className="space-y-7">
             <div><h3 className="font-display text-2xl font-semibold text-white">The problem</h3><p className="mt-3 text-sm leading-relaxed text-[var(--color-text-muted)]">Owners need a way to arrange pet and house care, while sitters need to manage requests and bookings. The product brings these journeys into one app, with communication and verification built into the process.</p></div>
             <div><h3 className="font-display text-2xl font-semibold text-white">Calvin’s role</h3><p className="mt-3 text-sm leading-relaxed text-[var(--color-text-muted)]">Sitters is a SmartAppHub product, developed by Calvin. His work spans the app interface, native Android development, the iOS version, Firebase backend integration and store submission.</p></div>

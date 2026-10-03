@@ -1,4 +1,5 @@
 import SEO from "../components/SEO";
+import SittersScreens from "../components/SittersScreens";
 import Hero from "../components/Hero";
 import Stats from "../components/Stats";
 import Features from "../components/Features";
@@ -36,6 +37,7 @@ export default function Sitters() {
       <Hero />
       <Stats />
       <Features />
+      <SittersScreens />
       <SafetyTrust />
       <HowItWorks />
       <Countries />

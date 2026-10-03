@@ -60,7 +60,7 @@ export default function PortfolioGallery() {
         <div className="flex flex-col items-center text-center">
           <Reveal>
             <h2 className="font-display text-3xl font-semibold text-white sm:text-4xl text-shimmer">
-              Creative Portfolio
+              Wedding & digital stationery
             </h2>
             <p className="mt-4 max-w-xl text-[var(--color-text-muted)]">
               Wedding stationery and digital artwork created by our studio. Select a project to view the design.

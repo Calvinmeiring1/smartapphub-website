@@ -54,11 +54,11 @@ export default function WebsiteDevelopment() {
           <div className="mt-8 grid items-start gap-6 lg:grid-cols-[minmax(0,1fr)_220px]">
             <figure className="min-w-0 overflow-hidden rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface)]">
               <figcaption className="border-b border-[var(--color-border)] px-5 py-3 text-sm text-[var(--color-text-muted)]">Desktop · SmartAppHub homepage</figcaption>
-              <a href="/work/smartapphub-desktop.png" target="_blank" rel="noopener noreferrer" aria-label="View full desktop screenshot of SmartAppHub"><img src="/work/smartapphub-desktop.png" alt="Actual SmartAppHub desktop homepage with service navigation and project enquiry button" width={1425} height={990} loading="lazy" className="block h-auto w-full" /></a>
+              <a href="/work/smartapphub-desktop.png" target="_blank" rel="noopener noreferrer" aria-label="View full desktop screenshot of SmartAppHub"><img src="/work/smartapphub-desktop.png" alt="Actual SmartAppHub desktop homepage with service navigation and project enquiry button" width={1440} height={990} loading="lazy" className="block h-auto w-full" /></a>
             </figure>
             <figure className="mx-auto w-full max-w-[220px] overflow-hidden rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface)]">
               <figcaption className="border-b border-[var(--color-border)] px-4 py-3 text-sm text-[var(--color-text-muted)]">Mobile · Same website</figcaption>
-              <a href="/work/smartapphub-mobile.png" target="_blank" rel="noopener noreferrer" aria-label="View full mobile screenshot of SmartAppHub"><img src="/work/smartapphub-mobile.png" alt="Actual SmartAppHub mobile homepage with menu button and vertically stacked enquiry buttons" width={375} height={812} loading="lazy" className="block h-auto w-full" /></a>
+              <a href="/work/smartapphub-mobile.png" target="_blank" rel="noopener noreferrer" aria-label="View full mobile screenshot of SmartAppHub"><img src="/work/smartapphub-mobile.png" alt="Actual SmartAppHub mobile homepage with menu button and vertically stacked enquiry buttons" width={390} height={844} loading="lazy" className="block h-auto w-full" /></a>
             </figure>
           </div>
           <p className="mt-3 text-xs text-[var(--color-text-muted)]">Screenshots of the website we built. Select either image to view it at full size.</p>

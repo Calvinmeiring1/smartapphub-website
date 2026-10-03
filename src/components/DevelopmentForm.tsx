@@ -18,9 +18,9 @@ const commissionInterests = [
   "Other"
 ];
 
-export default function DevelopmentForm({ estimateSummary = "", website = false }: { estimateSummary?: string; website?: boolean }) {
+export default function DevelopmentForm({ estimateSummary = "", website = false, general = false }: { estimateSummary?: string; website?: boolean; general?: boolean }) {
   const defaultInterest = website ? "Website Development" : "New App Development";
-  const interests = website ? ["Website Development", "Website Redesign", "Landing Page", "Website Maintenance", "Other"] : commissionInterests;
+  const interests = general ? ["New App Development", "Website Development", "Graphic Design", "Wedding Stationery", "Other"] : website ? ["Website Development", "Website Redesign", "Landing Page", "Website Maintenance", "Other"] : commissionInterests;
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const [submitError, setSubmitError] = useState("");
@@ -31,6 +31,8 @@ export default function DevelopmentForm({ estimateSummary = "", website = false 
     details: ""
   });
 
+  const design = ["Graphic Design", "Wedding Stationery"].includes(formData.interest);
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
@@ -38,7 +40,7 @@ export default function DevelopmentForm({ estimateSummary = "", website = false 
 
     try {
       const db = await getDb();
-      await addDoc(collection(db, "app_inquiries"), {
+      await addDoc(collection(db, design ? "design_inquiries" : "app_inquiries"), {
         ...formData,
         estimateSummary: formData.interest.startsWith("Website") ? "" : estimateSummary,
         status: "new",
@@ -58,9 +60,9 @@ export default function DevelopmentForm({ estimateSummary = "", website = false 
     <Section id="contact" className="border-t border-[var(--color-border)]">
       <Container className="max-w-4xl">
         <Reveal>
-          <h2 className="font-display text-3xl font-semibold text-white text-center text-shimmer">Start your project</h2>
+          <h2 className="font-display text-3xl font-semibold text-white text-center text-shimmer">{general ? "Tell us about your project" : "Start your project"}</h2>
           <p className="mt-4 text-[var(--color-text-muted)] text-center">
-            {website ? "Tell Calvin about your website." : "Tell Calvin about your app idea."} We typically reply within 5 minutes and will discuss your requirements before preparing a quote.
+            {general ? "Choose your service and share a short brief." : website ? "Tell Calvin about your website." : "Tell Calvin about your app idea."} We typically reply within 5 minutes and will discuss your requirements before preparing a quote.
           </p>
         </Reveal>
 
@@ -70,7 +72,7 @@ export default function DevelopmentForm({ estimateSummary = "", website = false 
             <p className="mt-3 whitespace-pre-line text-sm text-[var(--color-text-muted)]">{estimateSummary}</p>
           </div>
         )}
-        <form aria-busy={isSubmitting} onSubmit={handleSubmit} className="mt-16 space-y-12">
+        <form aria-busy={isSubmitting} onSubmit={handleSubmit} className="mt-8 space-y-6">
           {submitError && <p role="alert" className="rounded-xl border border-red-400/40 bg-red-400/10 p-4 text-sm text-red-200">{submitError}</p>}
           {isSuccess ? (
             <Reveal>
@@ -78,7 +80,7 @@ export default function DevelopmentForm({ estimateSummary = "", website = false 
                 <CheckCircle2 size={48} className="text-[var(--color-verified)]" />
                 <h3 className="text-xl font-display font-bold text-white">Project Enquiry Sent!</h3>
                 <p className="text-[var(--color-text-muted)] max-w-sm">
-                  Thank you for reaching out. Calvin will review your details and get back to you. We typically reply within 5 minutes.
+                  Thank you for reaching out. {design ? "Dominique" : "Calvin"} will review your details and get back to you. We typically reply within 5 minutes.
                 </p>
                 <button
                   type="button"
@@ -91,7 +93,7 @@ export default function DevelopmentForm({ estimateSummary = "", website = false 
             </Reveal>
           ) : (
             <>
-              <div className="grid gap-x-12 gap-y-12 sm:grid-cols-2">
+              <div className="grid gap-x-8 gap-y-6 sm:grid-cols-2">
                 <div className="space-y-4">
                   <label htmlFor="app-name" className="block text-xs font-bold tracking-[0.12em] text-[var(--color-text-muted)] uppercase">Name</label>
                   <input
@@ -144,7 +146,7 @@ export default function DevelopmentForm({ estimateSummary = "", website = false 
                   id="app-details"
                   name="details"
                   rows={4}
-                  placeholder={website ? "Tell us about your business, pages and features you need, your preferred launch date, and any existing website..." : "Tell us about your app, your audience and the features you need..."}
+                  placeholder={general ? "What would you like to create? Tell us your goals and any preferred launch date..." : website ? "Tell us about your business, pages and features you need, your preferred launch date, and any existing website..." : "Tell us about your app, your audience and the features you need..."}
                   className="w-full bg-transparent border-b border-white/25 py-3 text-white placeholder:text-[var(--color-text-muted)] focus:outline-none focus:border-[var(--color-accent)] transition-colors resize-none"
                   value={formData.details}
                   onChange={e => setFormData({ ...formData, details: e.target.value })}
@@ -171,7 +173,7 @@ export default function DevelopmentForm({ estimateSummary = "", website = false 
                   )}
                 </button>
 
-                <ContactLinks />
+                <ContactLinks design={design} />
               </div>
             </>
           )}

@@ -1,25 +1,28 @@
 import Container from "../components/Container";
 import Section from "../components/Section";
 import CompanyHero from "../components/CompanyHero";
-import StudioServices from "../components/StudioServices";
-import About from "../components/About";
+import SelectedWork from "../components/SelectedWork";
 import Team from "../components/Team";
-import WhyUs from "../components/WhyUs";
-import SittersPromo from "../components/SittersPromo";
+import Button from "../components/Button";
+import ContactLinks from "../components/ContactLinks";
 import SEO from "../components/SEO";
 import ScrollShowcase from "../components/ScrollShowcase";
 
-function SittersFlagshipSection() {
-  return (
-    <Section>
-      <Container>
-        <h2 className="text-center font-display text-3xl font-semibold text-white sm:text-4xl mb-12 text-shimmer">
-          Built by SmartAppHub: Sitters
-        </h2>
-        <SittersPromo />
-      </Container>
-    </Section>
-  );
+function ProjectProcess() {
+  return <Section><Container>
+    <h2 className="font-display text-3xl font-semibold text-white sm:text-4xl">A clear path from idea to launch</h2>
+    <div className="mt-8 grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+      {[["01", "Share your idea", "Tell us what you need, who it is for and what success looks like."], ["02", "Agree the scope", "We confirm the deliverables, quote, timeline and support before starting."], ["03", "Create and review", "See the work take shape and give feedback at agreed milestones."], ["04", "Launch and hand over", "We check the final work and agree the handover and next steps."]].map(([n,title,text]) => <div key={n}><span className="text-sm font-semibold text-[var(--color-accent)]">{n}</span><h3 className="mt-3 text-lg font-semibold text-white">{title}</h3><p className="mt-3 text-sm leading-relaxed text-[var(--color-text-muted)]">{text}</p></div>)}
+    </div>
+  </Container></Section>;
+}
+function ProjectInvitation() {
+  return <Section className="border-t border-[var(--color-border)]"><Container className="max-w-3xl text-center">
+    <h2 className="font-display text-3xl font-semibold text-white sm:text-4xl">What would you like to build?</h2>
+    <p className="mt-5 text-lg text-[var(--color-text-muted)]">Tell us about your app, website or design project. We’ll help you define the next step.</p>
+    <div className="mt-7"><Button href="/contact">Discuss your project</Button></div>
+    <div className="mt-5"><ContactLinks /></div>
+  </Container></Section>;
 }
 
 export default function Home() {
@@ -36,11 +39,10 @@ export default function Home() {
 
       <CompanyHero />
       <ScrollShowcase />
-      <StudioServices />
-      <About />
+      <SelectedWork />
+      <ProjectProcess />
       <Team />
-      <WhyUs />
-      <SittersFlagshipSection />
+      <ProjectInvitation />
     </div>
   );
 }

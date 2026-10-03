@@ -10,25 +10,35 @@ const stages = [
 ];
 
 export default function ScrollShowcase() {
-  const [motionEnabled, setMotionEnabled] = useState(false);
-  const [reducedMotion, setReducedMotion] = useState(false);
+  const [staticMode, setStaticMode] = useState(true);
   const section = useRef<HTMLElement>(null);
   const stage = useRef<HTMLDivElement>(null);
   const links = useRef<(HTMLAnchorElement | null)[]>([]);
 
   useEffect(() => {
+    const motion = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const compact = window.matchMedia("(max-height: 650px)");
+    const syncMode = () => setStaticMode(motion.matches || compact.matches);
+    syncMode();
+    motion.addEventListener("change", syncMode);
+    compact.addEventListener("change", syncMode);
+    return () => {
+      motion.removeEventListener("change", syncMode);
+      compact.removeEventListener("change", syncMode);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (staticMode) return;
     const root = section.current;
     const panel = stage.current;
     if (!root || !panel) return;
-    const motion = window.matchMedia("(prefers-reduced-motion: reduce)");
-    setReducedMotion(motion.matches);
     let frame = 0;
     const update = () => {
       frame = 0;
       const rect = root.getBoundingClientRect();
       const travel = Math.max(1, rect.height - window.innerHeight);
-      const staticMode = (motion.matches && !motionEnabled) || window.innerHeight <= 650;
-      const progress = staticMode ? 0 : Math.max(0, Math.min(1, -rect.top / travel));
+      const progress = Math.max(0, Math.min(1, -rect.top / travel));
       const phase = progress * 2;
       const website = Math.max(0, Math.min(1, phase));
       const design = Math.max(0, Math.min(1, phase - 1));
@@ -42,30 +52,52 @@ export default function ScrollShowcase() {
       opacity.forEach((value, index) => {
         panel.style.setProperty(`--stage-${index}`, String(value));
         const link = links.current[index];
-        if (link) link.tabIndex = staticMode || index === active ? 0 : -1;
+        if (link) link.tabIndex = index === active ? 0 : -1;
       });
       panel.dataset.active = String(active);
     };
     const schedule = () => { if (!frame) frame = requestAnimationFrame(update); };
     window.addEventListener("scroll", schedule, { passive: true });
     window.addEventListener("resize", schedule);
-    motion.addEventListener("change", schedule);
     update();
     return () => {
       window.removeEventListener("scroll", schedule);
       window.removeEventListener("resize", schedule);
-      motion.removeEventListener("change", schedule);
       cancelAnimationFrame(frame);
     };
-  }, [motionEnabled]);
+  }, [staticMode]);
+
+  if (staticMode) return (
+    <section ref={section} className="showcase-static" aria-label="Explore our three services">
+      <Container>
+        <p className="text-xs font-semibold uppercase tracking-[0.16em] text-[var(--color-accent)]">One studio. Three ways to create.</p>
+        <div className="showcase-static-grid">
+          {stages.map((item, index) => (
+            <article key={item.name} className="showcase-static-card">
+              <div className={`showcase-static-art showcase-static-art-${index}`} aria-hidden="true">
+                {index === 0 && <div className="showcase-static-phone"><span className="showcase-static-notch" /><span className="showcase-static-app-icon">S</span><strong>Your next idea.</strong><span className="showcase-static-line" /><span className="showcase-static-line" /><span className="showcase-static-app-cta" /></div>}
+                {index === 1 && <div className="showcase-static-browser"><div className="showcase-static-browser-bar"><i /><i /><i /><span>your-business.co.za</span></div><div className="showcase-static-website"><span>YOUR BUSINESS</span><strong>Make your<br />first impression<br /><em>count.</em></strong><i /></div></div>}
+                {index === 2 && <div className="showcase-static-poster"><span>YOUR BRAND / 01</span><i /><strong>Make<br />your<br /><em>mark.</em></strong><small>IDENTITY. COLOUR. CHARACTER.</small></div>}
+              </div>
+              <div className="showcase-static-body">
+                <p className="text-xs font-semibold uppercase tracking-widest text-[var(--color-text-muted)]">0{index + 1} / {item.name}</p>
+                <h2 className="mt-3 font-display text-2xl font-semibold text-white">{item.title}</h2>
+                <p className="mt-3 text-sm leading-relaxed text-[var(--color-text-muted)]">{item.text}</p>
+                <Link to={item.href} className="mt-5 inline-flex min-h-12 items-center gap-2 text-sm font-semibold text-[var(--color-accent)]">{item.action}<ArrowRight size={16} aria-hidden="true" /></Link>
+              </div>
+            </article>
+          ))}
+        </div>
+      </Container>
+    </section>
+  );
 
   return (
-    <section ref={section} className={`scroll-showcase ${motionEnabled ? "showcase-motion-enabled" : ""}`} aria-label="Explore our three services">
+    <section ref={section} className="scroll-showcase" aria-label="Explore our three services">
       <div ref={stage} className="showcase-stage" data-active="0">
         <Container className="showcase-layout">
           <div className="showcase-copy">
             <p className="text-xs font-semibold tracking-[0.16em] text-[var(--color-accent)] uppercase">One studio. Three ways to create.</p>
-            {reducedMotion && !motionEnabled && <button type="button" onClick={() => setMotionEnabled(true)} className="mt-4 rounded-full border border-[var(--color-border)] px-5 py-3 text-sm text-white">Enable scroll animation preview</button>}
             <div className="showcase-headings">
               {stages.map((item, index) => <div key={item.name} className={`showcase-story showcase-story-${index}`}>
                 <p className="mt-6 text-sm text-[var(--color-text-muted)]">0{index + 1} / {item.name}</p>
