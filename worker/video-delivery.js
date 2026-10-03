@@ -1,5 +1,6 @@
 const videos = new Set([
   "/media/sitters-intro.mp4",
+  "/media/sitters-film-v2.mp4",
   "/media/sitters-background.mp4",
 ]);
 

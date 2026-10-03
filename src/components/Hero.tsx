@@ -62,7 +62,7 @@ export default function Hero() {
             Free for pet owners · No booking fees hidden
           </p>
           <a href="#sitters-film" className="mt-5 inline-flex items-center gap-2 text-sm font-medium text-[var(--color-text-muted)] transition-colors hover:text-white focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--color-accent)]">
-            <Play size={14} aria-hidden="true" /> Watch Luna’s story <span className="text-[var(--color-text-faint)]">· 18 seconds</span>
+            <Play size={14} aria-hidden="true" /> Watch Luna’s story <span className="text-[var(--color-text-faint)]">· 16 seconds</span>
           </a>
         </div>
 

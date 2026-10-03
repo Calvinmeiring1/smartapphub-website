@@ -26,7 +26,7 @@ Outputs to `dist/`.
 ## Video delivery on Cloudflare Workers
 
 The current `wrangler.jsonc` deploys the site with `worker/video-delivery.js`.
-Requests under `/media/` reach the Worker first so the two Sitters MP4s support
+Requests under `/media/` reach the Worker first so the Sitters MP4s support
 HTTP byte ranges (`206 Partial Content`), which Safari needs for startup and
 seeking. Other assets keep the default static routing.
 
@@ -34,7 +34,7 @@ Validate video delivery with `node --test worker/video-delivery.test.js` and
 `npx wrangler dev`. Deploy the built site with `npx wrangler deploy` or the
 connected Cloudflare Git build. A production smoke check should return status
 206 and `Content-Range: bytes 0-1/<file-size>` for a GET with
-`Range: bytes=0-1` against both `/media/sitters-intro.mp4` and
+`Range: bytes=0-1` against `/media/sitters-film-v2.mp4` and
 `/media/sitters-background.mp4`.
 
 ## Deploy to Cloudflare Pages
