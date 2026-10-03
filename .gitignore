@@ -21,6 +21,7 @@ dist-ssr
 .idea
 .DS_Store
 .artifacts/
+.wrangler/
 *.suo
 *.ntvs*
 *.njsproj
