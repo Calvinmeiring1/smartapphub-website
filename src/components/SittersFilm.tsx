@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { ArrowRight, Play } from "lucide-react";
 import Button from "./Button";
 import Container from "./Container";
@@ -12,13 +12,15 @@ export default function SittersFilm() {
   const [failed, setFailed] = useState(false);
   const video = useRef<HTMLVideoElement>(null);
 
-  useEffect(() => {
-    if (!started) return;
-    video.current?.focus();
-    // Playback is requested only after the visitor presses the play button.
-    // If the browser declines, its native controls still allow playback.
-    void video.current?.play().catch(() => {});
-  }, [started]);
+  const startFilm = () => {
+    const player = video.current;
+    if (!player) return;
+    // Keep play() in the tap handler so iPhone Safari retains user activation.
+    setStarted(true);
+    setFailed(false);
+    player.focus();
+    void player.play().catch(() => setStarted(false));
+  };
 
   return (
     <Section id="sitters-film" className="scroll-mt-24 border-y border-[var(--color-border)] bg-[var(--color-surface)]/40">
@@ -35,18 +37,16 @@ export default function SittersFilm() {
           </div>
         </div>
         <figure className="min-w-0">
-          <div className="aspect-video overflow-hidden rounded-2xl border border-white/10 bg-black shadow-xl">
-            {started ? (
-              <video ref={video} controls playsInline preload="none" poster={poster}
+          <div className="relative aspect-video overflow-hidden rounded-2xl border border-white/10 bg-black shadow-xl">
+              <video ref={video} src={film} controls={started} playsInline preload="none" poster={poster}
                 aria-label="Sitters introduction film" aria-describedby="sitters-film-description"
                 tabIndex={0} onError={() => setFailed(true)} className="h-full w-full object-contain">
-                <source src={film} type="video/mp4" />
                 <a href={film}>Watch the Sitters film</a>
               </video>
-            ) : (
-              <button type="button" onClick={() => setStarted(true)}
+            {!started && (
+              <button type="button" onClick={startFilm}
                 aria-label="Play the 18-second Sitters introduction film"
-                className="group relative block h-full w-full cursor-pointer focus-visible:outline-4 focus-visible:-outline-offset-4 focus-visible:outline-[var(--color-accent)]">
+                className="group absolute inset-0 block h-full w-full cursor-pointer focus-visible:outline-4 focus-visible:-outline-offset-4 focus-visible:outline-[var(--color-accent)]">
                 <img src={poster} alt="Luna the golden dog meets her sitter while her owner smiles nearby" width={1280} height={720} loading="lazy" decoding="async" className="h-full w-full object-cover" />
                 <span className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
                 <span className="absolute inset-0 flex items-center justify-center">

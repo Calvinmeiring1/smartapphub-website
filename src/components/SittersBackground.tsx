@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { flushSync } from "react-dom";
 import { Pause, Play } from "lucide-react";
 
 export default function SittersBackground() {
@@ -33,7 +34,12 @@ export default function SittersBackground() {
       const story = document.querySelector<HTMLVideoElement>("#sitters-film video");
       const storyPlaying = story && !story.paused && !story.ended;
       if (paused || document.hidden || storyPlaying) player.pause();
-      else void player.play().catch(() => setPaused(true));
+      else {
+        player.muted = true;
+        void player.play().catch((error: unknown) => {
+          if (!(error instanceof DOMException && error.name === "AbortError")) setPaused(true);
+        });
+      }
     };
     const storyPlayback = (event: Event) => {
       if (!(event.target instanceof HTMLVideoElement) || !event.target.closest("#sitters-film")) return;
@@ -61,8 +67,19 @@ export default function SittersBackground() {
         <div className="absolute inset-0 bg-gradient-to-r from-[#0a0a0a]/80 via-[#0a0a0a]/40 to-transparent" />
       </div>
       {!failed && <button type="button" onClick={() => {
-        if (!allowed) { setAllowed(true); setPaused(false); }
-        else setPaused(!paused);
+        const shouldPlay = !allowed || paused;
+        // Mount the player before play(), keeping both within the user's tap.
+        flushSync(() => {
+          setAllowed(true);
+          setPaused(!shouldPlay);
+        });
+        const player = video.current;
+        if (!player) return;
+        if (!shouldPlay) { player.pause(); return; }
+        const story = document.querySelector<HTMLVideoElement>("#sitters-film video");
+        if (document.hidden || (story && !story.paused && !story.ended)) return;
+        player.muted = true;
+        void player.play().catch(() => setPaused(true));
       }}
         aria-label={!allowed || paused ? "Play background animation" : "Pause background animation"}
         className="fixed bottom-4 right-4 z-40 inline-flex items-center gap-2 rounded-full border border-white/20 bg-black/85 px-3 py-2 text-xs font-medium text-white shadow-lg backdrop-blur-sm hover:bg-black focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white">
