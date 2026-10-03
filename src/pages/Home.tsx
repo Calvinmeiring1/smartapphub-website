@@ -21,7 +21,16 @@ function ProjectInvitation() {
     <h2 className="font-display text-3xl font-semibold text-white sm:text-4xl">What would you like to build?</h2>
     <p className="mt-5 text-lg text-[var(--color-text-muted)]">Tell us about your app, website or design project. We’ll help you define the next step.</p>
     <div className="mt-7"><Button href="/contact">Discuss your project</Button></div>
-    <div className="mt-5"><ContactLinks /></div>
+    <div className="mt-8 grid gap-6 sm:grid-cols-2">
+      <div>
+        <h3 className="mb-3 text-sm font-semibold text-white">Calvin · Apps & websites</h3>
+        <ContactLinks />
+      </div>
+      <div>
+        <h3 className="mb-3 text-sm font-semibold text-white">Dominique · Graphic design</h3>
+        <ContactLinks design />
+      </div>
+    </div>
   </Container></Section>;
 }
 
