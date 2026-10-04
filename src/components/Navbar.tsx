@@ -48,6 +48,7 @@ export default function Navbar() {
 
   const links = useMemo(() => {
     if (isHome) return companyLinks;
+    if (isMiniApp) return [{ label: "Home", href: "/" }, ...companyLinks.filter(link => ["/commission", "/website-development", "/graphic-design", "/blog"].includes(link.href))];
     const sectionLinks = isSitters ? sittersLinks : (isCommission || isWebsite) ? commissionLinks : isGraphicDesign ? graphicDesignLinks : null;
     if (!sectionLinks) return [{ label: "Home", href: "/" }, ...companyLinks];
     return [
@@ -56,7 +57,7 @@ export default function Navbar() {
       { label: isWebsite ? "App Development" : "Websites", href: isWebsite ? "/commission" : "/website-development" },
       ...sectionLinks,
     ];
-  }, [isHome, isSitters, isCommission, isWebsite, isGraphicDesign]);
+  }, [isHome, isSitters, isCommission, isWebsite, isGraphicDesign, isMiniApp]);
 
   const primaryCta = useMemo(() => {
     return isSitters
@@ -111,11 +112,11 @@ export default function Navbar() {
           : "xl:bg-transparent border-b border-transparent"
       }`}
     >
-      <Container className="flex h-18 items-center justify-between py-4">
+      <Container className="flex h-18 items-center justify-between gap-4 py-4">
         <Link
           to="/"
           onClick={closeMenu}
-          className="flex items-center gap-2.5 font-display text-lg font-semibold leading-none tracking-tight"
+          className="flex shrink-0 items-center gap-2.5 whitespace-nowrap font-display text-lg font-semibold leading-none tracking-tight"
         >
           <span className="flex h-11 w-11 items-center justify-center">
             <img
