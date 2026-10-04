@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { ArrowUpRight } from "lucide-react";
 import Container from "./Container";
 import Section from "./Section";
+import WebsiteWorkPreview from "./WebsiteWorkPreview";
 
 export default function SelectedWork() {
   return (
@@ -26,7 +27,7 @@ export default function SelectedWork() {
             </div>
           </article>
           <article className="overflow-hidden rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface)]">
-            <div className="h-64 overflow-hidden bg-[#10131d] p-5"><img src="/work/smartapphub-desktop.png" alt="SmartAppHub website desktop layout" loading="lazy" width={1440} height={990} className="h-full w-full rounded-lg border border-white/10 object-cover object-top" /></div>
+            <WebsiteWorkPreview />
             <div className="p-6">
               <p className="text-xs uppercase tracking-widest text-[var(--color-accent)]">Our studio · Website development</p>
               <h3 className="mt-3 font-display text-2xl font-semibold text-white">SmartAppHub</h3>
