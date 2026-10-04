@@ -12,8 +12,8 @@ export default function Blog() {
   return (
     <div className="relative pt-36 min-h-screen">
       <SEO
-        title="Blog | App Insights & Design Trends | SmartAppHub"
-        description="Expert advice on mobile app development, graphic design trends, and building digital products in South Africa."
+        title="Blog | Websites, App Development & Design | SmartAppHub"
+        description="Practical guides to business websites, mobile app development and graphic design for South African businesses, from SmartAppHub in Pretoria."
         canonical="https://smartapphub.co.za/blog"
       />
 
@@ -26,7 +26,7 @@ export default function Blog() {
               Our <span className="bg-gradient-to-r from-[var(--color-accent)] to-white bg-clip-text text-transparent">Insights</span>
             </h1>
             <p className="mt-6 text-lg text-[var(--color-text-muted)] max-w-2xl">
-              Sharing our expertise on building scalable digital products and designing for the modern web.
+              Practical guides to planning business websites, building mobile apps and preparing your brand for the web.
             </p>
           </Reveal>
 
@@ -45,7 +45,7 @@ export default function Blog() {
                       {post.excerpt}
                     </p>
                     <div className="mt-auto pt-8 flex items-center justify-between">
-                      <div className="flex items-center gap-4 text-xs text-[var(--color-text-faint)]">
+                      <div className="flex flex-wrap items-center gap-4 text-xs text-[var(--color-text-faint)]">
                         <span className="flex items-center gap-1.5"><Calendar size={14} /> {post.date}</span>
                         <span className="flex items-center gap-1.5"><User size={14} /> {post.author}</span>
                       </div>

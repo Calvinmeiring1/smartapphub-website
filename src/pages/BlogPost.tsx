@@ -31,7 +31,9 @@ export default function BlogPost() {
         "url": "https://smartapphub.co.za/logo-icon.png"
       }
     },
-    "datePublished": "2026-05-15" // In a real app, parse post.date
+    "datePublished": post.publishedDate,
+    "description": post.excerpt,
+    "mainEntityOfPage": `https://smartapphub.co.za/blog/${post.slug}`
   };
 
   return (
@@ -56,7 +58,7 @@ export default function BlogPost() {
             </h1>
             <div className="mt-8 flex flex-wrap items-center gap-6 text-sm text-[var(--color-text-muted)] border-b border-[var(--color-border)] pb-8">
               <span className="flex items-center gap-2"><User size={16} className="text-[var(--color-accent)]" /> {post.author}</span>
-              <span className="flex items-center gap-2"><Calendar size={16} className="text-[var(--color-accent)]" /> {post.date}</span>
+              <span className="flex items-center gap-2"><Calendar size={16} className="text-[var(--color-accent)]" /> <time dateTime={post.publishedDate}>{post.date}</time></span>
               <span className="flex items-center gap-2"><Clock size={16} className="text-[var(--color-accent)]" /> {post.readTime}</span>
             </div>
           </header>
@@ -96,6 +98,16 @@ export default function BlogPost() {
             })}
           </div>
         </article>
+        {post.relatedLinks && (
+          <nav aria-label="Related reading and services" className="mt-16 max-w-3xl border-t border-[var(--color-border)] pt-8">
+            <h2 className="font-display text-xl font-semibold text-white">Explore next</h2>
+            <ul className="mt-4 space-y-3">
+              {post.relatedLinks.map(link => (
+                <li key={link.href}><Link to={link.href} className="text-[var(--color-accent)] underline underline-offset-4 hover:text-white">{link.label}</Link></li>
+              ))}
+            </ul>
+          </nav>
+        )}
       </Container>
     </div>
   );

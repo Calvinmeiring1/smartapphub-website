@@ -1,8 +1,12 @@
+import { serviceBlogPosts } from './serviceBlogPosts';
+
 export interface BlogPostData {
   slug: string;
   title: string;
   excerpt: string;
   date: string;
+  publishedDate: string;
+  relatedLinks?: { href: string; label: string }[];
   author: string;
   category: string;
   readTime: string;
@@ -16,11 +20,13 @@ export interface BlogPostData {
 }
 
 export const blogPosts: BlogPostData[] = [
+  ...serviceBlogPosts,
   {
     slug: "how-to-build-app-south-africa",
     title: "How to Build a Successful Mobile App in South Africa (2026)",
     excerpt: "A comprehensive guide for entrepreneurs and businesses looking to launch their first mobile application in the SA market, focusing on data efficiency and local payments.",
     date: "May 15, 2026",
+    publishedDate: "2026-05-15",
     author: "Calvin",
     category: "Development",
     readTime: "8 min read",
@@ -72,6 +78,7 @@ export const blogPosts: BlogPostData[] = [
     title: "Modern Wedding Stationery: Digital Trends for 2026",
     excerpt: "Explore how digital stationery and mini-apps are transforming the wedding experience for couples in South Africa.",
     date: "June 10, 2026",
+    publishedDate: "2026-06-10",
     author: "Dominique",
     category: "Design",
     readTime: "5 min read",
@@ -115,6 +122,7 @@ export const blogPosts: BlogPostData[] = [
     title: "Native vs. Cross-Platform: Which is Right for Your Business?",
     excerpt: "Comparing Kotlin/Swift with Flutter/React Native to help you make the right choice for your project's longevity and performance.",
     date: "June 02, 2026",
+    publishedDate: "2026-06-02",
     author: "Calvin",
     category: "Insights",
     readTime: "6 min read",

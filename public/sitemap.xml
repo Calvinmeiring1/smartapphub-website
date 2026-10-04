@@ -66,4 +66,28 @@
     <priority>0.5</priority>
   </url>
 
+  <url>
+    <loc>https://smartapphub.co.za/blog/small-business-website-checklist-south-africa</loc>
+    <lastmod>2026-10-04</lastmod>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://smartapphub.co.za/blog/website-development-brief</loc>
+    <lastmod>2026-10-04</lastmod>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://smartapphub.co.za/blog/mobile-app-mvp-planning</loc>
+    <lastmod>2026-10-04</lastmod>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://smartapphub.co.za/blog/brand-assets-business-website</loc>
+    <lastmod>2026-10-04</lastmod>
+    <priority>0.7</priority>
+  </url>
+
 </urlset>
