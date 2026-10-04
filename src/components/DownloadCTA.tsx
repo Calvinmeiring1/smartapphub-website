@@ -5,6 +5,7 @@ import Container from "./Container";
 import Section from "./Section";
 import Button from "./Button";
 import Reveal from "./Reveal";
+import PlatformLogo from "./PlatformLogo";
 import AnimatedCounter from "./AnimatedCounter";
 
 export default function DownloadCTA() {
@@ -50,9 +51,10 @@ export default function DownloadCTA() {
 
           <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
             <Button href="https://play.google.com/store/apps/details?id=com.smartapphub.thesitters&pcampaignid=web_share" variant="primary">
+              <PlatformLogo platform="android" />
               Download on Google Play
             </Button>
-            <span className="rounded-full border border-[var(--color-border)] px-6 py-3 text-sm text-[var(--color-text-muted)]">iOS: Coming Soon</span>
+            <span className="inline-flex items-center justify-center gap-2 rounded-full border border-[var(--color-border)] px-6 py-3 text-sm text-[var(--color-text-muted)]"><PlatformLogo platform="apple" />iOS: Coming Soon</span>
           </div>
         </Reveal>
       </Container>
