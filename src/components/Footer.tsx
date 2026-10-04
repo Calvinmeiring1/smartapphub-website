@@ -4,7 +4,7 @@ import Container from "./Container";
 
 export default function Footer() {
   return (
-    <footer className="border-t border-[var(--color-border)] py-14">
+    <footer className="relative z-0 border-t border-[var(--color-border)] bg-[var(--color-bg)] py-14">
       <Container className="flex flex-col gap-10 xl:flex-row xl:items-start xl:justify-between">
         <div className="max-w-xs">
           <div className="flex items-center gap-2.5 font-display text-lg font-semibold">
