@@ -4,8 +4,8 @@ import Button from "./Button";
 import Container from "./Container";
 import Section from "./Section";
 
-const film = "/media/sitters-film-v2.mp4";
-const poster = "/media/sitters-film-v2-poster.webp";
+const film = "/media/sitters-film-v3.mp4";
+const poster = "/media/sitters-film-v3-poster.webp";
 
 export default function SittersFilm() {
   const [started, setStarted] = useState(false);
@@ -57,7 +57,7 @@ export default function SittersFilm() {
             )}
           </div>
           <figcaption className="mt-3 text-xs leading-relaxed text-[var(--color-text-faint)]">
-            Meet Luna and her sitter, then explore the real Sitters app. Instrumental soundtrack; no dialogue.
+            Meet Luna and her sitter, then explore the real Sitters app. Original instrumental music; no dialogue.
           </figcaption>
           {failed && <p role="status" className="mt-3 text-sm text-[var(--color-text-muted)]">Having trouble playing? <a href={film} className="underline underline-offset-4">Open the film directly</a>.</p>}
         </figure>

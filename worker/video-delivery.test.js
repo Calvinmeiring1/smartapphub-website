@@ -3,7 +3,7 @@ import { readFileSync } from "node:fs";
 import test from "node:test";
 import worker from "./video-delivery.js";
 
-for (const file of ["sitters-intro.mp4", "sitters-film-v2.mp4", "sitters-background.mp4"]) {
+for (const file of ["sitters-intro.mp4", "sitters-film-v2.mp4", "sitters-film-v3.mp4", "sitters-background.mp4"]) {
   const bytes = readFileSync(new URL(`../public/media/${file}`, import.meta.url));
   const env = { ASSETS: { fetch: async (request) => {
     assert.equal(request.headers.get("Range"), null);
