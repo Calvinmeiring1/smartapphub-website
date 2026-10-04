@@ -52,7 +52,7 @@ export default function DownloadCTA() {
             <Button href="https://play.google.com/store/apps/details?id=com.smartapphub.thesitters&pcampaignid=web_share" variant="primary">
               Download on Google Play
             </Button>
-            <span className="rounded-full border border-[var(--color-border)] px-6 py-3 text-sm text-[var(--color-text-muted)]">iOS: awaiting App Store approval</span>
+            <span className="rounded-full border border-[var(--color-border)] px-6 py-3 text-sm text-[var(--color-text-muted)]">iOS: Coming Soon</span>
           </div>
         </Reveal>
       </Container>

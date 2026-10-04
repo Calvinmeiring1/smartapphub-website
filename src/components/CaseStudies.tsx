@@ -41,7 +41,7 @@ export default function CaseStudies() {
         <div className="mt-10 grid gap-5 md:grid-cols-3">{decisions.map(([title, text]) => <Card key={title}><h3 className="font-display text-xl font-semibold text-white">{title}</h3><p className="mt-3 text-sm leading-relaxed text-[var(--color-text-muted)]">{text}</p></Card>)}</div>
         <div className="mt-8 rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface)] p-6 sm:p-8">
           <h3 className="font-display text-xl font-semibold text-white">Launch status</h3>
-          <p className="mt-3 text-sm leading-relaxed text-[var(--color-text-muted)]">Android is available on Google Play. Sitters for iOS is built and awaiting App Store approval.</p>
+          <p className="mt-3 text-sm leading-relaxed text-[var(--color-text-muted)]">Android is available on Google Play. Sitters for iOS is Coming Soon.</p>
           <a href="https://play.google.com/store/apps/details?id=com.smartapphub.thesitters" target="_blank" rel="noopener noreferrer" className="mt-3 inline-flex min-h-12 items-center text-sm font-semibold text-[var(--color-accent)] underline">View Sitters and its reviews on Google Play</a>
           <div className="mt-5 flex flex-wrap gap-3"><Button href="#contact">Discuss a similar app</Button><Button href="/sitters" variant="secondary">Explore Sitters features</Button></div>
         </div>
