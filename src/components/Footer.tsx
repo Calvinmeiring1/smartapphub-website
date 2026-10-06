@@ -94,6 +94,14 @@ export default function Footer() {
                   Instagram
                 </a>
               </li>
+              <li>
+                <a href="https://www.tiktok.com/@smartapphubdev" target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 hover:text-white">
+                  <svg viewBox="0 0 24 24" className="h-4 w-4" fill="currentColor" aria-hidden="true">
+                    <path d="M16.6 2h-3.3v13.4a2.8 2.8 0 1 1-2.4-2.8V9.2a6.1 6.1 0 1 0 5.7 6.1V8.5a8 8 0 0 0 4.7 1.5V6.7A4.7 4.7 0 0 1 16.6 2Z" />
+                  </svg>
+                  TikTok
+                </a>
+              </li>
             </ul>
           </div>
         </div>
