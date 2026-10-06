@@ -1,3 +1,5 @@
+import publicRoutes from "../.artifacts/public-routes.json" with { type: "json" };
+const pages = new Set(publicRoutes);
 const videos = new Set([
   "/media/sitters-intro.mp4",
   "/media/sitters-film-v2.mp4",
@@ -7,7 +9,35 @@ const videos = new Set([
 
 export default {
   async fetch(request, env) {
-    if (!videos.has(new URL(request.url).pathname) || !["GET", "HEAD"].includes(request.method)) {
+    const url = new URL(request.url);
+    if (url.hostname === "www.smartapphub.co.za") {
+      url.hostname = "smartapphub.co.za";
+      return Response.redirect(url.toString(), 308);
+    }
+    if (["GET", "HEAD"].includes(request.method)) {
+      const cleanPath = url.pathname.replace(/\/index\.html$/, "").replace(/\/$/, "") || "/";
+      if (pages.has(cleanPath)) {
+        if (url.pathname !== cleanPath) {
+          url.pathname = cleanPath;
+          return Response.redirect(url.toString(), 308);
+        }
+        url.pathname = cleanPath === "/" ? "/index.html" : `${cleanPath}/index.html`;
+        return env.ASSETS.fetch(new Request(url, request));
+      }
+      if (/^\/profile(?:\/[^/]+)?\/?$/.test(url.pathname)) {
+        url.pathname = "/index.html";
+        const asset = await env.ASSETS.fetch(new Request(url, request));
+        const headers = new Headers(asset.headers);
+        headers.set("X-Robots-Tag", "noindex");
+        return new Response(asset.body, {status: asset.status, headers});
+      }
+      if (!url.pathname.split("/").pop().includes(".")) {
+        url.pathname = "/404.html";
+        const asset = await env.ASSETS.fetch(new Request(url, request));
+        return new Response(asset.body, {status: 404, headers: asset.headers});
+      }
+    }
+    if (!videos.has(url.pathname) || !["GET", "HEAD"].includes(request.method)) {
       return env.ASSETS.fetch(request);
     }
 

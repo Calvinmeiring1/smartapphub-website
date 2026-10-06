@@ -74,6 +74,7 @@ export default function BuyMiniApp() {
   const successApp = searchParams.get("success");
   const [promoCodes, setPromoCodes] = useState<Record<string, string>>({});
   const [unlockedApps, setUnlockedApps] = useState<string[]>(() => {
+    if (typeof localStorage === "undefined") return [];
     const saved = localStorage.getItem("sah_unlocked_apps");
     return saved ? JSON.parse(saved) : [];
   });
@@ -97,6 +98,7 @@ export default function BuyMiniApp() {
     }
   }, [successApp]);
   const [activationEmail, setActivationEmail] = useState(() => {
+    if (typeof localStorage === "undefined") return "";
     return localStorage.getItem("sah_activation_email") || "";
   });
   const [isActivating, setIsActivating] = useState(false);

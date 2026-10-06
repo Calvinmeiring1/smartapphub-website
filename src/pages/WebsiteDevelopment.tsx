@@ -29,8 +29,8 @@ export default function WebsiteDevelopment() {
         <Container className="grid items-center gap-12 lg:grid-cols-[1fr_1.05fr]">
           <div>
             <p className="inline-flex items-center gap-2 rounded-full border border-[var(--color-border)] bg-[var(--color-surface)] px-4 py-2 text-xs font-semibold tracking-widest text-[var(--color-accent)]"><Globe size={14} aria-hidden="true" /> WEBSITE DESIGN & DEVELOPMENT</p>
-            <h1 className="mt-6 font-display text-4xl font-semibold leading-[1.1] tracking-tight text-white sm:text-6xl">Your business.<br /><span className="text-[var(--color-accent)]">A better first impression.</span></h1>
-            <p className="mt-6 max-w-xl text-lg leading-relaxed text-[var(--color-text-muted)]">A custom website that tells your story, showcases your services and makes it easy for customers to get in touch.</p>
+            <h1 className="mt-6 font-display text-4xl font-semibold leading-[1.1] tracking-tight text-white sm:text-5xl">Website development<br /><span className="text-[var(--color-accent)]">in Pretoria.</span></h1>
+            <p className="mt-6 max-w-xl text-lg leading-relaxed text-[var(--color-text-muted)]">Business websites, landing pages and redesigns for small businesses in Pretoria and across South Africa. Show customers what you do and give them a clear way to enquire.</p>
             <div className="mt-8 flex flex-wrap gap-3"><Button href="#contact">Let’s build your website <ArrowRight size={18} aria-hidden="true" /></Button><Button href="#website-example" variant="secondary">Explore our work</Button></div>
             <p className="mt-6 text-sm text-[var(--color-text-muted)]">Work directly with Calvin · Pretoria & across South Africa</p>
           </div>
@@ -48,6 +48,14 @@ export default function WebsiteDevelopment() {
         <div className="flex flex-wrap items-end justify-between gap-5"><div><p className="text-xs font-semibold tracking-widest text-[var(--color-accent)]">START FRESH. OR START AGAIN.</p><h2 className="mt-3 font-display text-3xl font-semibold text-white sm:text-4xl">A website that fits your next step.</h2></div><p className="max-w-sm leading-relaxed text-[var(--color-text-muted)]">From a focused landing page to a complete business website, we shape the build around your brief.</p></div>
         <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">{services.map(({icon: Icon,title,text},i)=><Card key={title}><div className="flex items-center justify-between"><span className="flex h-12 w-12 items-center justify-center rounded-xl bg-[var(--color-accent-soft)]"><Icon className="text-[var(--color-accent)]" size={23} aria-hidden="true" /></span><span className="text-xs text-[var(--color-text-muted)]">0{i+1}</span></div><h3 className="mt-6 text-xl font-semibold text-white">{title}</h3><p className="mt-3 text-sm leading-relaxed text-[var(--color-text-muted)]">{text}</p></Card>)}</div>
         <div className="mt-8 flex flex-wrap gap-x-8 gap-y-3 text-sm text-[var(--color-text-muted)]">{["Layouts for phones, tablets & desktops", "Page titles, metadata & sitemap", "A clear path to contact"].map(label=><span key={label} className="inline-flex items-center gap-2"><Check size={16} className="text-[var(--color-accent)]" aria-hidden="true" />{label}</span>)}</div>
+      </Container></Section>
+      <Section id="starter-website" className="border-t border-[var(--color-border)]"><Container className="max-w-4xl">
+        <p className="text-xs font-semibold tracking-widest text-[var(--color-accent)]">A FOCUSED FIRST STEP</p>
+        <h2 className="mt-3 font-display text-3xl font-semibold text-white">Business Website Starter</h2>
+        <p className="mt-4 text-lg leading-relaxed text-[var(--color-text-muted)]">A focused website for a service business that needs to explain its offer and receive enquiries. Start with the pages you need; add booking systems, shops or custom tools as separate phases.</p>
+        <ul className="mt-6 grid gap-3 text-[var(--color-text-muted)] sm:grid-cols-2">{["An agreed set of business and service pages", "Layouts for phones, tablets and desktops", "Page titles, descriptions and sitemap", "A clear email, form or WhatsApp enquiry path", "A defined review and revision allowance", "Launch checks and an agreed handover"].map(item => <li key={item} className="flex gap-2"><Check size={18} className="shrink-0 text-[var(--color-accent)]" />{item}</li>)}</ul>
+        <p className="mt-6 text-sm leading-relaxed text-[var(--color-text-muted)]">Request a fixed-scope quote. We confirm the pages, supplied content, revision allowance, payment milestones and timeline before work starts. Extra pages, integrations and ongoing changes are quoted separately. Domain, hosting and paid service costs are identified separately, so the initial build stays focused.</p>
+        <div className="mt-6"><Button href="#contact">Request a Starter quote <ArrowRight size={18} /></Button></div>
       </Container></Section>
       <Section id="website-example" className="border-y border-[var(--color-border)] bg-[var(--color-surface)]/40">
         <Container>

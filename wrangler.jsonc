@@ -4,8 +4,9 @@
   "compatibility_date": "2026-08-06",
   "assets": {
     "binding": "ASSETS",
-    "run_worker_first": ["/media/*"],
+    "run_worker_first": true,
     "directory": "./dist",
-    "not_found_handling": "single-page-application"
+    "not_found_handling": "none",
+    "html_handling": "none"
   }
 }

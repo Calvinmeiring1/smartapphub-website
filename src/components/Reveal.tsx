@@ -32,7 +32,7 @@ export default function Reveal({
     return () => cancelAnimationFrame(id);
   }, [trigger]);
 
-  const active = trigger === "mount" ? mounted : inView;
+  const active = typeof window === "undefined" || (trigger === "mount" ? mounted : inView);
   const fromTransform = `translate(${x}px, ${y}px)${scale !== undefined ? ` scale(${scale})` : ""}`;
   const toTransform = `translate(0, 0)${scale !== undefined ? " scale(1)" : ""}`;
 

@@ -45,9 +45,9 @@ function ScrollToTop() {
   return null;
 }
 
-export default function Router() {
+export function AppRoutes() {
   return (
-    <BrowserRouter>
+    <>
       <ScrollToTop />
       <MainLayout>
         <Suspense fallback={<div role="status" className="min-h-screen pt-32 text-center text-[var(--color-text-muted)]">Loading page…</div>}>
@@ -69,6 +69,10 @@ export default function Router() {
           </Routes>
         </Suspense>
       </MainLayout>
-    </BrowserRouter>
+    </>
   );
+}
+
+export default function Router() {
+  return <BrowserRouter><AppRoutes /></BrowserRouter>;
 }

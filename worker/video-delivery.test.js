@@ -52,12 +52,41 @@ for (const file of ["sitters-intro.mp4", "sitters-film-v2.mp4", "sitters-film-v3
   });
 }
 
-test("Other assets and pages retain static asset routing", async () => {
+test("Public pages serve their generated HTML", async () => {
   const request = new Request("https://example.com/sitters");
   const expected = new Response("page");
   const response = await worker.fetch(request, { ASSETS: { fetch: (received) => {
-    assert.equal(received, request);
+    assert.equal(new URL(received.url).pathname, "/sitters/index.html");
     return expected;
   } } });
   assert.equal(response, expected);
+});
+
+for (const path of ["/commission/", "/commission/index.html"]) {
+  test(`${path} redirects to canonical path and retains query`, async () => {
+    const response = await worker.fetch(new Request(`https://smartapphub.co.za${path}?source=test`), {});
+    assert.equal(response.status, 308);
+    assert.equal(response.headers.get("Location"), "https://smartapphub.co.za/commission?source=test");
+  });
+}
+test("www redirects to the canonical hostname", async () => {
+  const response = await worker.fetch(new Request("https://www.smartapphub.co.za/contact?q=test"), {});
+  assert.equal(response.status, 308);
+  assert.equal(response.headers.get("Location"), "https://smartapphub.co.za/contact?q=test");
+});
+test("Unknown page returns real 404", async () => {
+  const response = await worker.fetch(new Request("https://smartapphub.co.za/no-such-page"), {ASSETS:{fetch: request => {
+    assert.equal(new URL(request.url).pathname, "/404.html");
+    return new Response("Missing page");
+  }}});
+  assert.equal(response.status, 404);
+  assert.equal(await response.text(), "Missing page");
+});
+test("Dynamic profile remains accessible without being indexed", async () => {
+  const response = await worker.fetch(new Request("https://smartapphub.co.za/profile/test"), {ASSETS:{fetch: request => {
+    assert.equal(new URL(request.url).pathname, "/index.html");
+    return new Response("App");
+  }}});
+  assert.equal(response.status, 200);
+  assert.equal(response.headers.get("X-Robots-Tag"), "noindex");
 });

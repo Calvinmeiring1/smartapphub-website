@@ -1,79 +1,29 @@
-import Prerenderer from '@prerenderer/prerenderer';
-import PuppeteerRenderer from '@prerenderer/renderer-puppeteer';
-import path from 'path';
-import { fileURLToPath } from 'url';
-import fs from 'fs';
-
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
-
-const routes = [
-  '/',
-  '/sitters',
-  '/commission',
-  '/website-development',
-  '/contact',
-  '/graphic-design',
-  '/buy-mini-app',
-  '/blog',
-  '/blog/small-business-website-checklist-south-africa',
-  '/blog/website-development-brief',
-  '/blog/mobile-app-mvp-planning',
-  '/blog/brand-assets-business-website',
-  '/blog/how-to-build-app-south-africa',
-  '/blog/modern-wedding-stationery-trends',
-  '/blog/native-vs-cross-platform',
-  '/privacy',
-  '/terms'
-];
-
-async function run() {
-  // Skip prerendering if explicitly disabled (e.g., in CI environments without Puppeteer dependencies)
-  if (process.env.SKIP_PRERENDER === 'true') {
-    console.log('Skipping prerendering as SKIP_PRERENDER is set to true.');
-    return;
-  }
-
-  const Renderer = Prerenderer.default || Prerenderer;
-  const PRenderer = PuppeteerRenderer.default || PuppeteerRenderer;
-
-  const prerenderer = new Renderer({
-    staticDir: path.join(__dirname, 'dist'),
-    renderer: new PRenderer({
-      renderAfterTime: 2000,
-      // Add no-sandbox for Linux CI environments
-      args: ['--no-sandbox', '--disable-setuid-sandbox'],
-    }),
-  });
-
-  try {
-    await prerenderer.initialize();
-    const renderedRoutes = await prerenderer.renderRoutes(routes);
-
-    for (const route of renderedRoutes) {
-      const outputDir = path.join(__dirname, 'dist', route.route);
-      const outputFile = path.join(outputDir, 'index.html');
-
-      if (!fs.existsSync(outputDir)) {
-        fs.mkdirSync(outputDir, { recursive: true });
-      }
-
-      let html = route.html.trim();
-      html = html.replace(/<link rel="modulepreload"[^>]*?http:\/\/127\.0\.0\.1:8000[^>]*?>/g, '');
-
-      fs.writeFileSync(outputFile, html);
-      console.log(`Prerendered: ${route.route}`);
-    }
-  } catch (err) {
-    console.warn('Prerender error encountered:', err.message);
-    console.warn('The build will continue without prerendering.');
-    // Do not exit with 1, allow the build to finish as a standard SPA if prerendering fails
-  } finally {
-    try {
-      await prerenderer.destroy();
-    } catch (e) {
-      // Ignore destruction errors
-    }
-  }
+import fs from "node:fs/promises";
+import { render } from "./.artifacts/ssr/entry-server.js";
+const template = await fs.readFile("dist/index.html", "utf8");
+const sitemap = await fs.readFile("public/sitemap.xml", "utf8");
+const routes = [...sitemap.matchAll(/<loc>(.*?)<\/loc>/g)].map(m => new URL(m[1]).pathname);
+if (!routes.includes("/") || new Set(routes).size !== routes.length) throw new Error("Invalid sitemap routes");
+const escape = value => value.replaceAll("&", "&amp;").replaceAll('"', "&quot;").replaceAll("<", "&lt;").replaceAll(">", "&gt;");
+for (const route of [...routes, "/404"]) {
+  const { html, metadata } = await render(route);
+  if (!/<h1[\s>]/.test(html) || html.includes("Loading page…")) throw new Error(`Incomplete page HTML: ${route}`);
+  if (metadata.canonical !== `https://smartapphub.co.za${route}`) throw new Error(`Incorrect canonical: ${route}`);
+  let page = template.replace(/<title>.*?<\/title>/s, `<title>${escape(metadata.title)}</title>`);
+  for (const [attr, key, value] of [
+    ["name", "description", metadata.description],
+    ["property", "og:title", metadata.title],
+    ["property", "og:description", metadata.description],
+    ["property", "og:type", metadata.ogType],
+    ["name", "twitter:title", metadata.title],
+    ["name", "twitter:description", metadata.description],
+  ]) page = page.replace(new RegExp(`<meta ${attr}="${key}"[^>]*>`), `<meta ${attr}="${key}" content="${escape(value)}" />`);
+  page = page.replace("</head>", `<link rel="canonical" href="${escape(metadata.canonical)}" />${route === "/404" ? '<meta name="robots" content="noindex" />' : ""}</head>`)
+    .replace('<div id="root"></div>', `<div id="root">${html}</div>`);
+  if (page.includes('<div id="root"></div>')) throw new Error(`Empty page: ${route}`);
+  const file = route === "/404" ? "dist/404.html" : route === "/" ? "dist/index.html" : `dist${route}/index.html`;
+  await fs.mkdir(file.slice(0, file.lastIndexOf("/")), { recursive: true });
+  await fs.writeFile(file, page);
+  console.log(`Prerendered: ${route}`);
 }
-
-run();
+await fs.writeFile(".artifacts/public-routes.json", JSON.stringify(routes));

@@ -1,16 +1,13 @@
-import { useEffect } from "react";
+import SEO from "../components/SEO";
 import Container from "../components/Container";
 import Section from "../components/Section";
 import Button from "../components/Button";
 import { MoveLeft } from "lucide-react";
 
 export default function NotFound() {
-  useEffect(() => {
-    document.title = "404 - Page Not Found | SmartAppHub";
-  }, []);
-
   return (
     <Section className="flex min-h-[70vh] items-center pt-36">
+      <SEO title="404 - Page Not Found | SmartAppHub" description="This page could not be found. Explore SmartAppHub app development, websites and graphic design." />
       <Container className="text-center">
         <span className="font-display text-sm font-semibold tracking-widest text-[var(--color-accent)] uppercase">
           Error 404

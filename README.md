@@ -21,14 +21,23 @@ Then open the printed local URL (usually http://localhost:5173).
 ```bash
 npm run build
 ```
-Outputs to `dist/`.
+Outputs to `dist/`. A separate Vite SSR build resolves lazy routes and generates
+complete HTML for every URL in `public/sitemap.xml`, plus a 404 page. Page titles,
+descriptions and canonical links come from the same SEO component as the client.
+Missing metadata, headings, or unfinished route content fail the build. Chrome
+and Linux browser libraries are not required; do not bypass prerender failures.
+Generated server files and the route manifest live in ignored `.artifacts/`.
+The service worker caches assets, not a homepage navigation fallback.
 
 ## Video delivery on Cloudflare Workers
 
 The current `wrangler.jsonc` deploys the site with `worker/video-delivery.js`.
-Requests under `/media/` reach the Worker first so the Sitters MP4s support
+The Worker runs first to redirect www to the canonical non-www hostname,
+normalize public page paths, and serve each generated page's HTML. Unknown pages
+return 404; dynamic profiles retain client rendering with an explicit noindex header.
+The Sitters MP4s support
 HTTP byte ranges (`206 Partial Content`), which Safari needs for startup and
-seeking. Other assets keep the default static routing.
+seeking. Other files pass through to the static asset binding.
 
 Validate video delivery with `node --test worker/video-delivery.test.js` and
 `npx wrangler dev`. Deploy the built site with `npx wrangler deploy` or the

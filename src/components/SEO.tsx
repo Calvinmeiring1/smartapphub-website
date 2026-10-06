@@ -1,4 +1,7 @@
-import { useEffect } from "react";
+import { useContext, useEffect } from "react";
+import { useLocation } from "react-router-dom";
+
+import { MetadataContext } from "./PageMetadata";
 
 interface SEOProps {
   title: string;
@@ -10,9 +13,13 @@ interface SEOProps {
 export default function SEO({
   title,
   description,
-  canonical = "https://smartapphub.co.za/",
+  canonical: suppliedCanonical,
   ogType = "website"
 }: SEOProps) {
+  const { pathname } = useLocation();
+  const canonical = suppliedCanonical ?? `https://smartapphub.co.za${pathname}`;
+  const metadata = useContext(MetadataContext);
+  if (metadata) metadata.current = { title, description, canonical, ogType };
   useEffect(() => {
     if (typeof window === "undefined") return;
     // Update title

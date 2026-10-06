@@ -124,6 +124,13 @@ export default function Commission() {
       <CaseStudies />
       <SittersScreens />
       <Process />
+      <Section className="border-t border-[var(--color-border)]"><Container className="max-w-4xl">
+        <p className="text-xs font-semibold tracking-widest text-[var(--color-accent)]">START WITH THE ESSENTIALS</p>
+        <h2 className="mt-3 font-display text-3xl font-semibold text-white">A focused first version of your app</h2>
+        <p className="mt-4 text-lg leading-relaxed text-[var(--color-text-muted)]">For businesses and founders with one clear problem to solve. Agree the core user journey and the Android or iOS platform you need first, then expand after you have real feedback.</p>
+        <p className="mt-4 leading-relaxed text-[var(--color-text-muted)]">Your quote defines the screens, features, integrations, testing, revision allowance and launch support. Store fees, hosting, maintenance and later features are identified separately. Source code ownership and handover are agreed before development; app store approval depends on the store review.</p>
+        <a href="#contact" className="mt-6 inline-flex min-h-12 items-center font-semibold text-[var(--color-accent)]">Discuss your first version →</a>
+      </Container></Section>
       <AppEstimator onEstimateChange={handleEstimateChange} />
       <ProjectQuestions />
       <DevelopmentForm estimateSummary={estimateSummary} />
