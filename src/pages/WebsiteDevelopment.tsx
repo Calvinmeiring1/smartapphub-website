@@ -14,7 +14,7 @@ const services = [
   { icon: MessageCircle, title: "Enquiry flows", text: "Help customers reach you through contact forms, email and WhatsApp, with the integrations agreed for your project." },
 ];
 const questions = [
-  ["How much does a website cost?", "We quote each website based on its pages, design, content and functionality. Send your brief for a tailored quote. The app cost estimator is for applications, not business websites."],
+  ["How much does a website cost?", "Use the build estimates above to plan your budget: R1,500–R1,800 for a single landing page, or R3,500–R4,500 for a 3–5-page Business Website Starter. These are estimates, with the final price based on your agreed pages, design, content and functionality. Hosting, domains and ongoing support are separate. The app cost estimator is for applications, not business websites."],
   ["Do I need my content ready?", "Bring your business details, logo and any existing text or images. We will agree who supplies each item and whether you need additional design or content work before starting."],
   ["What about domains, hosting and maintenance?", "We agree the domain, hosting setup and any ongoing support before the build. Hosting, domain renewals and paid services are identified separately in your quote."],
   ["What will I receive?", "Your quote will set out the pages, features, revision scope, launch support and handover arrangements. We also agree how you will make future updates and who controls the domain and hosting accounts."],
@@ -31,7 +31,7 @@ export default function WebsiteDevelopment() {
             <p className="inline-flex items-center gap-2 rounded-full border border-[var(--color-border)] bg-[var(--color-surface)] px-4 py-2 text-xs font-semibold tracking-widest text-[var(--color-accent)]"><Globe size={14} aria-hidden="true" /> WEBSITE DESIGN & DEVELOPMENT</p>
             <h1 className="mt-6 font-display text-4xl font-semibold leading-[1.1] tracking-tight text-white sm:text-5xl">Website development<br /><span className="text-[var(--color-accent)]">in Pretoria.</span></h1>
             <p className="mt-6 max-w-xl text-lg leading-relaxed text-[var(--color-text-muted)]">Business websites, landing pages and redesigns for small businesses in Pretoria and across South Africa. Show customers what you do and give them a clear way to enquire.</p>
-            <div className="mt-8 flex flex-wrap gap-3"><Button href="#contact">Let’s build your website <ArrowRight size={18} aria-hidden="true" /></Button><Button href="#website-example" variant="secondary">Explore our work</Button></div>
+            <div className="mt-8 flex flex-wrap gap-3"><Button href="#contact">Let’s build your website <ArrowRight size={18} aria-hidden="true" /></Button><Button href="#starter-website" variant="secondary">See build estimates</Button></div>
             <p className="mt-6 text-sm text-[var(--color-text-muted)]">Work directly with Calvin · Pretoria & across South Africa</p>
           </div>
           <div className="min-w-0">
@@ -49,13 +49,30 @@ export default function WebsiteDevelopment() {
         <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">{services.map(({icon: Icon,title,text},i)=><Card key={title}><div className="flex items-center justify-between"><span className="flex h-12 w-12 items-center justify-center rounded-xl bg-[var(--color-accent-soft)]"><Icon className="text-[var(--color-accent)]" size={23} aria-hidden="true" /></span><span className="text-xs text-[var(--color-text-muted)]">0{i+1}</span></div><h3 className="mt-6 text-xl font-semibold text-white">{title}</h3><p className="mt-3 text-sm leading-relaxed text-[var(--color-text-muted)]">{text}</p></Card>)}</div>
         <div className="mt-8 flex flex-wrap gap-x-8 gap-y-3 text-sm text-[var(--color-text-muted)]">{["Layouts for phones, tablets & desktops", "Page titles, metadata & sitemap", "A clear path to contact"].map(label=><span key={label} className="inline-flex items-center gap-2"><Check size={16} className="text-[var(--color-accent)]" aria-hidden="true" />{label}</span>)}</div>
       </Container></Section>
-      <Section id="starter-website" className="border-t border-[var(--color-border)]"><Container className="max-w-4xl">
-        <p className="text-xs font-semibold tracking-widest text-[var(--color-accent)]">A FOCUSED FIRST STEP</p>
-        <h2 className="mt-3 font-display text-3xl font-semibold text-white">Business Website Starter</h2>
-        <p className="mt-4 text-lg leading-relaxed text-[var(--color-text-muted)]">A focused website for a service business that needs to explain its offer and receive enquiries. Start with the pages you need; add booking systems, shops or custom tools as separate phases.</p>
-        <ul className="mt-6 grid gap-3 text-[var(--color-text-muted)] sm:grid-cols-2">{["An agreed set of business and service pages", "Layouts for phones, tablets and desktops", "Page titles, descriptions and sitemap", "A clear email, form or WhatsApp enquiry path", "A defined review and revision allowance", "Launch checks and an agreed handover"].map(item => <li key={item} className="flex gap-2"><Check size={18} className="shrink-0 text-[var(--color-accent)]" />{item}</li>)}</ul>
-        <p className="mt-6 text-sm leading-relaxed text-[var(--color-text-muted)]">Request a fixed-scope quote. We confirm the pages, supplied content, revision allowance, payment milestones and timeline before work starts. Extra pages, integrations and ongoing changes are quoted separately. Domain, hosting and paid service costs are identified separately, so the initial build stays focused.</p>
-        <div className="mt-6"><Button href="#contact">Request a Starter quote <ArrowRight size={18} /></Button></div>
+      <Section id="starter-website" className="border-t border-[var(--color-border)]"><Container>
+        <p className="text-xs font-semibold tracking-widest text-[var(--color-accent)]">PLAN YOUR WEBSITE BUDGET</p>
+        <h2 className="mt-3 font-display text-3xl font-semibold text-white sm:text-4xl">A clear starting point for your build.</h2>
+        <p className="mt-4 max-w-2xl text-lg leading-relaxed text-[var(--color-text-muted)]">Choose a focused landing page or a small business website. These ZAR estimates cover the initial design and build; your written quote confirms the final scope and total before work starts.</p>
+        <div className="mt-8 grid gap-5 md:grid-cols-2">
+          {[
+            { title: "Landing page", price: "R1,500–R1,800", text: "One offer, one page and a clear next step for visitors.", scope: ["One page with up to 6 content sections", "Your supplied text, logo and images", "Email or WhatsApp enquiry links"] },
+            { title: "Business Website Starter", price: "R3,500–R4,500", text: "A focused service website that explains your business and receives enquiries.", scope: ["3–5 pages, such as Home, About, Services and Contact", "Your supplied text, logo and images", "An agreed contact form, email or WhatsApp enquiry path"] },
+          ].map(({ title, price, text, scope }) => <Card key={title} className="flex flex-col">
+            <h3 className="text-xl font-semibold text-white">{title}</h3>
+            <p className="mt-5 font-display text-3xl font-semibold tracking-tight text-white sm:text-4xl">{price}</p>
+            <p className="mt-2 text-sm text-[var(--color-accent)]">Once-off build estimate · ZAR</p>
+            <p className="mt-5 leading-relaxed text-[var(--color-text-muted)]">{text}</p>
+            <ul className="mb-7 mt-6 space-y-3 text-sm leading-relaxed text-[var(--color-text-muted)]">{scope.map(item => <li key={item} className="flex gap-2"><Check size={17} className="mt-0.5 shrink-0 text-[var(--color-accent)]" aria-hidden="true" />{item}</li>)}</ul>
+            <div className="mt-auto"><Button href="#contact" variant="secondary">Discuss this build <ArrowRight size={16} aria-hidden="true" /></Button></div>
+          </Card>)}
+        </div>
+        <div className="mt-6 rounded-xl border border-[var(--color-border)] p-6">
+          <h3 className="font-semibold text-white">Included in both builds</h3>
+          <ul className="mt-4 grid gap-3 text-sm text-[var(--color-text-muted)] sm:grid-cols-2">{["Layouts for phones, tablets and desktops", "Page titles, descriptions and sitemap", "A review and revision allowance agreed in your quote", "Launch checks and an agreed handover"].map(item => <li key={item} className="flex gap-2"><Check size={17} className="shrink-0 text-[var(--color-accent)]" aria-hidden="true" />{item}</li>)}</ul>
+          <p className="mt-5 text-sm leading-relaxed text-[var(--color-text-muted)]">Domain registration and renewals, hosting, ongoing maintenance, copywriting, new branding and paid services are separate. Extra pages, booking systems, online shops, custom integrations and content migration need a separate quote. Search setup does not guarantee rankings.</p>
+          <p className="mt-3 text-sm leading-relaxed text-[var(--color-text-muted)]">Estimates are a budgeting guide, not a fixed package price. We confirm content responsibilities, revisions, payment milestones, timeline and the final total in writing.</p>
+        </div>
+        <p className="mt-6 text-sm text-[var(--color-text-muted)]">Redesigning an existing website? Share its address and the changes you need for a tailored quote.</p>
       </Container></Section>
       <Section id="website-example" className="border-y border-[var(--color-border)] bg-[var(--color-surface)]/40">
         <Container>
