@@ -10,7 +10,7 @@ export default defineConfig({
     tailwindcss(),
     VitePWA({
       registerType: 'autoUpdate',
-      includeAssets: ['favicon-32.png', 'favicon-192.png', 'logo-icon.png', 'apple-touch-icon.png', 'robots.txt'],
+      includeAssets: ['favicon-32.png', 'favicon-192.png', 'favicon-512.png', 'logo-icon.png', 'apple-touch-icon.png', 'robots.txt'],
       manifest: {
         name: 'SmartAppHub',
         short_name: 'SmartAppHub',
@@ -21,15 +21,15 @@ export default defineConfig({
         orientation: 'portrait',
         icons: [
           {
-            src: '/logo-icon.png',
+            src: '/favicon-192.png',
             sizes: '192x192',
             type: 'image/png'
           },
           {
-            src: '/apple-touch-icon.png',
+            src: '/favicon-512.png',
             sizes: '512x512',
             type: 'image/png',
-            purpose: 'any maskable'
+            purpose: 'any'
           }
         ]
       },
