@@ -12,7 +12,7 @@ const faqs = [
   {
     question: "How are payments handled?",
     answer:
-      "All payments are processed securely in-app through PayFast. Owners pay when they book, and sitters are paid out automatically once a stay is completed.",
+      "Current booking payments use PayFast. After care and owner confirmation, eligible earnings become available for a sitter payout request, reconciled by an administrator. Paystack direct split settlement is planned but not yet enabled. See the payment details on this page and our terms for the distinction.",
   },
   {
     question: "Are sitters verified?",

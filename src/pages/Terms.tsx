@@ -2,6 +2,8 @@ import SEO from "../components/SEO";
 import Container from "../components/Container";
 import Section from "../components/Section";
 import StructuredData from "../components/StructuredData";
+import { sittersPayments } from "../data/sittersPayments";
+import BusinessDetails from "../components/BusinessDetails";
 
 const termsSchema = {
   "@context": "https://schema.org",
@@ -35,7 +37,15 @@ const sections = [
   },
   {
     heading: "6. Payments & fees",
-    body: "Payments are processed securely through PayFast. Sitters may charge a service fee on top of the sitter's rate, shown clearly at checkout before you confirm a booking. Sitter payouts are released once a booking is marked complete.",
+    body: sittersPayments.current + " Booking prices and applicable fees are shown at checkout before payment. Sitter membership subscriptions are separate from care booking charges.",
+  },
+  {
+    heading: "6a. Proposed Paystack payments — not yet enabled",
+    body: sittersPayments.proposed + " " + sittersPayments.scope + " " + sittersPayments.subscriptions,
+  },
+  {
+    heading: "6b. Refunds under the proposed split arrangement",
+    body: sittersPayments.refunds + " The cancellation windows in section 5 do not establish a refund reserve, sitter clawback authority or automatic debit mechanism. Any new sitter recovery terms require a separate agreement before this payment flow goes live. Contact smartapphubdev@gmail.com with your booking reference for cancellation or refund support.",
   },
   {
     heading: "7. Your responsibilities",
@@ -91,7 +101,8 @@ export default function Terms() {
       <Section className="pt-36">
         <Container className="max-w-3xl">
           <h1 className="font-display text-3xl font-semibold text-white sm:text-4xl">Terms of Service</h1>
-          <p className="mt-3 text-sm text-[var(--color-text-faint)]">Last updated: 6 August 2026</p>
+          <p className="mt-3 text-sm text-[var(--color-text-faint)]">Last updated: 16 October 2026</p>
+          <BusinessDetails />
 
           <div className="mt-10 space-y-8 text-[var(--color-text-muted)]">
             {sections.map((s) => (

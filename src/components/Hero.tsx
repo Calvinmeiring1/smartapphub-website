@@ -1,6 +1,3 @@
-import { useEffect, useState } from "react";
-import { doc, onSnapshot } from "firebase/firestore";
-import { getDb } from "../firebase";
 import { Sparkles, ArrowRight, Play } from "lucide-react";
 import Container from "./Container";
 import Button from "./Button";
@@ -8,24 +5,6 @@ import Badge from "./Badge";
 import PhoneMockup from "./PhoneMockup";
 
 export default function Hero() {
-  const [countriesCount, setCountriesCount] = useState<number | null>(null);
-
-  useEffect(() => {
-    let unsub: (() => void) | undefined;
-
-    (async () => {
-      const db = await getDb();
-      unsub = onSnapshot(doc(db, "stats", "public"), (snap) => {
-        if (snap.exists()) {
-          const data = snap.data();
-          setCountriesCount(data.countries || 5);
-        }
-      });
-    })();
-
-    return () => unsub?.();
-  }, []);
-
   return (
     <div className="relative overflow-hidden pt-40 pb-20 md:pt-48 md:pb-28">
       {/* Background atmosphere */}
@@ -35,7 +14,7 @@ export default function Hero() {
       <Container className="grid items-center gap-16 md:grid-cols-2 md:gap-8">
         <div className="animate-reveal">
           <Badge icon={<Sparkles size={12} />}>
-            Now live in {countriesCount || 5} countries
+            Android · Live in 5 countries
           </Badge>
 
           <h1 className="mt-6 font-display text-4xl font-semibold leading-[1.08] tracking-tight text-white sm:text-5xl md:text-6xl">
@@ -45,8 +24,7 @@ export default function Hero() {
 
           <p className="mt-6 max-w-lg text-lg leading-relaxed text-[var(--color-text-muted)]">
             Find verified sitters, book securely, and keep your pets comfortable
-            at home while you're away, across South Africa, the US, UK, Canada
-            and Australia.
+            at home while you're away, across South Africa, the US, UK, Canada and Australia.
           </p>
 
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">

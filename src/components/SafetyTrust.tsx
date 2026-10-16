@@ -13,7 +13,7 @@ const safetyPoints = [
   {
     icon: Lock,
     title: "Secure Payments",
-    description: "Transactions are encrypted and processed via PayFast. Funds are held securely and only released once the booking is completed."
+    description: "Current booking payments use PayFast. Our proposed Paystack direct split settlement is not yet enabled. Read the payment details below for the current payout process and planned change."
   },
   {
     icon: ShieldCheck,

@@ -2,6 +2,7 @@ import SEO from "../components/SEO";
 import Container from "../components/Container";
 import Section from "../components/Section";
 import StructuredData from "../components/StructuredData";
+import BusinessDetails from "../components/BusinessDetails";
 
 const privacySchema = {
   "@context": "https://schema.org",
@@ -35,7 +36,7 @@ const sections = [
   },
   {
     heading: "6. International data transfers",
-    body: "Sitters is available in South Africa, the United States, the United Kingdom, Canada and Australia. Because we use Firebase, some of your information may be stored or processed on servers outside your home country. Where this happens, we rely on our providers' standard contractual and security safeguards to protect your information.",
+    body: "Sitters for Android is available in South Africa, the United States, the United Kingdom, Canada and Australia. iOS is not yet publicly available. App availability does not establish local payment or payout support. For the proposed South African Paystack account, Paystack has specified ZAR settlement to South African bank accounts. Arrangements for other markets remain unconfirmed, and Paystack is not yet enabled. Because we use Firebase, some of your information may be stored or processed on servers outside your home country. Where this happens, we rely on our providers' standard contractual and security safeguards to protect your information.",
   },
   {
     heading: "7. Data retention",
@@ -79,7 +80,8 @@ export default function Privacy() {
       <Section className="pt-36">
         <Container className="max-w-3xl">
           <h1 className="font-display text-3xl font-semibold text-white sm:text-4xl">Privacy Policy</h1>
-          <p className="mt-3 text-sm text-[var(--color-text-faint)]">Last updated: 2 October 2026</p>
+          <p className="mt-3 text-sm text-[var(--color-text-faint)]">Last updated: 16 October 2026</p>
+          <BusinessDetails />
 
           <div id="website-enquiries" className="mt-8 mb-10 rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] p-6">
             <h2 className="font-display text-xl font-semibold text-white">Website project enquiries</h2>

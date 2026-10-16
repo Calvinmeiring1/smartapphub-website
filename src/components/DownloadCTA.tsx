@@ -46,7 +46,7 @@ export default function DownloadCTA() {
             ) : (
               "our"
             )}{" "}
-            owners and sitters already using Sitters across South Africa, the US, UK, Canada and Australia.
+            owners and sitters using Sitters for Android across South Africa, the US, UK, Canada and Australia.
           </p>
 
           <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">

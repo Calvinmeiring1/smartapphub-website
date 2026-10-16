@@ -12,12 +12,13 @@ import DownloadCTA from "../components/DownloadCTA";
 import StructuredData from "../components/StructuredData";
 import Testimonials from "../components/Testimonials";
 import SafetyTrust from "../components/SafetyTrust";
+import SittersPayments from "../components/SittersPayments";
 
 const sittersSchema = {
   "@context": "https://schema.org",
   "@type": "SoftwareApplication",
   "name": "Sitters",
-  "operatingSystem": "Android, iOS",
+  "operatingSystem": "Android",
   "applicationCategory": "LifestyleApplication",
   "description": "Trusted pet & house sitting marketplace. Find verified sitters, book securely, and keep your pets comfortable at home while you're away.",
   "offers": {
@@ -33,7 +34,7 @@ export default function Sitters() {
       <SittersBackground />
       <SEO
         title="Sitters — Trusted pet & house sitting | SmartAppHub"
-        description="Find reliable pet sitters, book securely, and keep your pets comfortable at home while you're away. Now live in 5 countries."
+        description="Find reliable pet sitters with Sitters for Android in South Africa, the US, UK, Canada and Australia. Sitters for iOS is coming soon."
         canonical="https://smartapphub.co.za/sitters"
       />
       <StructuredData data={sittersSchema} />
@@ -43,6 +44,7 @@ export default function Sitters() {
       <Features />
       <SittersScreens />
       <SafetyTrust />
+      <SittersPayments />
       <HowItWorks />
       <Countries />
       <Testimonials />

@@ -42,7 +42,7 @@ const SCENES = [
     tag: "SITTERS",
     color: "#f2a93b", // marigold
     headline: "Pet care you can trust.",
-    sub: "Now live in South Africa, the US, UK, Canada & Australia.",
+    sub: "Android app live in South Africa, the US, UK, Canada & Australia.",
     icon: Star,
     shot: true,
   },

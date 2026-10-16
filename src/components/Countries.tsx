@@ -1,6 +1,3 @@
-import { useEffect, useState } from "react";
-import { doc, onSnapshot } from "firebase/firestore";
-import { getDb } from "../firebase";
 import Container from "./Container";
 import Section from "./Section";
 import Reveal from "./Reveal";
@@ -14,33 +11,13 @@ const countries = [
 ];
 
 export default function Countries() {
-  const [count, setCount] = useState<number | null>(null);
-
-  useEffect(() => {
-    let unsub: (() => void) | undefined;
-
-    (async () => {
-      const db = await getDb();
-      unsub = onSnapshot(doc(db, "stats", "public"), (snap) => {
-        if (snap.exists()) {
-          const data = snap.data();
-          if (data.countries !== undefined) setCount(data.countries);
-        }
-      });
-    })();
-
-    return () => unsub?.();
-  }, []);
-
-  if (count === null) return null;
-
   return (
     <Section id="countries">
       <Container>
         <div className="mx-auto max-w-xl text-center">
-          <h2 className="font-display text-3xl font-semibold text-white sm:text-4xl">Available in {count} countries</h2>
+          <h2 className="font-display text-3xl font-semibold text-white sm:text-4xl">Android app available in {countries.length} countries</h2>
           <p className="mt-4 text-[var(--color-text-muted)]">
-            Sitters is live and growing across these regions, with more on the way.
+            Sitters for Android is available in these regions. iOS is coming soon. Payment and sitter settlement availability depend on the country and provider. See our payment details for the proposed Paystack arrangement.
           </p>
         </div>
 

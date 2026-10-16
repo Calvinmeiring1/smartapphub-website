@@ -1,6 +1,7 @@
 import { Mail, MessageCircle } from "lucide-react";
 import { Link } from "react-router-dom";
 import Container from "./Container";
+import BusinessDetails from "./BusinessDetails";
 
 export default function Footer() {
   return (
@@ -14,6 +15,7 @@ export default function Footer() {
           <p className="mt-3 text-sm text-[var(--color-text-muted)]">
             Apps, websites and graphic design. Based in Pretoria, serving South Africa.
           </p>
+          <BusinessDetails />
         </div>
 
         <div className="grid min-w-0 grid-cols-1 gap-8 sm:grid-cols-2 xl:grid-cols-4">

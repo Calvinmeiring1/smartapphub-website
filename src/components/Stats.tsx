@@ -25,7 +25,7 @@ export default function Stats() {
           setStats([
             { id: "users", value: data.users || 0, suffix: "+", label: "Users" },
             { id: "sitters", value: data.sitters || 0, suffix: "+", label: "Verified sitters" },
-            { id: "countries", value: data.countries || 0, suffix: "", label: "Countries" },
+            { id: "countries", value: 5, suffix: "", label: "Android countries" },
           ]);
         }
       });
