@@ -18,7 +18,7 @@ const sittersSchema = {
   "@context": "https://schema.org",
   "@type": "SoftwareApplication",
   "name": "Sitters",
-  "operatingSystem": "Android",
+  "operatingSystem": "Android, iOS",
   "applicationCategory": "LifestyleApplication",
   "description": "Trusted pet & house sitting marketplace. Find verified sitters, book securely, and keep your pets comfortable at home while you're away.",
   "offers": {
@@ -34,7 +34,7 @@ export default function Sitters() {
       <SittersBackground />
       <SEO
         title="Sitters — Trusted pet & house sitting | SmartAppHub"
-        description="Find reliable pet sitters with Sitters for Android in South Africa, the US, UK, Canada and Australia. Sitters for iOS is coming soon."
+        description="Find pet and house sitters with Sitters for iPhone and Android in South Africa, the US, UK, Canada and Australia. Browse profiles, chat and book care."
         canonical="https://smartapphub.co.za/sitters"
       />
       <StructuredData data={sittersSchema} />

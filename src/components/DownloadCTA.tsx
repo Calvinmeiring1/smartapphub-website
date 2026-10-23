@@ -46,7 +46,7 @@ export default function DownloadCTA() {
             ) : (
               "our"
             )}{" "}
-            owners and sitters using Sitters for Android across South Africa, the US, UK, Canada and Australia.
+            owners and sitters using Sitters for iPhone and Android across South Africa, the US, UK, Canada and Australia.
           </p>
 
           <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
@@ -54,7 +54,10 @@ export default function DownloadCTA() {
               <PlatformLogo platform="android" />
               Download on Google Play
             </Button>
-            <span className="inline-flex items-center justify-center gap-2 rounded-full border border-[var(--color-border)] px-6 py-3 text-sm text-[var(--color-text-muted)]"><PlatformLogo platform="apple" />iOS: Coming Soon</span>
+            <Button href="https://apps.apple.com/app/id6813810656" variant="secondary">
+              <PlatformLogo platform="apple" />
+              Download on the App Store
+            </Button>
           </div>
         </Reveal>
       </Container>

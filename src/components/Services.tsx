@@ -13,7 +13,7 @@ const services = [
   {
     icon: Apple,
     title: "iOS apps",
-    description: "Swift & SwiftUI apps for iPhone, including porting an existing Android app to iOS. Sitters for iOS is Coming Soon.",
+    description: "Swift & SwiftUI apps for iPhone, including porting an existing Android app to iOS. Sitters is now available on the App Store.",
   },
   {
     icon: Database,

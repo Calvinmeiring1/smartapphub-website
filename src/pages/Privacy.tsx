@@ -36,7 +36,7 @@ const sections = [
   },
   {
     heading: "6. International data transfers",
-    body: "Sitters for Android is available in South Africa, the United States, the United Kingdom, Canada and Australia. iOS is not yet publicly available. App availability does not establish local payment or payout support. For the proposed South African Paystack account, Paystack has specified ZAR settlement to South African bank accounts. Arrangements for other markets remain unconfirmed, and Paystack is not yet enabled. Because we use Firebase, some of your information may be stored or processed on servers outside your home country. Where this happens, we rely on our providers' standard contractual and security safeguards to protect your information.",
+    body: "Sitters for iPhone and Android is available in South Africa, the United States, the United Kingdom, Canada and Australia. App availability does not establish local payment or payout support. For the proposed South African Paystack account, Paystack has specified ZAR settlement to South African bank accounts. Arrangements for other markets remain unconfirmed, and Paystack is not yet enabled. Because we use Firebase, some of your information may be stored or processed on servers outside your home country. Where this happens, we rely on our providers' standard contractual and security safeguards to protect your information.",
   },
   {
     heading: "7. Data retention",

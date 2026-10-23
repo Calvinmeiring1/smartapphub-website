@@ -15,9 +15,9 @@ export default function Countries() {
     <Section id="countries">
       <Container>
         <div className="mx-auto max-w-xl text-center">
-          <h2 className="font-display text-3xl font-semibold text-white sm:text-4xl">Android app available in {countries.length} countries</h2>
+          <h2 className="font-display text-3xl font-semibold text-white sm:text-4xl">Available in {countries.length} countries</h2>
           <p className="mt-4 text-[var(--color-text-muted)]">
-            Sitters for Android is available in these regions. iOS is coming soon. Payment and sitter settlement availability depend on the country and provider. See our payment details for the proposed Paystack arrangement.
+            Sitters for iPhone and Android is available in these regions. Payment and sitter settlement availability depend on the country and provider. See our payment details for the proposed Paystack arrangement.
           </p>
         </div>
 
