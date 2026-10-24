@@ -8,18 +8,20 @@ interface SEOProps {
   description: string;
   canonical?: string;
   ogType?: string;
+  appleAppId?: string;
 }
 
 export default function SEO({
   title,
   description,
   canonical: suppliedCanonical,
-  ogType = "website"
+  ogType = "website",
+  appleAppId
 }: SEOProps) {
   const { pathname } = useLocation();
   const canonical = suppliedCanonical ?? `https://smartapphub.co.za${pathname}`;
   const metadata = useContext(MetadataContext);
-  if (metadata) metadata.current = { title, description, canonical, ogType };
+  if (metadata) metadata.current = { title, description, canonical, ogType, appleAppId };
   useEffect(() => {
     if (typeof window === "undefined") return;
     // Update title
@@ -52,7 +54,19 @@ export default function SEO({
       document.head.appendChild(canonicalTag);
     }
 
-  }, [title, description, canonical, ogType]);
+    let appBanner = document.querySelector<HTMLMetaElement>('meta[name="apple-itunes-app"]');
+    if (appleAppId) {
+      if (!appBanner) {
+        appBanner = document.createElement("meta");
+        appBanner.name = "apple-itunes-app";
+        document.head.appendChild(appBanner);
+      }
+      appBanner.content = `app-id=${appleAppId}`;
+    } else {
+      appBanner?.remove();
+    }
+    return () => appBanner?.remove();
+  }, [title, description, canonical, ogType, appleAppId]);
 
   return null;
 }

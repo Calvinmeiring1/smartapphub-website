@@ -36,6 +36,7 @@ export default function Sitters() {
         title="Sitters — Trusted pet & house sitting | SmartAppHub"
         description="Find pet and house sitters with Sitters for iPhone and Android in South Africa, the US, UK, Canada and Australia. Browse profiles, chat and book care."
         canonical="https://smartapphub.co.za/sitters"
+        appleAppId="6813810656"
       />
       <StructuredData data={sittersSchema} />
       <Hero />

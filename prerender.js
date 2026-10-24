@@ -18,7 +18,8 @@ for (const route of [...routes, "/404"]) {
     ["name", "twitter:title", metadata.title],
     ["name", "twitter:description", metadata.description],
   ]) page = page.replace(new RegExp(`<meta ${attr}="${key}"[^>]*>`), `<meta ${attr}="${key}" content="${escape(value)}" />`);
-  page = page.replace("</head>", `<link rel="canonical" href="${escape(metadata.canonical)}" />${route === "/404" ? '<meta name="robots" content="noindex" />' : ""}</head>`)
+  const appBanner = metadata.appleAppId ? `<meta name="apple-itunes-app" content="app-id=${escape(metadata.appleAppId)}" />` : "";
+  page = page.replace("</head>", `<link rel="canonical" href="${escape(metadata.canonical)}" />${appBanner}${route === "/404" ? '<meta name="robots" content="noindex" />' : ""}</head>`)
     .replace('<div id="root"></div>', `<div id="root">${html}</div>`);
   if (page.includes('<div id="root"></div>')) throw new Error(`Empty page: ${route}`);
   const file = route === "/404" ? "dist/404.html" : route === "/" ? "dist/index.html" : `dist${route}/index.html`;
